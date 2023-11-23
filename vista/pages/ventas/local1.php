@@ -588,7 +588,10 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
+                <marquee behavior="" direction="">
                 <h1 class="m-0">Gerente Administrativo</h1>
+                </marquee>
+                
               </div>
               <!-- /.col -->
               <div class="col-sm-6">
