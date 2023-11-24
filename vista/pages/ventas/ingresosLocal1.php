@@ -78,7 +78,7 @@
             ></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index.php" class="nav-link">Inicio</a>
+            <a href="index.html" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contacto</a>
@@ -401,7 +401,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a href="../../pages/ventas/ingresosLocal1.php" class="nav-link active">
+                          <a href="../../pages/ventas/local1.php" class="nav-link ">
                             <i class="far fa-circle nav-icon"></i>
                             <p>VENTAS LOCAL 1</p>
                           </a>
@@ -409,7 +409,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a href="../../pages/ventas/ingresosLocal1.php" class="nav-link">
+                          <a href="../../pages/ventas/ingresosLocal1.php" class="nav-link active">
                             <i class="far fa-circle nav-icon"></i>
                             <p>INGRESOS LOCAL 1</p>
                           </a>
@@ -457,7 +457,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a href="../../pages/ventas/ingresosLocal3.php" class="nav-link">
+                          <a href="../../pages/ventas/ingresosLocal3.php" class="nav-link active">
                             <i class="far fa-circle nav-icon"></i>
                             <p>INGRESOS LOCAL 3</p>
                           </a>
@@ -613,7 +613,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Puesto de Ventas 1</h1>
+                <h1 class="m-0">Ingresos de Ventas 1</h1>
               </div>
               <!-- /.col -->
             </div>
@@ -621,320 +621,35 @@
           </div>
           <!-- /.container-fluid -->
         </div>
-
-        <!-- Contenido Cuerpo -->
-        <div class="container-fluid">
-          <div class="row ">
-            <!-- SELECT2 EXAMPLE -->
-            <div class="card card-default col-6 m-2">
+            <div class="row">
+                <!-- general form elements disabled -->
+            <div class="card card-success m-4 col-6">
               <div class="card-header">
-              <h3 class="card-title">Modulo Clientes</h3>
-                <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>
-                </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="row" >
-                  <div class="col-12 col-sm-8">
-                    <div class="form-group">
-                        <!-- productos inventario -->
-                      <div class="form-group">
-                              <label>Cedula Cliente</label>
-                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 80%;">
-                                    <option selected="selected"></option>
-                                    <option>1113858848</option>
-                                    <option>31427280</option>
-                                    <option>....</option>
-                              </select>
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-                  </div>
-                   <!-- nombre  -->
-                    <div class="form-group" style="width: 60%; ">
-                        <label>Nombre:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="chimbolas">
-                        </div>
-                        <!-- /.input group -->
-                    </div>
-                      <!-- telefono mask -->
-                      <div class="form-group" style="width: 60%; ">
-                        <label>Telefono:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-mobile" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="(666)88577">
-                      </div>
-                        <!-- /.input group -->
-                      </div>
-                      <!-- email mask -->
-                      <div class="form-group" style="width: 60%; ">
-                        <label>Email:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="chimbolas@example.com">
-                      </div>
-                        <!-- /.input group -->
-                      </div>
-                </div>
-                  <!-- /.card-body -->
-                </div>
-            
-            </div>
-             <!-- /.card -->
-            <div class="col-4 m-2">
-              <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title">Vender Productos </h3>
-              </div>
-              <div class="card-body">
-                <!-- productos inventario -->
-                <div class="form-group">
-                      <label>Productos</label>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                        <option selected="selected"></option>
-                        <option>Huevo A</option>
-                        <option>Huevo AA</option>
-                        <option>Huevo AAA</option>
-                        <option>Huevo PREMIUM</option>
-                        <option>Panal de Huevo A</option>
-                        <option>Panal de Huevo AA</option>
-                        <option>Panal de Huevo AAA</option>
-                        <option>Panal de Huevo PREMIUM</option>
-                        <option>Medio Panal de Huevo PREMIUM</option>
-                        <option>Medio Panal de Huevo AAA</option>
-                        <option>Medio Panal de Huevo AA</option>
-                        <option>Medio Panal de Huevo A</option>
-                      </select>
-                </div>
-                 <!-- phone mask -->
-                 <div class="form-group" style="width: 100%; ">
-                  <label>Cantidad:</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-check-square" ></i></span>
-                    </div>
-                    <input type="number" class="form-control" >
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                  <!-- /.form group -->
-                  
-                 <!-- TOTAL -->
-                  <div class="form-group" style="width: 100%;">
-                      <label>TOTAL %:</label>
-                      <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="fa fa-cart-plus"></i></span>
-                      </div>
-                      <input type="number" class="form-control" data-mask disabled value="147.000">
-                      </div>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-                <div class="form-group text-center">
-                <button type="button" class="btn btn-success w-50 btn-lg border"><i class="fa fa-cart-arrow-down"></i>  Success</button>
-                </div>
-              </div>
-              <!-- /.card-body -->
-              </div>
-            </div>  
-          </div>
-          <!-- /.row -->
-        <div class="row mt-3 m-1">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">LISTA PRODUCTOS</h3>
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <h3 class="card-title">Registro de Ingresos al Local</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nombre</th>
-                      <th>Tipo</th>
-                      <th>Precio</th>
-                      <th>Cantidad</th>
-                      <th>Total</th>
-                      <th>Eliminar</th>
-                      <th>Editar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td> 
-                      <td>PANAL DE HUEVO</td>
-                      <td>HUEVO AAA</td>
-                      <td>26.500</td>
-                      <td>3</td>
-                      <td>$94.000</td>
-                      <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
-                      <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <tr>
-                      <td>2</td> 
-                      <td>MEDIO PANAL DE HUEVO</td>
-                      <td>HUEVO AA</td>
-                      <td>18.500</td>
-                      <td>2</td>
-                      <td>$37.000</td>
-                      <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
-                      <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <tr>
-                    <td>3</td> 
-                      <td>DOCENA DE HUEVO</td>
-                      <td>HUEVO A</td>
-                      <td>16.500</td>
-                      <td>1</td>
-                      <td>$16.500</td>
-                      <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
-                      <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <td>4</td> 
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <th>Total Productos</th>
-                      <td id="miCelda"></td>
-                      <td><button type="button" class="btn btn-success bi bi-bag-check" 
-                      data-toggle="modal" data-target="#compra"> Comprar</button></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-        <!-- /.row -->
-          <!-- Table -->
-          <div class="row m-2">
-            <div class="card col-12">
-              <div class="card-header">
-                <h3 class="card-title">Registro de Ventas</h3>
-              </div>
-              <!-- /.card-header  -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Local 1</th>
-                    <th>Nombre Cliente</th>
-                    <th>Nombre Vendedor</th>
-                    <th>Hora Venta</th>
-                    <th>N°Factura</th>
-                    <th>Producto</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
-                    <th>Precio Total</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Local 1 Huevo Feliz</td>
-                    <td>Camilo Roncon</td>
-                    <td>Niko Tesla</td>
-                    <td>24/11/2023-8:00:00</td>
-                    <td>101</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AAA</td>
-                    <td>2</td>
-                    <td>23.000</td>
-                    <td>46.000</td>
-                  </tr>
-                  <tr>
-                    <td>Local 1 Huevo Feliz</td>
-                    <td>Camilo Roncon </td>
-                    <td>Niko Tesla</td>
-                    <td>24/11/2023-8:00:00</td>
-                    <td>102</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AAA</td>
-                    <td>2</td>
-                    <td>23.000</td>
-                    <td>46.000</td>
-                  </tr>
-                  <tr>
-                    <td>Local 1 Huevo Feliz</td>
-                    <td>Kevin Ramirez</td>
-                    <td>Juan Andres</td>
-                    <td>25/11/2023-10:00:00</td>
-                    <td>103</td>
-                    <td>DOCENA DE HUEVOS</td>
-                    <td>TRIPLE PREMIUM</td>
-                    <td>1</td>
-                    <td>14.000</td>
-                    <td>14.000</td>
-                  </tr>
-                  <tr>
-                    <td>Local 1 Huevo Feliz</td>
-                    <td>Mario Miranda
-                    </td>
-                    <td>Camila Restrepo</td>
-                    <td>30/11/2023-17:00:00</td>
-                    <td>104</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AA</td>
-                    <td>5</td>
-                    <td>21.000</td>
-                    <td>105.000</td>
-                  </tr>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                  <th>Local 1</th>
-                    <th>Nombre Cliente</th>
-                    <th>Nombre Vendedor</th>
-                    <th>Hora Venta</th>
-                    <th>N° Factura</th>  
-                    <th>Producto</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
-                    <th>Precio Total</th>
-                  </tr>
-                  </tfoot>
-                </table>
+                <form>
+                  <!-- input states -->
+                  <div class="form-group">
+                    <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Cantidad de Ingresos</label>
+                    <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Numero de Lote</label>
+                    <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label" for="inputError" hidden><i class="far fa-times-circle"></i>Punto de venta</label>
+                    <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ..." hidden>
+                  </div>
+                  <button type="submit" class="btn btn-success bi bi-folder-plus"> Agregar</button>
+                </form>
               </div>
               <!-- /.card-body -->
             </div>
-          </div>
-        </div>
-           
-        </div>
-        <!-- /Fin de la cabecera del cuerpo index-header -->
-
+            </div>
+            
         <!-- Cuerpo del contenido -->
         <section class="content">
           <div class="container-fluid"></div>

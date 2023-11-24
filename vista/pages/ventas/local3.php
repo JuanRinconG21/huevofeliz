@@ -1,6 +1,4 @@
-<?php 
- session_start();
-?>
+<?php ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,13 +44,13 @@
     <!-- Select2 -->
   <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+      <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-</head>
+
+  </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
       <!-- Preloader -->
@@ -78,7 +76,7 @@
             ></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index.php" class="nav-link">Inicio</a>
+          <a href="../../index.php" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contacto</a>
@@ -379,7 +377,6 @@
                       <p>General</p>
                     </a>
                   </li>
-                  
                 </ul>
               </li>
               <li class="nav-item">
@@ -401,7 +398,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a href="../../pages/ventas/ingresosLocal1.php" class="nav-link active">
+                          <a href="../../pages/ventas/ingresosLocal1.php" class="nav-link ">
                             <i class="far fa-circle nav-icon"></i>
                             <p>VENTAS LOCAL 1</p>
                           </a>
@@ -449,7 +446,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a href="../../pages/ventas/local3.php" class="nav-link">
+                          <a href="../../pages/ventas/local3.php" class="nav-link active">
                             <i class="far fa-circle nav-icon"></i>
                             <p>VENTAS LOCAL 3</p>
                           </a>
@@ -481,18 +478,6 @@
                       <p>Simple Tables</p>
                     </a>
                   </li>
-                  <!-- <li class="nav-item">
-                    <a href="../../pages/tables/data.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>DataTables</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/tables/jsgrid.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>jsGrid</p>
-                    </a>
-                  </li> -->
                 </ul>
               </li>
               <li class="nav-header">FECHAS</li>
@@ -511,18 +496,6 @@
                       <p>Recibidos</p>
                     </a>
                   </li>
-                  <!-- <li class="nav-item">
-                    <a href="../../pages/mailbox/compose.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Enviar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/mailbox/read-mail.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Read</p>
-                    </a>
-                  </li> -->
                 </ul>
               </li>
               <li class="nav-item">
@@ -606,14 +579,14 @@
         <!-- /.sidebar -->
       </aside>
 
-      <!--contenido del Inicio. -->
-      <div class="content-wrapper">
+       <!--contenido del Inicio. -->
+       <div class="content-wrapper">
         <!-- Cabecera de la pagina del cuerpo index (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Puesto de Ventas 1</h1>
+                <h1 class="m-0">Puesto de Ventas 3</h1>
               </div>
               <!-- /.col -->
             </div>
@@ -627,8 +600,8 @@
           <div class="row ">
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default col-6 m-2">
-              <div class="card-header">
-              <h3 class="card-title">Modulo Clientes</h3>
+            <div class="card-header">
+              <h3 class="card-title">Selecione Cliente</h3>
                 <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
@@ -637,62 +610,67 @@
                   <i class="fas fa-times"></i>
                 </button>
                 </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
                 <div class="row" >
                   <div class="col-12 col-sm-8">
                     <div class="form-group">
-                        <!-- productos inventario -->
-                      <div class="form-group">
-                              <label>Cedula Cliente</label>
-                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 80%;">
-                                    <option selected="selected"></option>
-                                    <option>1113858848</option>
-                                    <option>31427280</option>
-                                    <option>....</option>
-                              </select>
+                      <label>Nombre Cliente</label>
+                      <div class="input-group mxauto p-1">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
                       </div>
                     </div>
                     <!-- /.form-group -->
                   </div>
-                   <!-- nombre  -->
-                    <div class="form-group" style="width: 60%; ">
-                        <label>Nombre:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="chimbolas">
-                        </div>
-                        <!-- /.input group -->
+                </div>
+                <div class="row">
+                  <div class="card">
+                  <div class="card-header">
+                  <h3 class="card-title">El Huevo Feliz</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="d-block w-60" src="../../dist/img/panal32.jpg" alt="First slide" >
                     </div>
-                      <!-- telefono mask -->
-                      <div class="form-group" style="width: 60%; ">
-                        <label>Telefono:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-mobile" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="(666)88577">
-                      </div>
-                        <!-- /.input group -->
-                      </div>
-                      <!-- email mask -->
-                      <div class="form-group" style="width: 60%; ">
-                        <label>Email:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="chimbolas@example.com">
-                      </div>
-                        <!-- /.input group -->
-                      </div>
+                    <div class="carousel-item">
+                      <img class="d-block w-60" src="../../dist/img/panal12.jpg" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                      <img class="d-block w-60" src="../../dist/img/panal10.jpeg" alt="Third slide">
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-custom-icon" aria-hidden="true">
+                      <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-custom-icon" aria-hidden="true">
+                      <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                  </div>
                 </div>
                   <!-- /.card-body -->
-                </div>
-            
+            </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            Creador ilustrador Niko-Berserker
+            </div>
             </div>
              <!-- /.card -->
             <div class="col-4 m-2">
@@ -704,7 +682,7 @@
                 <!-- productos inventario -->
                 <div class="form-group">
                       <label>Productos</label>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 80%;">
                         <option selected="selected"></option>
                         <option>Huevo A</option>
                         <option>Huevo AA</option>
@@ -721,7 +699,7 @@
                       </select>
                 </div>
                  <!-- phone mask -->
-                 <div class="form-group" style="width: 100%; ">
+                 <div class="form-group" style="width: 80%; ">
                   <label>Cantidad:</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -734,13 +712,13 @@
                   <!-- /.form group -->
                   
                  <!-- TOTAL -->
-                  <div class="form-group" style="width: 100%;">
+                  <div class="form-group" style="width: 80%;">
                       <label>TOTAL %:</label>
                       <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-cart-plus"></i></span>
                       </div>
-                      <input type="number" class="form-control" data-mask disabled value="147.000">
+                      <input type="number" class="form-control" data-mask >
                       </div>
                   </div>
                   <!-- /.input group -->
@@ -852,7 +830,6 @@
                     <th>Nombre Cliente</th>
                     <th>Nombre Vendedor</th>
                     <th>Hora Venta</th>
-                    <th>N°Factura</th>
                     <th>Producto</th>
                     <th>Tipo</th>
                     <th>Cantidad</th>
@@ -863,10 +840,10 @@
                   <tbody>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
-                    <td>Camilo Roncon</td>
+                    <td>Camilo Roncon
+                    </td>
                     <td>Niko Tesla</td>
                     <td>24/11/2023-8:00:00</td>
-                    <td>101</td>
                     <td>PANAL DE HUEVOS</td>
                     <td>TRIPLE AAA</td>
                     <td>2</td>
@@ -875,10 +852,10 @@
                   </tr>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
-                    <td>Camilo Roncon </td>
+                    <td>Camilo Roncon
+                    </td>
                     <td>Niko Tesla</td>
                     <td>24/11/2023-8:00:00</td>
-                    <td>102</td>
                     <td>PANAL DE HUEVOS</td>
                     <td>TRIPLE AAA</td>
                     <td>2</td>
@@ -887,10 +864,10 @@
                   </tr>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
-                    <td>Kevin Ramirez</td>
+                    <td>Kevin Ramirez
+                    </td>
                     <td>Juan Andres</td>
                     <td>25/11/2023-10:00:00</td>
-                    <td>103</td>
                     <td>DOCENA DE HUEVOS</td>
                     <td>TRIPLE PREMIUM</td>
                     <td>1</td>
@@ -903,7 +880,6 @@
                     </td>
                     <td>Camila Restrepo</td>
                     <td>30/11/2023-17:00:00</td>
-                    <td>104</td>
                     <td>PANAL DE HUEVOS</td>
                     <td>TRIPLE AA</td>
                     <td>5</td>
@@ -917,7 +893,6 @@
                     <th>Nombre Cliente</th>
                     <th>Nombre Vendedor</th>
                     <th>Hora Venta</th>
-                    <th>N° Factura</th>  
                     <th>Producto</th>
                     <th>Tipo</th>
                     <th>Cantidad</th>
@@ -1010,8 +985,6 @@
       <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
       <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
       <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-      <!-- Sweel Alerts -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
       <!-- modales -->
       <div class="modal fade" id="compra">
         <div class="modal-dialog">
@@ -1022,7 +995,6 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="../../../controller/agregarVenta.php">
             <div class="modal-body">
               <!-- TOTAL RECIBIDO -->
               <div class="form-group" style="width: 80%;">
@@ -1032,52 +1004,25 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fa fa-plus"></i></span>
                     </div>
-                    <input type="number" class="form-control"  data-mask name="recibido">
+                    <input type="number" class="form-control"  data-mask>
                   </div>
                   <!-- /.input group -->
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-primary bi bi-cash-coin">  Comprar</button>
+              <button type="button" class="btn btn-primary bi bi-cash-coin">  Comprar</button>
             </div>
-            </form>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-      <!--- MENSAJE EXITOSO -->
-    <script>
-      <?php
-      if (isset($_SESSION["mensajeExitoso"])) {
-        echo  "Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
-        text: '" . $_SESSION["mensajeExitoso"] . "'
-      });";
-        unset($_SESSION["mensajeExitoso"]);
-      }
-      ?>
-    </script>
-    <!--- MENSAJE ERROR -->
-    <script>
-      <?php
-      if (isset($_SESSION["mensajeError"])) {
-        echo  "Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
-        text: '" . $_SESSION["mensajeError"] . "'
-      });";
-        unset($_SESSION["mensajeError"]);
-      }
-      ?>
-    </script>
       <script>
-        // Cambiar el valor de la celda con JavaScript
-        document.getElementById("miCelda").innerHTML = "$147.500";
-      </script>
+      // Cambiar el valor de la celda con JavaScript
+      document.getElementById("miCelda").innerHTML = "$147.500";
+    </script>
     <script>
     $(function () {
     //Initialize Select2 Elements
