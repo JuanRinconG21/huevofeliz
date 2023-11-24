@@ -2,6 +2,8 @@
 session_start();
 include('../../../models/MySQL.php');
 // Paso 1: Preparar una consulta SQL usando consultas preparadas.
+$conexion= New MySQL();
+$pdo=$conexion->conectar();
 $stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote, lotehuevo.tipoLote,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
 // Paso 2: Ejecutar la consulta preparada.
 $stmt->execute();
@@ -281,9 +283,15 @@ $stmt->execute();
                 </li>
 
                 <li class="nav-item">
-                  <a href="../../pages/inventario/aves.php" class="nav-link active">
+                  <a href="../../pages/inventario/aves.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tabla Aves</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/gastos.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Gastos</p>
                   </a>
                 </li>
               
@@ -506,14 +514,8 @@ $stmt->execute();
               <h1 class="m-0">Gerente Administrativo</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item">
-                  <a href="index.html">Inicio</a>
-                </li>
-              </ol>
-            </div>
-            <!-- /.col -->
+            
+           
           </div>
           <!-- /.row -->
         </div>
@@ -681,8 +683,6 @@ $stmt->execute();
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-
-
   <script>
   $(function () {
     $("#example1").DataTable({
@@ -700,12 +700,5 @@ $stmt->execute();
     });
   });
 </script>
-
-
-
-
-
-
 </body>
-
 </html>
