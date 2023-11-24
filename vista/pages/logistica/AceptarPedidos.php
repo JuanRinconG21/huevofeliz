@@ -410,14 +410,14 @@
                 <ul class="nav nav-treeview">
                  
                 <li class="nav-item">
-                    <a href="../../pages/logistica/AceptarPedidos.php" class="nav-link ">
+                    <a href="../../pages/logistica/AceptarPedidos.php" class="nav-link active">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Confirmar Pedidos</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="../../pages/logistica/index.php" class="nav-link active">
+                    <a href="../../pages/logistica/index.php" class="nav-link ">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Asignar Conductores</p>
                     </a>
@@ -627,363 +627,157 @@
 
       <!--contenido del Inicio. -->
       <div class="content-wrapper">
-        <!-- Cabecera de la pagina del cuerpo index (Page header) -->
-        <div class="content-header">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-12">
-                <h1 class="m-0 mb-3 text-center">Asignar Conductor</h1>
+          <!-- Cabecera de la pagina del cuerpo index (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1 class="m-0 mb-3 text-center">Confirmar Pedidos</h1>
                   <div class="card mb-5">
-                    <div class="card-header">
-                      <h3 class="card-title">Tabla de asignación de conductor</h3>
-                    </div>
-                      <!-- /.card-header -->
-                      <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                          <thead>
-                          <tr>
-                          <th>Id Pedido</th>
-                            <th>Fecha Creación</th>
-                            <th>Nombre Cliente</th>
-                            <th>Dirección</th>
-                            <th>Id Lote</th>
-                            <th>Cantidad</th>
-                            <th>Tipo de Pago</th>
-                            <th>Estado</th>
-                            <th>Conductor</th>
-                            <th>Asignación Conductor</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>1785</td>
-                            <td>12/11/2023 - 14:30</td>
-                            <td>Mercamos</td>
-                            <td>Calle 34 #5</td>
-                            <td>4</td>
-                            <td>100 huevos</td>
-                            <td>Transferencia electrónica</td>
-                            <td>Confirmado</td>
-                            <td>Alexis Candela</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Asignar Conductor</button></td>
-                          </tr>
-                          <tr>
-                            <td>1786</td>
-                            <td>12/11/2023 - 15:30</td>
-                            <td>Super Inter</td>
-                            <td>Calle 35 #5</td>
-                            <td>4</td>
-                            <td>100 huevos</td>
-                            <td>Transferencia electrónica</td>
-                            <td>Confirmado</td>
-                            <td>Alexis Candela</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Asignar Conductor</button></td>
-                          </tr>
-                          </tbody>
-                          <tfoot>
-                          <tr>
-                            <th>Id Pedido</th>
-                            <th>Fecha Creación</th>
-                            <th>Nombre Cliente</th>
-                            <th>Dirección</th>
-                            <th>Id Lote</th>
-                            <th>Cantidad</th>
-                            <th>Tipo de Pago</th>
-                            <th>Estado</th>
-                            <th>Conductor</th>
-                            <th>Asignación Conductor</th>
-                          </tr>
-                          </tfoot>
-                        </table>
+                      <div class="card-header">
+                        <h3 class="card-title">Tabla Pedidos Pendientes</h3>
                       </div>
-                      <!-- /.card-body -->
-                  </div> <!-- /.card -->
-              </div> <!-- /.col -->
-            </div><!-- /.row -->
-            
-            
-            
-            <div class="row">
-              <div class="col-sm-12">
-                <h1 class="m-0 mb-3 mt-3 text-center">Conductor Asignado</h1>
-                  <div class="card mb-5">
-                    <div class="card-header">
-                      <h3 class="card-title">Tabla de conductores asignados </h3>
-                    </div>
-                      <!-- /.card-header -->
-                      <div class="card-body">
-                        <table id="example3" class="table table-bordered table-striped">
-                          <thead>
-                          <tr>
-                          <th>Id Pedido</th>
-                            <th>Fecha Creación</th>
-                            <th>Nombre Cliente</th>
-                            <th>Dirección</th>
-                            <th>Id Lote</th>
-                            <th>Cantidad</th>
-                            <th>Tipo de Pago</th>
-                            <th>Estado</th>
-                            <th>Conductor</th>
-                            <th>Editar Conductor</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>1785</td>
-                            <td>12/11/2023 - 14:30</td>
-                            <td>Mercamos</td>
-                            <td>Calle 34 #5</td>
-                            <td>4</td>
-                            <td>100 huevos</td>
-                            <td>Transferencia electrónica</td>
-                            <td>En Camino</td>
-                            <td>Alexis Candela</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar Conductor</button></td>
-                          </tr>
-                          <tr>
-                            <td>1786</td>
-                            <td>12/11/2023 - 15:30</td>
-                            <td>Super Inter</td>
-                            <td>Calle 35 #5</td>
-                            <td>4</td>
-                            <td>100 huevos</td>
-                            <td>Transferencia electrónica</td>
-                            <td>En Camino</td>
-                            <td>Alexis Candela</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar Conductor</button></td>
-                          </tr>
-                          </tbody>
-                          <tfoot>
-                          <tr>
-                            <th>Id Pedido</th>
-                            <th>Fecha Creación</th>
-                            <th>Nombre Cliente</th>
-                            <th>Dirección</th>
-                            <th>Id Lote</th>
-                            <th>Cantidad</th>
-                            <th>Tipo de Pago</th>
-                            <th>Estado</th>
-                            <th>Conductor</th>
-                            <th>Editar Conductor</th>
-                          </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                      <!-- /.card-body -->
-                  </div> <!-- /.card -->
-              </div> <!-- /.col -->
-            </div><!-- /.row -->
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                              <thead>
+                              <tr>
+                              <th>Id Pedido</th>
+                                <th>Fecha Creación</th>
+                                <th>Nombre Cliente</th>
+                                <th>Dirección</th>
+                                <th>Id Lote</th>
+                                <th>Cantidad</th>
+                                <th>Tipo de Pago</th>
+                                <th>Estado</th>
+                                <th>Aceptar Pedido</th>
+                                <th>Rechazar Pedido</th>
+                              </thead>
+                              <tbody>
+                              <tr>
+                              <td>1785</td>
+                                <td>12/11/2023 - 14:30</td>
+                                <td>Mercamos</td>
+                                <td>Calle 34 #5</td>
+                                <td>4</td>
+                                <td>100 huevos</td>
+                                <td>Transferencia electrónica</td>
+                                <td>Pendiente</td>
+                                <td><button type="button" class="btn btn-primary" >Confirmar Pedido</button></td>
+                                <td><button type="button" class="btn btn-danger" >Rechazar Pedido</button></td>
+                              </tr>
+                              <tr>
+                              <td>1786</td>
+                                <td>12/11/2023 - 15:30</td>
+                                <td>Super Inter</td>
+                                <td>Calle 35 #5</td>
+                                <td>4</td>
+                                <td>100 huevos</td>
+                                <td>Transferencia electrónica</td>
+                                <td>Pendiente</td>
+                                <td><button type="button" class="btn btn-primary">Confirmar Pedido</button></td>
+                                <td><button type="button" class="btn btn-danger">Rechazar Pedido</button></td>
+                              </tr>
+                              </tbody>
+                              <tfoot>
+                              <tr>
+                              <th>Id Pedido</th>
+                                <th>Fecha Creación</th>
+                                <th>Nombre Cliente</th>
+                                <th>Dirección</th>
+                                <th>Id Lote</th>
+                                <th>Cantidad</th>
+                                <th>Tipo de Pago</th>
+                                <th>Estado</th>
+                                <th>Aceptar Pedido</th>
+                                <th>Rechazar Pedido</th>
+                              </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                          <!-- /.card-body -->
+                  </div>
+                </div><!-- /.col -->
+              </div> <!-- /.row -->
+
+             
+
+              <div class="row">
+                    <div class="col-sm-12">
+                      <h1 class="m-0 mb-3 mt-3 text-center">Pedidos Confirmados</h1>
+                      <div class="card mb-5">
+                          <div class="card-header">
+                            <h3 class="card-title">Tabla De Pedidos Confirmados</h3>
+                          </div>
+                              <!-- /.card-header -->
+                              <div class="card-body">
+                                <table id="example3" class="table table-bordered table-striped">
+                                  <thead>
+                                  <tr>
+                                  <th>Id Pedido</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Dirección</th>
+                                    <th>Id Lote</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo de Pago</th>
+                                    <th>Estado</th>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                  <td>1785</td>
+                                    <td>12/11/2023 - 14:30</td>
+                                    <td>Mercamos</td>
+                                    <td>Calle 34 #5</td>
+                                    <td>4</td>
+                                    <td>100 huevos</td>
+                                    <td>Transferencia electrónica</td>
+                                    <td>Confirmado</td>
+                                  </tr>
+                                  <tr>
+                                  <td>1786</td>
+                                    <td>12/11/2023 - 15:30</td>
+                                    <td>Super Inter</td>
+                                    <td>Calle 35 #5</td>
+                                    <td>4</td>
+                                    <td>100 huevos</td>
+                                    <td>Transferencia electrónica</td>
+                                    <td>Confirmado</td>
+                                  </tr>
+                                  </tbody>
+                                  <tfoot>
+                                  <tr>
+                                  <th>Id Pedido</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Dirección</th>
+                                    <th>Id Lote</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo de Pago</th>
+                                    <th>Estado</th>
+                                  </tr>
+                                  </tfoot>
+                                </table>
+                              </div>
+                              <!-- /.card-body -->
+                      </div><!-- /.card -->
+                    </div><!-- /.col -->
+              </div> <!-- /.row -->
 
 
 
 
-
-
-
-          </div><!-- /.container-fluid -->
-        </div><!-- /.content-header -->
-      </div><!-- /.content-wrapper -->
-
+            </div><!-- /.container-fluid -->
+          </div> <!-- /.content-header -->
+      </div>  <!-- /.content-wrapper -->
+    
 
 
       <!-- Incio Modal Para Agregar Al conductor al envio del pedido -->
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar Conductor De Pedido</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-        <form action="">
-          <div class="modal-body">
-             <div class="container">
-              <div class="row">
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Pedido">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Fecha Creación">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Cantidad">
-                  </div>
-
-                </div>
-
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Nombre Cliente">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Tipo de Pago">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Lote">
-                  </div>
-
-                </div>
-
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Estado">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Dirección">
-                  </div>
-
-                  <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Conductor</label>
-                    
-                      <select class="form-select custom-select" aria-label="Default select example" id="exampleSelect">
-                        <option selected>Conductor</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        <option value="5">Five</option>
-                      
-                      </select>
-                    
-                  </div>
-                  </div>
-
-                </div>
-              </div>
-
-             </div> 
-             <div class="modal-footer d-flex justify-content-center">
-              <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary btn-lg text-center">Asignar</button>
-            </div>
-            </div>
-           
-        </form>
-           
-          </div>
-        </div>
-      </div>
+      
+      
 
       <!-- Fin Modal Para Agregar al conductor al envio del pedido -->
-
-
-
-      <!-- Incio Modal Para Editar Al conductor al envio del pedido -->
-
-      <div class="modal fade" id="exampleModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Asignación De Conductor </h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-        <form action="">
-          <div class="modal-body">
-             <div class="container">
-              <div class="row">
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Pedido">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Fecha Creación">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Cantidad">
-                  </div>
-
-                </div>
-
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Nombre Cliente">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Tipo de Pago">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Lote">
-                  </div>
-
-                </div>
-
-                <div class="col-4">
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Estado">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Dirección">
-                  </div>
-
-                  <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Conductor</label>
-                    
-                      <select class="form-select custom-select" aria-label="Default select example" id="exampleSelect">
-                        <option selected>Conductor</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        <option value="5">Five</option>
-                      
-                      </select>
-                    
-                  </div>
-                  </div>
-
-                </div>
-              </div>
-
-             </div> 
-             <div class="modal-footer d-flex justify-content-center">
-              <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary btn-lg text-center">Editar</button>
-            </div>
-            </div>
-           
-        </form>
-           
-          </div>
-        </div>
-      </div>
-
-      <!-- Fin Modal Para Editar al conductor al envio del pedido -->
-
 
 
         <!-- /Fin de la cabecera del cuerpo index-header -->
@@ -994,7 +788,7 @@
             <div class="row">
               <div class="col-sm-12">
               </div>
-          
+           sfsfs
             </div>
           </div>
           <!-- / fin del cuerpo del contenido container-fluid -->
@@ -1104,6 +898,7 @@
           responsive: true,
         });
       });
+
 
       $(function () {
         $("#example3")

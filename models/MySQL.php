@@ -2,7 +2,7 @@
 class MySQL
 {
     private $ipServidor = "localhost";
-    private $namedb ='';
+    private $namedb ='mydb';
     private $usuarioBase = 'root';
     private $contrasena = '';
     private $conexion;
@@ -11,6 +11,7 @@ class MySQL
     public function conectar()
     {
         try {
+            //$this->conexion = new PDO("mysql:host={$this->ipServidor};dbname={$this->namedb}", $this->usuarioBase, $this->contrasena);
             $this->conexion = new PDO("mysql:host={$this->ipServidor};dbname={$this->namedb}", $this->usuarioBase, $this->contrasena);
             $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->conexion;
