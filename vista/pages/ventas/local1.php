@@ -691,7 +691,7 @@
                       </div>
                 </div>
                   <!-- /.card-body -->
-                </div>
+                </div>  
             
             </div>
              <!-- /.card -->
@@ -837,7 +837,7 @@
           </div>
         </div>
         <!-- /.row -->
-          <!-- Table -->
+          <!-- Table Facturas -->
           <div class="row m-2">
             <div class="card col-12">
               <div class="card-header">
@@ -853,11 +853,9 @@
                     <th>Nombre Vendedor</th>
                     <th>Hora Venta</th>
                     <th>N°Factura</th>
-                    <th>Producto</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
                     <th>Precio Total</th>
+                    <th>Ver Factura</th>
+                    <th>Devolucion</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -867,23 +865,19 @@
                     <td>Niko Tesla</td>
                     <td>24/11/2023-8:00:00</td>
                     <td>101</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AAA</td>
-                    <td>2</td>
-                    <td>23.000</td>
                     <td>46.000</td>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
                   </tr>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
                     <td>Camilo Roncon </td>
                     <td>Niko Tesla</td>
                     <td>24/11/2023-8:00:00</td>
-                    <td>102</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AAA</td>
-                    <td>2</td>
-                    <td>23.000</td>
+                    <td>106</td>
                     <td>46.000</td>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
                   </tr>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
@@ -891,11 +885,9 @@
                     <td>Juan Andres</td>
                     <td>25/11/2023-10:00:00</td>
                     <td>103</td>
-                    <td>DOCENA DE HUEVOS</td>
-                    <td>TRIPLE PREMIUM</td>
-                    <td>1</td>
                     <td>14.000</td>
-                    <td>14.000</td>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td> 
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
                   </tr>
                   <tr>
                     <td>Local 1 Huevo Feliz</td>
@@ -904,11 +896,9 @@
                     <td>Camila Restrepo</td>
                     <td>30/11/2023-17:00:00</td>
                     <td>104</td>
-                    <td>PANAL DE HUEVOS</td>
-                    <td>TRIPLE AA</td>
-                    <td>5</td>
-                    <td>21.000</td>
                     <td>105.000</td>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
                   </tr>
                   </tbody>
                   <tfoot>
@@ -918,11 +908,9 @@
                     <th>Nombre Vendedor</th>
                     <th>Hora Venta</th>
                     <th>N° Factura</th>  
-                    <th>Producto</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
                     <th>Precio Total</th>
+                    <th>Ver factura</th>
+                    <th>Devolucion</th> 
                   </tr>
                   </tfoot>
                 </table>
@@ -930,6 +918,7 @@
               <!-- /.card-body -->
             </div>
           </div>
+
         </div>
            
         </div>
@@ -1022,7 +1011,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="../../../controller/agregarVenta.php">
+            <form action="../../../controller/ventas/agregarVenta.php" method="post">
             <div class="modal-body">
               <!-- TOTAL RECIBIDO -->
               <div class="form-group" style="width: 80%;">
@@ -1219,6 +1208,24 @@
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- tables -->
+<script>
+  $(function () {
+    $("#exampleNiko").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["excel", "pdf", "print"]
+    }).buttons().container().appendTo('#exampleNiko_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

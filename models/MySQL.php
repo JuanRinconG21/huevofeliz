@@ -2,7 +2,7 @@
 class MySQL
 {
     private $ipServidor = "localhost";
-    private $namedb ='huevofeliz';
+    private $namedb ='mydb';
     private $usuarioBase = 'root';
     private $contrasena = '';
     private $conexion;

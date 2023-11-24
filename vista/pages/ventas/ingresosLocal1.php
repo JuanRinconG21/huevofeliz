@@ -621,7 +621,7 @@
           </div>
           <!-- /.container-fluid -->
         </div>
-            <div class="row">
+          <div class="row">
                 <!-- general form elements disabled -->
             <div class="card card-success m-4 col-6">
               <div class="card-header">
@@ -629,27 +629,73 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <form>
+                <form  action="../../../controller/ventas/agregarIngreso.php" method="post">
                   <!-- input states -->
                   <div class="form-group">
-                    <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Cantidad de Ingresos</label>
-                    <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
+                    <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Cantidad de Huevos</label>
+                    <input type="number" class="form-control is-valid" id="inputSuccess" placeholder="Enter ..." name="cantidad">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Numero de Lote</label>
-                    <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
-                  </div>
-                  <div class="form-group">
-                    <label class="col-form-label" for="inputError" hidden><i class="far fa-times-circle"></i>Punto de venta</label>
-                    <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ..." hidden>
+                    <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ..." name="identificador">
                   </div>
                   <button type="submit" class="btn btn-success bi bi-folder-plus"> Agregar</button>
                 </form>
               </div>
               <!-- /.card-body -->
             </div>
+          </div>
+          
+          <!-- Table Descuentos-->
+          <div class="row m-2">
+            <div class="card col-12">
+              <div class="card-header">
+                <h3 class="card-title">Descuento de Productos</h3>
+              </div>
+              <!-- /.card-header  -->
+              <div class="card-body">
+                <table id="exampleNiko" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Local 1</th>
+                    <th>N° Lote</th>
+                    <th>Tipo de Huevo</th>
+                    <th>Fecha Vencimiento</th>
+                    <th>Cantidad</th>
+                    <th>Valor Panal</th>
+                    <th>Descuento</th>
+                    <th>Generar Descuento</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Local 1 Huevo Feliz</td>
+                    <td>GH-10097</td>
+                    <td>AAA</td>
+                    <td>5/12/2023-8:00:00</td>
+                    <td>609</td>
+                    <td>25.700</td>
+                    <td>0%</td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-percent" data-toggle="modal" data-target="#descuento"></button></td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Local 1</th>
+                    <th>N° Lote</th>
+                    <th>Tipo de Huevo</th>
+                    <th>Fecha Vencimiento</th>
+                    <th>Cantidad</th>
+                    <th>Valor Panal</th>
+                    <th>Descuento</th>
+                    <th>Generar Descuento</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-            
+          </div>
         <!-- Cuerpo del contenido -->
         <section class="content">
           <div class="container-fluid"></div>
@@ -728,7 +774,7 @@
       <!-- Sweel Alerts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
       <!-- modales -->
-      <div class="modal fade" id="compra">
+      <div class="modal fade" id="descuento">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -741,7 +787,7 @@
             <div class="modal-body">
               <!-- TOTAL RECIBIDO -->
               <div class="form-group" style="width: 80%;">
-                  <label>TOTAL RECIBIDO %:</label>
+                  <label>DESCUENTO %:</label>
 
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -750,7 +796,7 @@
                     <input type="number" class="form-control"  data-mask name="recibido">
                   </div>
                   <!-- /.input group -->
-                </div>
+              </div>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -927,13 +973,13 @@
   }
   // DropzoneJS Demo Code End
   </script>
-  <!-- tables -->
-  <script>
+<!-- tables -->
+<script>
   $(function () {
-    $("#example1").DataTable({
+    $("#exampleNiko").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["excel", "pdf", "print"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#exampleNiko_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
