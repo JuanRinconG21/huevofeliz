@@ -302,6 +302,14 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   </a>
                 </li>
               </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../produccion/compras.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Compras</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -666,13 +674,13 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                       </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($fila as $loteAves) { ?>
-                      <tr>
-                      <td scope="row"><?php echo $loteAves['idLoteAves']  ?></td>
-                      <td><?php echo $loteAves['nombre']  ?></td>
-                      <?php } ?>
-                      
-                      </tr>
+                      <?php foreach ($fila as $loteAves) { ?>
+                        <tr>
+                          <td scope="row"><?php echo $loteAves['idLoteAves']  ?></td>
+                          <td><?php echo $loteAves['nombre']  ?></td>
+                        <?php } ?>
+
+                        </tr>
                     </tbody>
 
                   </table>

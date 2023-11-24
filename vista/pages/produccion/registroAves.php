@@ -13,6 +13,19 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+//traigo las aves activas
+
+$sql3 = "SELECT * from `aves` where fechaDeRetiro is null";
+$stmt3 = $pdo->prepare($sql3);
+$stmt3->execute();
+$fila3 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+//traigo Id de un ave
+$sql2 = "SELECT idAves from aves WHERE idAves = 1;";
+$stmt2 = $pdo->prepare($sql2);
+$stmt2->execute();
+$fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 //traigo los lotes
 $sql1 = "SELECT idLoteAves,nombre from `loteaves`";
@@ -53,7 +66,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -306,6 +319,14 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                     <a href="../produccion/seguimientoSalud.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Seguimiento de Salud</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/compras.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Compras</p>
                                     </a>
                                 </li>
                             </ul>
@@ -665,10 +686,6 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         <label for="exampleInputPassword1">Fecha de Ingreso</label>
                                                         <input type="date" name="fechaIn" class="form-control" id="exampleInputPassword1">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Fecha de Retiro</label>
-                                                        <input type="date" name="fechaRe" class="form-control" id="exampleInputPassword1">
-                                                    </div>
 
 
                                                     <div class="form-group">
@@ -698,7 +715,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- /.modal-dialog -->
                             </div>
                             <hr>
-                            <h1 style="text-align: center;">Listar las aves registradas</h1>
+                            <h1 style="text-align: center;">Aves Activas</h1>
                             <br>
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
@@ -709,33 +726,210 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Peso</th>
                                             <th>Estado de salud</th>
                                             <th>Fecha de vacunacion</th>
-                                            <th>Fecha de retiro</th>                                           
                                             <th>Fecha Ingreso</th>
                                             <th>lote del ave</th>
+                                            <th>seguimiento Salud</th>
+                                            <th>Fecha de retiro</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($fila as $aves) { ?>
                                             <tr>
-                                                <td scope="row"><?php echo $aves['idAves']?></td>
-                                                <td><?php echo $aves['especie']?></td>
-                                                <td><?php echo $aves['peso']?></td>
-                                                <td><?php echo $aves['estadoSalud']?></td>
-                                                <td><?php echo $aves['fechaVacunacion']?></td>
-                                                <td><?php echo $aves['fechaDeRetiro']?></td>
-                                                <td><?php echo $aves['fechaIngreso']?></td>
-                                                <td><?php echo $aves['LoteAves_idLoteAves']?></td>
-                                                
-                                                
+                                                <td scope="row"><?php echo $aves['idAves'] ?></td>
+                                                <td><?php echo $aves['especie'] ?></td>
+                                                <td><?php echo $aves['peso'] ?></td>
+                                                <td><?php echo $aves['estadoSalud'] ?></td>
+                                                <td><?php echo $aves['fechaVacunacion'] ?></td>
+                                                <td><?php echo $aves['fechaIngreso'] ?></td>
+                                                <td><?php echo $aves['LoteAves_idLoteAves'] ?></td>
 
+                                                <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud<?php echo $aves['idAves'] ?>">
+                                                        Seguimiento de salud
+                                                    </button></td>
+
+                                                <td><?php echo $aves['fechaDeRetiro'] ?><button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                                                        <i class="bi bi-calendar-date"></i>
+                                                    </button></td>
+
+                                                <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Seguimiento de las aves</h4>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/seguimientoSalud.php" method="post">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Id de la vacuna</label>
+                                                                            <input name="idVacuna" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Nombre de la vacuna</label>
+                                                                            <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
+
+
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Entorno</label>
+                                                                            <input name="entorno" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Sintomas</label>
+                                                                            <input name="sintoma" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Comentario adicional</label>
+                                                                            <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
                                             <?php } ?>
-                                           
+
                                     </tbody>
 
                                 </table>
                             </div>
                             <!-- /.card-header -->
 
+                            <h1 style="text-align: center;">Aves Pensionadas</h1>
+                            <br>
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Id ave</th>
+                                            <th>Especie</th>
+                                            <th>Peso</th>
+                                            <th>Estado de salud</th>
+                                            <th>Fecha de vacunacion</th>
+                                            <th>Fecha Ingreso</th>
+                                            <th>lote del ave</th>
+                                            <th>seguimiento Salud</th>
+                                            <th>Fecha de retiro</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($fila as $aves) { ?>
+                                            <tr>
+                                                <td scope="row"><?php echo $aves['idAves'] ?></td>
+                                                <td><?php echo $aves['especie'] ?></td>
+                                                <td><?php echo $aves['peso'] ?></td>
+                                                <td><?php echo $aves['estadoSalud'] ?></td>
+                                                <td><?php echo $aves['fechaVacunacion'] ?></td>
+                                                <td><?php echo $aves['fechaIngreso'] ?></td>
+                                                <td><?php echo $aves['LoteAves_idLoteAves'] ?></td>
+
+                                                <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud<?php echo $aves['idAves'] ?>">
+                                                        Seguimiento de salud
+                                                    </button></td>
+
+                                                <td><?php echo $aves['fechaDeRetiro'] ?><button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                                                        <i class="bi bi-calendar-date"></i>
+                                                    </button></td>
+
+                                                <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Seguimiento de las aves</h4>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/seguimientoSalud.php" method="post">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Id de la vacuna</label>
+                                                                            <input name="idVacuna" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Nombre de la vacuna</label>
+                                                                            <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
+
+
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Entorno</label>
+                                                                            <input name="entorno" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Sintomas</label>
+                                                                            <input name="sintoma" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Comentario adicional</label>
+                                                                            <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                            <?php } ?>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="modal fade" id="modal-default">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fecha de retiro del ave</h4>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="../../../controller/registroAves.php" method="post">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Fecha de Retiro</label>
+                                                        <input type="date" name="fechaRe" class="form-control" id="exampleInputPassword1">
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             <!-- /.card-body -->
                         </div>
                     </div>

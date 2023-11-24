@@ -307,6 +307,14 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/compras.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Compras</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -712,19 +720,19 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($fila as $lotehuevos) { ?>
+                                        <?php foreach ($fila as $lotehuevos) { ?>
                                             <tr>
-                                                <td scope="row"><?php echo $lotehuevos['idLoteHuevo']?></td>
-                                                <td><?php echo $lotehuevos['identificadorLote']?></td>
-                                                <td><?php echo $lotehuevos['tipoLote']?></td>
-                                                <td><?php echo $lotehuevos['fechaVencimiento']?></td>
-                                                <td><?php echo $lotehuevos['fechaPuesta']?></td>
-                                                <td><?php echo $lotehuevos['Precios_idPrecios']?></td>
+                                                <td scope="row"><?php echo $lotehuevos['idLoteHuevo'] ?></td>
+                                                <td><?php echo $lotehuevos['identificadorLote'] ?></td>
+                                                <td><?php echo $lotehuevos['tipoLote'] ?></td>
+                                                <td><?php echo $lotehuevos['fechaVencimiento'] ?></td>
+                                                <td><?php echo $lotehuevos['fechaPuesta'] ?></td>
+                                                <td><?php echo $lotehuevos['Precios_idPrecios'] ?></td>
                                             <?php } ?>
-                                        <tr>
-                                            
+                                            <tr>
 
-                                        </tr>
+
+                                            </tr>
 
 
                                     </tbody>
