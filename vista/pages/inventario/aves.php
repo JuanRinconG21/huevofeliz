@@ -284,34 +284,34 @@ $stmt->execute();
                 <li class="nav-item">
                   <a href="../../pages/inventario/aves.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Inventario Aves</p>
+                    <p>Tabla Aves</p>
                   </a>
                 </li>
-
                 <li class="nav-item">
                   <a href="../../pages/inventario/gastos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Gastos</p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="../../pages/charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>POS 2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>POS 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Reportes</p>
-                    </a>
-                  </li> -->
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaPedidos1.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedidos 1</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVenta2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedidos 2</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaPedidos3.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedido 3</p>
+                  </a>
+                </li>
+
               </ul>
             </li>
             <li class="nav-item">

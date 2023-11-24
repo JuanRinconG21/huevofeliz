@@ -5,7 +5,7 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT compras.nombreProducto,compras.tipo,compras.descripcion,compras.fechaCompra,compras.precioUnitario,compras.cantidad,compras.medida,compras.total,proveedor.nombre AS nombreProvedor,proveedor.telefono FROM compras INNER JOIN proveedor ON compras.Proveedor_idProveedor = proveedor.idProveedor;");
+$stmt = $pdo->prepare("SELECT puntosventa.nombre,pedidos_puntos.fecha,pedidos_puntos.estado,pedidos_puntos.idPedidos,usuario.nombreCompleto,usuario.direccionResidencia,usuario.numeroTelefono FROM pedidos_puntos INNER JOIN puntosventa ON pedidos_puntos.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta INNER JOIN usuario on pedidos_puntos.Usuario_idUsuario=usuario.idUsuario Where PuntosVenta_idPuntosVenta=1");
 $stmt->execute();
 ?>
 <!DOCTYPE html>
@@ -293,9 +293,21 @@ $stmt->execute();
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../../pages/inventario/tablaLoteHuevos.php" class="nav-link active">
+                                    <a href="../../pages/inventario/puntoVentaPedidos1.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Lote Huevos</p>
+                                        <p>Punto de Venta Pedido 1</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaPedidos2.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Pedido 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaPedidos3.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Pedido 3</p>
                                     </a>
                                 </li>
 
@@ -547,16 +559,14 @@ $stmt->execute();
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nombre Producto</th>
-                                                <th>Tipo</th>
-                                                <th>Descripcion</th>
-                                                <th>fecha Compra</th>
-                                                <th>Precio Unitario</th>
-                                                <th>Cantidad</th>
-                                                <th>Medida</th>
-                                                <th>total</th>
-                                                <th>Nombre Provedor</th>
-                                                <th>Telefono Provedor</th>
+                                                <th>Nombre Punto Venta</th>
+                                                <th>Fecha Entrega</th>
+                                                <th>estado</th>
+                                                <th>id pedido</th>
+                                                <th>Nombre Cliente</th>
+                                                <th>direccion Pedido</th>
+                                                <th>Numero Telefono</th>
+
                                                 <!-- <th>CSS grade</th> -->
                                             </tr>
                                         </thead>
@@ -569,16 +579,14 @@ $stmt->execute();
                                                 while ($fila1 = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
                                                     <tr>
-                                                        <td><?php echo $fila1['nombreProducto'] ?></td>
-                                                        <td><?php echo $fila1['tipo'] ?></td>
-                                                        <td><?php echo $fila1['descripcion'] ?></td>
-                                                        <td><?php echo $fila1['fechaCompra'] ?></td>
-                                                        <td><?php echo $fila1['precioUnitario'] ?></td>
-                                                        <td><?php echo $fila1['cantidad'] ?></td>
-                                                        <td><?php echo $fila1['medida'] ?></td>
-                                                        <td><?php echo $fila1['total'] ?></td>
-                                                        <td><?php echo $fila1['nombreProvedor'] ?></td>
-                                                        <td><?php echo $fila1['telefono'] ?></td>
+                                                        <td><?php echo $fila1['nombre'] ?></td>
+                                                        <td><?php echo $fila1['fecha'] ?></td>
+                                                        <td><?php echo $fila1['estado'] ?></td>
+                                                        <td><?php echo $fila1['idPedidos'] ?></td>
+                                                        <td><?php echo $fila1['nombreCompleto'] ?></td>
+                                                        <td><?php echo $fila1['direccionResidencia'] ?></td>
+                                                        <td><?php echo $fila1['numeroTelefono'] ?></td>
+
                                                     </tr>
                                             <?php
                                                 }
@@ -590,16 +598,13 @@ $stmt->execute();
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Nombre Producto</th>
-                                                <th>Tipo</th>
-                                                <th>Descripcion</th>
-                                                <th>fecha Compra</th>
-                                                <th>Precio Unitario</th>
-                                                <th>Cantidad</th>
-                                                <th>Medida</th>
-                                                <th>total</th>
-                                                <th>Nombre Provedor</th>
-                                                <th>Telefono Provedor</th>
+                                                <th>Nombre Punto Venta</th>
+                                                <th>Fecha Entrega</th>
+                                                <th>estado</th>
+                                                <th>id pedido</th>
+                                                <th>Nombre Cliente</th>
+                                                <th>direccion Pedido</th>
+                                                <th>Numero Telefono</th>
                                                 <!-- <th>CSS grade</th> -->
                                             </tr>
                                         </tfoot>

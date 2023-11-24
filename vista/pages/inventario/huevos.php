@@ -294,6 +294,24 @@ $stmt->execute();
                     <p>Gastos</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaPedidos1.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedido 1</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaPedidos2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedido 2</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaPedidos3.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Pedido 3</p>
+                  </a>
+                </li>
 
               </ul>
             </li>
