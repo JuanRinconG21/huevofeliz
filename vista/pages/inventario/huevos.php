@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+session_start();
+include('../../../models/MySQL.php');
+// Paso 1: Preparar una consulta SQL usando consultas preparadas.
+$stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote, lotehuevo.tipoLote,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
+// Paso 2: Ejecutar la consulta preparada.
+$stmt->execute();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +13,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El huevo | Feliz</title>
+
+
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
@@ -260,29 +274,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../../pages/inventario/index.php" class="nav-link active">
+                  <a href="../../pages/inventario/huevos.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tablas</p>
+                    <p>Tabla Huevos y Lotes</p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="../../pages/charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>POS 2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>POS 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Reportes</p>
-                    </a>
-                  </li> -->
+
+                <li class="nav-item">
+                  <a href="../../pages/inventario/aves.php" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tabla Aves</p>
+                  </a>
+                </li>
+              
               </ul>
             </li>
             <li class="nav-item">
@@ -523,35 +527,77 @@
           <div class="row">
             <div class="col">
 
-              <table class="table table-bordered table-hover">
-                <thead>
+              <!-- <div class="dt-buttons btn-group flex-wrap">
+                <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button">
+                  <span>Copy</span></button>
+                   <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span>
+                  </button> <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span>
+                </button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span>
+              </button> <div class="btn-group"><button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true"><span>Column visibility</span><span class="dt-down-arrow"></span>
+            </button> -->
+           <!--  <button class="btn-secondary buttons-pdf buttons-html5"><span>PDF</span></button> -->
+           
+              <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Tabla de inventarios</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th>identificadorLote</th>
+                    <th>Tipo Lote</th>
+                    <th>Fecha Recoleccion </th>
+                    <th>Fecha Vencimiento </th>
+                    <th>Cantidad Huevos</th>
+                    <th>Tipo Huevo</th>
+                    <th>Precio Huevos</th>
+                    <!-- <th>CSS grade</th> -->
                   </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
+                    <?php
+
+                    //  Cerrar la conexión a la base de datos.
+                    $pdo = null;
+                    try {
+                      while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <tr>
+                                        <td><?php echo $fila['identificadorLote'] ?></td>
+                                        <td><?php echo $fila['tipoLote'] ?></td>
+                                        <td><?php echo $fila['fechaRecoleccion'] ?></td>
+                                        <td><?php echo $fila['fechaVencimiento'] ?></td>
+                                        <td><?php echo $fila['cantidadHuevos'] ?></td>
+                                        <td><?php echo $fila['Tipo'] ?></td>
+                                        <td><?php echo $fila['precio'] ?></td>
+                                    </tr>
+                  <?php 
+                  }   
+                    } catch (\Throwable $th) {
+                      echo "Error: " . $e->getMessage();
+                    }
+                    
+                    ?>
+                  </tbody>
+                  <tfoot>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                  <th>identificadorLote</th>
+                    <th>Tipo Lote</th>
+                    <th>Fecha fechaRecoleccion </th>
+                    <th>Fecha Vencimiento </th>
+                    <th>Cantidad Huevos</th>
+                    <th>Tipo Huevo</th>
+                    <th>Precio Huevos</th>
+                    <!-- <th>CSS grade</th> -->
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+              
             </div>
           </div>
 
@@ -613,6 +659,53 @@
   <script src="../../dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="../../dist/js/pages/dashboard.js"></script>
+
+
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+
+  <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["csv", "excel", "pdf", "print",]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+
+
+
 </body>
 
 </html>
