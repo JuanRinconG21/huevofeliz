@@ -827,8 +827,8 @@
       <?php
       if (isset($_SESSION["mensajeError"])) {
         echo  "Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
+        icon: 'error',
+        title: 'Error',
         text: '" . $_SESSION["mensajeError"] . "'
       });";
         unset($_SESSION["mensajeError"]);

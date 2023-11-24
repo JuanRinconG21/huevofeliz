@@ -23,7 +23,22 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
             $capturar->bindParam(":identificador",$identi,PDO::PARAM_STR);
             $capturar->execute();
             $idCap2 = $capturar->fetch(PDO::FETCH_ASSOC);
+            //capturo el Id del lote
             $idCap = $idCap2['idLoteHuevo'];
+            //CAPTURO LA CANTIDAD TOTAL DEL LOTE
+            $capturarMax= $pdo->prepare('SELECT cantidadMaxima FROM lotehuevo WHERE identificadorLote =:identificador');
+            $capturarMax->bindParam(":identificador",$identi,PDO::PARAM_STR);
+            $capturarMax->execute();
+            $capMax = $capturarMax->fetch(PDO::FETCH_ASSOC);
+            //capturo cantidad Maxima
+            $capciMax = $capMax['cantidadMaxima'];
+
+            //VALIDO QUE LA CANTIDAD INGRESADA NO SEA MAYOR A LA QUE HAY
+            if($cantidad > $capciMax){
+                // MENSAJE ERROR CAPACIDAD 
+                $_SESSION["mensajeError"] = "Error No hay suficiente Cantidad, Cantidad Actual :".$capciMax;
+                header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
+            }
             //INSERTO EN LA TABLA INGRESOS
             $insertar = $pdo->prepare('INSERT INTO ingresos 
             (cantidad,descuentos,PuntosVenta_idPuntosVenta,LoteHuevo_idLoteHuevo) 
@@ -32,13 +47,27 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
             $insertar->bindParam(":descu",$desc, PDO::PARAM_INT);
             $insertar->bindParam(":puntoVenta",$puntoVenta, PDO::PARAM_INT);
             $insertar->bindParam(":idLote",$idCap, PDO::PARAM_STR);
-            $insertar->execute();
-            $fila =  $insertar->fetch(PDO::FETCH_ASSOC);
-             // MENSAJE Exito IDENTIFICADOR 
-             $_SESSION["mensajeExitoso"] = "Exito Ingreso Agregado";
-            header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
-            
-            
+            $fila = $insertar->execute();
+
+            //RESTO A LA CANTIDAD TOTAL
+            $totalMax = $capciMax - $cantidad ;
+            //ACTUALIZO
+            $actualizar= $pdo->prepare("UPDATE lotehuevo SET cantidadMaxima = :nuevoMax WHERE idLoteHuevo= :idLote");
+            $actualizar->bindParam(":nuevoMax",$totalMax, PDO::PARAM_STR);
+            $actualizar->bindParam(":idLote",$idCap, PDO::PARAM_STR);
+            $actualizar->execute();
+
+            //VALIDO LA CONSULTA
+            if($fila && $insertar->rowCount() > 0){
+                    // MENSAJE Exito IDENTIFICADOR 
+                    $_SESSION["mensajeExitoso"] = "Exito Ingreso Agregado";
+                    header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
+            }else{
+                    // MENSAJE Exito IDENTIFICADOR 
+                    $_SESSION["mensajeError"] = "Error en la Consulta";
+                    header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
+            }
+             
         }else{
              // MENSAJE ERROR IDENTIFICADOR 
             $_SESSION["mensajeError"] = "Error El Identificador del Lote No existe";
