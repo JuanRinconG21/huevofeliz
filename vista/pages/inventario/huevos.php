@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 include('../../../models/MySQL.php');
 // Paso 1: Preparar una consulta SQL usando consultas preparadas.
-$conexion= New MySQL();
-$pdo=$conexion->conectar();
-$stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote, lotehuevo.tipoLote,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
+$stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote, lotehuevo.tipoLote,lotehuevo.cantidadMaxima,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
 // Paso 2: Ejecutar la consulta preparada.
 $stmt->execute();
 ?>
@@ -294,7 +294,7 @@ $stmt->execute();
                     <p>Gastos</p>
                   </a>
                 </li>
-              
+
               </ul>
             </li>
             <li class="nav-item">
@@ -514,8 +514,8 @@ $stmt->execute();
               <h1 class="m-0">Gerente Administrativo</h1>
             </div>
             <!-- /.col -->
-            
-           
+
+
           </div>
           <!-- /.row -->
         </div>
@@ -537,69 +537,72 @@ $stmt->execute();
                 </button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span>
               </button> <div class="btn-group"><button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true"><span>Column visibility</span><span class="dt-down-arrow"></span>
             </button> -->
-           <!--  <button class="btn-secondary buttons-pdf buttons-html5"><span>PDF</span></button> -->
-           
-              <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Tabla de inventarios</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>identificadorLote</th>
-                    <th>Tipo Lote</th>
-                    <th>Fecha Recoleccion </th>
-                    <th>Fecha Vencimiento </th>
-                    <th>Cantidad Huevos</th>
-                    <th>Tipo Huevo</th>
-                    <th>Precio Huevos</th>
-                    <!-- <th>CSS grade</th> -->
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php
+              <!--  <button class="btn-secondary buttons-pdf buttons-html5"><span>PDF</span></button> -->
 
-                    //  Cerrar la conexión a la base de datos.
-                    $pdo = null;
-                    try {
-                      while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-                        <tr>
-                                        <td><?php echo $fila['identificadorLote'] ?></td>
-                                        <td><?php echo $fila['tipoLote'] ?></td>
-                                        <td><?php echo $fila['fechaRecoleccion'] ?></td>
-                                        <td><?php echo $fila['fechaVencimiento'] ?></td>
-                                        <td><?php echo $fila['cantidadHuevos'] ?></td>
-                                        <td><?php echo $fila['Tipo'] ?></td>
-                                        <td><?php echo $fila['precio'] ?></td>
-                                    </tr>
-                  <?php 
-                  }   
-                    } catch (\Throwable $th) {
-                      echo "Error: " . $e->getMessage();
-                    }
-                    
-                    ?>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                  <th>identificadorLote</th>
-                    <th>Tipo Lote</th>
-                    <th>Fecha fechaRecoleccion </th>
-                    <th>Fecha Vencimiento </th>
-                    <th>Cantidad Huevos</th>
-                    <th>Tipo Huevo</th>
-                    <th>Precio Huevos</th>
-                    <!-- <th>CSS grade</th> -->
-                  </tr>
-                  </tfoot>
-                </table>
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Tabla de inventarios</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>identificadorLote</th>
+                        <th>Tipo Lote</th>
+                        <th>Cantidad del lote</th>
+
+                        <th>Fecha Vencimiento </th>
+
+                        <th>Tipo Huevo</th>
+                        <th>Precio Huevos</th>
+                        <!--<th>CSS grade</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+
+                      //  Cerrar la conexión a la base de datos.
+                      $pdo = null;
+                      try {
+                        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                          <tr>
+                            <td><?php echo $fila['identificadorLote'] ?></td>
+                            <td><?php echo $fila['tipoLote'] ?></td>
+                            <td><?php echo $fila['cantidadMaxima'] ?></td>
+
+                            <td><?php echo $fila['fechaVencimiento'] ?></td>
+
+                            <td><?php echo $fila['Tipo'] ?></td>
+                            <td><?php echo $fila['precio'] ?></td>
+                          </tr>
+                      <?php
+                        }
+                      } catch (\Throwable $th) {
+                        echo "Error: " . $e->getMessage();
+                      }
+
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>identificadorLote</th>
+                        <th>Tipo Lote</th>
+                        <th>Cantidad del lote</th>
+
+                        <th>Fecha Vencimiento </th>
+
+                        <th>Tipo Huevo</th>
+                        <th>Precio Huevos</th>
+                        <!-- <th>CSS grade</th> -->
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.card-body -->
               </div>
-              <!-- /.card-body -->
-            </div>
-              
+
             </div>
           </div>
 
@@ -664,41 +667,44 @@ $stmt->execute();
 
 
   <script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables  & Plugins -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../plugins/jszip/jszip.min.js"></script>
-<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../plugins/jszip/jszip.min.js"></script>
+  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../dist/js/demo.js"></script>
   <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["csv", "excel", "pdf", "print",]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
+    $(function() {
+      $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["csv", "excel", "pdf", "print", ]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+      });
     });
-  });
-</script>
+  </script>
 </body>
+
 </html>
