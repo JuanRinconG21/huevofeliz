@@ -654,10 +654,11 @@
                                 <th>Rechazar Pedido</th>
                               </thead>
                               <tbody>
+                               
                               <tr>
-                              <td>1785</td>
-                                <td>12/11/2023 - 14:30</td>
-                                <td>Mercamos</td>
+                                <td>bfb</td>
+                                <td>ddd</td>
+                                <td>dddd</td>
                                 <td>Calle 34 #5</td>
                                 <td>4</td>
                                 <td>100 huevos</td>
@@ -666,18 +667,9 @@
                                 <td><button type="button" class="btn btn-primary" >Confirmar Pedido</button></td>
                                 <td><button type="button" class="btn btn-danger" >Rechazar Pedido</button></td>
                               </tr>
-                              <tr>
-                              <td>1786</td>
-                                <td>12/11/2023 - 15:30</td>
-                                <td>Super Inter</td>
-                                <td>Calle 35 #5</td>
-                                <td>4</td>
-                                <td>100 huevos</td>
-                                <td>Transferencia electrónica</td>
-                                <td>Pendiente</td>
-                                <td><button type="button" class="btn btn-primary">Confirmar Pedido</button></td>
-                                <td><button type="button" class="btn btn-danger">Rechazar Pedido</button></td>
-                              </tr>
+                             
+                            
+                        
                               </tbody>
                               <tfoot>
                               <tr>
