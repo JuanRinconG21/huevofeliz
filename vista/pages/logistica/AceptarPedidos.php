@@ -424,6 +424,7 @@ $stmt->execute();
                       <p>jsGrid</p>
                     </a>
                   </li> -->
+<<<<<<< HEAD
               </ul>
             </li>
             <li class="nav-header">FECHAS</li>
@@ -530,6 +531,282 @@ $stmt->execute();
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
+=======
+                </ul>
+              </li>
+              <li class="nav-header">FECHAS</li>
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Correos
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="../../pages/mailbox/mailbox.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Recibidos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/mailbox/compose.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Enviar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/mailbox/read-mail.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Read</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    Pages
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="../../pages/examples/invoice.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Invoice</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/profile.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Profile</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/e-commerce.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>E-commerce</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/projects.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Projects</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/project-add.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Project Add</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/project-edit.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Project Edit</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="../../pages/examples/project-detail.html"
+                      class="nav-link"
+                    >
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Project Detail</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/contacts.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Contacts</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/faq.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>FAQ</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="../../pages/examples/contact-us.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Contact us</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!--contenido del Inicio. -->
+      <div class="content-wrapper">
+          <!-- Cabecera de la pagina del cuerpo index (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1 class="m-0 mb-3 text-center">Confirmar Pedidos</h1>
+                  <div class="card mb-5">
+                      <div class="card-header">
+                        <h3 class="card-title">Tabla Pedidos Pendientes</h3>
+                      </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                              <thead>
+                              <tr>
+                              <th>Id Pedido</th>
+                                <th>Fecha Creación</th>
+                                <th>Nombre Cliente</th>
+                                <th>Dirección</th>
+                                <th>Id Lote</th>
+                                <th>Cantidad</th>
+                                <th>Tipo de Pago</th>
+                                <th>Estado</th>
+                                <th>Aceptar Pedido</th>
+                                <th>Rechazar Pedido</th>
+                              </thead>
+                              <tbody>
+                               
+                              <tr>
+                                <td>bfb</td>
+                                <td>ddd</td>
+                                <td>dddd</td>
+                                <td>Calle 34 #5</td>
+                                <td>4</td>
+                                <td>100 huevos</td>
+                                <td>Transferencia electrónica</td>
+                                <td>Pendiente</td>
+                                <td><button type="button" class="btn btn-primary" >Confirmar Pedido</button></td>
+                                <td><button type="button" class="btn btn-danger" >Rechazar Pedido</button></td>
+                              </tr>
+                             
+                            
+                        
+                              </tbody>
+                              <tfoot>
+                              <tr>
+                              <th>Id Pedido</th>
+                                <th>Fecha Creación</th>
+                                <th>Nombre Cliente</th>
+                                <th>Dirección</th>
+                                <th>Id Lote</th>
+                                <th>Cantidad</th>
+                                <th>Tipo de Pago</th>
+                                <th>Estado</th>
+                                <th>Aceptar Pedido</th>
+                                <th>Rechazar Pedido</th>
+                              </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                          <!-- /.card-body -->
+                  </div>
+                </div><!-- /.col -->
+              </div> <!-- /.row -->
+
+             
+
+              <div class="row">
+                    <div class="col-sm-12">
+                      <h1 class="m-0 mb-3 mt-3 text-center">Pedidos Confirmados</h1>
+                      <div class="card mb-5">
+                          <div class="card-header">
+                            <h3 class="card-title">Tabla De Pedidos Confirmados</h3>
+                          </div>
+                              <!-- /.card-header -->
+                              <div class="card-body">
+                                <table id="example3" class="table table-bordered table-striped">
+                                  <thead>
+                                  <tr>
+                                  <th>Id Pedido</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Dirección</th>
+                                    <th>Id Lote</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo de Pago</th>
+                                    <th>Estado</th>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                  <td>1785</td>
+                                    <td>12/11/2023 - 14:30</td>
+                                    <td>Mercamos</td>
+                                    <td>Calle 34 #5</td>
+                                    <td>4</td>
+                                    <td>100 huevos</td>
+                                    <td>Transferencia electrónica</td>
+                                    <td>Confirmado</td>
+                                  </tr>
+                                  <tr>
+                                  <td>1786</td>
+                                    <td>12/11/2023 - 15:30</td>
+                                    <td>Super Inter</td>
+                                    <td>Calle 35 #5</td>
+                                    <td>4</td>
+                                    <td>100 huevos</td>
+                                    <td>Transferencia electrónica</td>
+                                    <td>Confirmado</td>
+                                  </tr>
+                                  </tbody>
+                                  <tfoot>
+                                  <tr>
+                                  <th>Id Pedido</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Dirección</th>
+                                    <th>Id Lote</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo de Pago</th>
+                                    <th>Estado</th>
+                                  </tr>
+                                  </tfoot>
+                                </table>
+                              </div>
+                              <!-- /.card-body -->
+                      </div><!-- /.card -->
+                    </div><!-- /.col -->
+              </div> <!-- /.row -->
+
+
+
+
+            </div><!-- /.container-fluid -->
+          </div> <!-- /.content-header -->
+      </div>  <!-- /.content-wrapper -->
+    
+
+
+      <!-- Incio Modal Para Agregar Al conductor al envio del pedido -->
+      
+      
+
+      <!-- Fin Modal Para Agregar al conductor al envio del pedido -->
+
+
+        <!-- /Fin de la cabecera del cuerpo index-header -->
+
+        <!-- Cuerpo del contenido -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+              </div>
+           sfsfs
+            </div>
+          </div>
+          <!-- / fin del cuerpo del contenido container-fluid -->
+        </section>
+        <!-- /  cierre del section todo el cuerpo del index-->
+>>>>>>> 44a84f253e0fd09417521e358ed10432087c0bb3
       </div>
       <!-- /.sidebar -->
     </aside>
