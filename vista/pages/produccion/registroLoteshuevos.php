@@ -315,6 +315,14 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/proovedor.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Proovedores</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">

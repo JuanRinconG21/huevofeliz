@@ -6,16 +6,20 @@ include('../../../models/MySQL.php');
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
 
-
-//traigo las aves
-$sql = "SELECT * from `vacunas`;";
+// traigo las compras para listar en la tabla
+$sql = "SELECT * FROM `proveedor`";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
+//traigo los proovedores
+$sql1 = "SELECT * from `proveedor`;";
+$stmt1 = $pdo->prepare($sql1);
+$stmt1->execute();
+$fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,9 +48,12 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css" />
     <!-- summernote -->
     <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css" />
+
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -273,7 +280,7 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <li class="nav-item">
                                     <a href="../produccion/registroLotesAves.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Lote de aves</p>
+                                        <p>Registro lote de aves</p>
                                     </a>
                                 </li>
                             </ul>
@@ -559,7 +566,55 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- /.sidebar -->
         </aside>
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensaje'] ?>'
+                let titulo = '<?php echo $_SESSION['mensaje2'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'success'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensaje']);
+        }
+        ?>
 
+        <?php
+        if (isset($_SESSION['mensajeErr'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+                let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'success'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensajeErr']);
+        }
+        ?>
+        <?php
+        if (isset($_SESSION['mensajeErr3'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensajeErr4'] ?>'
+                let titulo = '<?php echo $_SESSION['mensajeErr3'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'error'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensajeErr3']);
+        }
+        ?>
         <!--contenido del Inicio. -->
         <div class="content-wrapper">
             <!-- Cabecera de la pagina del cuerpo index (Page header) -->
@@ -567,7 +622,7 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-12">
-                            <h1 style="text-align: center;" class="m-0">Seguimiento de salud de las aves</h1>
+                            <h1 style="text-align: center;" class="m-0">Registrar al proovedor </h1>
                         </div>
                         <!-- /.col -->
 
@@ -584,36 +639,80 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
+                                Registrar el proovedor
+                            </button>
 
+                            <div class="modal fade" id="modal-lg">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Registrar al proovedor</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="../../../controller/proovedor1.php" method="post">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Id del proveedor</label>
+                                                        <input name="idProveedor" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre del producto">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Nombre del proveedor</label>
+                                                        <input name="nombre" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Tipo de producto">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Telefono</label>
+                                                         <input name="telefono" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Tipo de producto">
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
 
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             <hr>
-                            <h1 style="text-align: center;"></h1>
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Id de vacunas</th>
-                                            <th>Vacunas</th>
-                                            <th>Entorno</th>
-                                            <th>Sintomas</th>
-                                            <th>Id ave</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($fila as $seguimiento) { ?>
+                            <h1 style="text-align: center;">Lista de los proovedores registrados</h1>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">DataTable with default features</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
                                             <tr>
-                                                <td scope="row"><?php echo $seguimiento['idVacunas'] ?></td>
-                                                <td><?php echo $seguimiento['vacunas'] ?></td>
-                                                <td><?php echo $seguimiento['entorno'] ?></td>
-                                                <td><?php echo $seguimiento['sintomas'] ?></td>
-                                                <td><?php echo $seguimiento['Aves_idAves'] ?></td>
+                                                <th>Id Compras</th>
+                                                <th>Nombre producto</th>
+                                                <th>Tipo</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($fila as $proovedor) { ?>
+                                                <tr>
+                                                    <td scope="row"><?php echo $proovedor['idProveedor']  ?></td>
+                                                    <td><?php echo $proovedor['nombre']  ?></td>
+                                                    <td><?php echo $proovedor['telefono']  ?></td>
+                                                    
+                                                    
+                                                <?php } ?>
 
-                                            <?php } ?>
+                                                </tr>
+                                        </tbody>
 
-                                    </tbody>
-
-                                </table>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
                             <!-- /.card-header -->
 
@@ -621,27 +720,26 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
+                <!-- / fin del cuerpo del contenido container-fluid -->
+            </section>
+            <!-- /  cierre del section todo el cuerpo del index-->
         </div>
-        <!-- / fin del cuerpo del contenido container-fluid -->
-        </section>
-        <!-- /  cierre del section todo el cuerpo del index-->
-    </div>
-    <!-- /.fin del contenedor general -wrapper -->
+        <!-- /.fin del contenedor general -wrapper -->
 
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021
-            <a href="https://adminlte.io">Adso.Work</a>.</strong>
-        Todos los derechos Reservados
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 0.0.1
-        </div>
-    </footer>
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2014-2021
+                <a href="https://adminlte.io">Adso.Work</a>.</strong>
+            Todos los derechos Reservados
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 0.0.1
+            </div>
+        </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
@@ -678,8 +776,6 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="../../dist/js/pages/dashboard.js"></script>
-
     <script src="../../dist/js/pages/dashboard.js"></script>
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

@@ -18,7 +18,6 @@ if (
     isset($_POST['cantidad']) && !empty($_POST['cantidad']) &&
     isset($_POST['medida']) && !empty($_POST['medida']) &&
     isset($_POST['total']) && !empty($_POST['total'])
-
 ) {
     try {
         //llamo el formulario y lo pongo en variables
@@ -31,14 +30,7 @@ if (
         $medida = $_POST['medida'];
         $total = $_POST['total'];
         $proveedor = $_POST['proveedor'];
-        /* echo $nombreProducto;
-        echo $tipo; */
-        /* echo $fechaCompra; */
-        /* echo $descripcion; */
-        echo $precioUnitario;
-        echo $cantidad;
-        echo $total;
-        echo $proveedor;
+        
         //llamo el modelo
         include('../models/MySQL.php');
         $conexion = new MySQL();
@@ -62,7 +54,7 @@ if (
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (Exception $e) {
         echo $e;
-        /* header("Location: ../vista/pages/produccion/compras.php"); */
+         header("Location: ../vista/pages/produccion/compras.php");
         $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
         $_SESSION['mensajeErr3'] = "Error";
     }

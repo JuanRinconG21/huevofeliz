@@ -6,13 +6,19 @@ include('../../../models/MySQL.php');
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
 
-
-//traigo los lotes
-$sql = "SELECT * FROM `loteaves`";
+// traigo las compras para listar en la tabla
+$sql = "SELECT idCompras,nombreProducto,tipo,descripcion,fechaCompra,precioUnitario,cantidad,medida,total, proveedor.nombre FROM compras JOIN proveedor ON compras.Proveedor_idProveedor = Proveedor_idProveedor; ";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//traigo los proovedores
+$sql1 = "SELECT * from `proveedor`;";
+$stmt1 = $pdo->prepare($sql1);
+$stmt1->execute();
+$fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -299,6 +305,22 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <a href="../produccion/seguimientoSalud.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Seguimiento de Salud</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/compras.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Compras</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/proovedor.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Proovedores</p>
                                     </a>
                                 </li>
                             </ul>
@@ -665,9 +687,9 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Proovedor</label>
                                                         <select name="proveedor" class="custom-select form-control-border" id="exampleSelectBorder">
-                                                            <option>A
-                                                            <option>AA
-                                                            <option>AAA
+                                                            <?php foreach ($fila1 as $proovedor) { ?>
+                                                                <option value="<?php echo $proovedor['idProveedor'] ?>"><?php echo $proovedor['nombre'] ?></option>
+                                                            <?php } ?>
 
                                                         </select>
                                                     </div>
@@ -696,16 +718,31 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id lote ave</th>
-                                                <th>Nombre</th>
-
+                                                <th>Id Compras</th>
+                                                <th>Nombre producto</th>
+                                                <th>Tipo</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha Compra</th>
+                                                <th>Precio Unitario</th>
+                                                <th>Cantidad</th>
+                                                <th>Medida</th>
+                                                <th>Total</th>
+                                                <th>Proovedor</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($fila as $loteAves) { ?>
+                                            <?php foreach ($fila as $compras) { ?>
                                                 <tr>
-                                                    <td scope="row"><?php echo $loteAves['idLoteAves']  ?></td>
-                                                    <td><?php echo $loteAves['nombre']  ?></td>
+                                                    <td scope="row"><?php echo $compras['idCompras']  ?></td>
+                                                    <td><?php echo $compras['nombreProducto']  ?></td>
+                                                    <td><?php echo $compras['tipo']  ?></td>
+                                                    <td><?php echo $compras['descripcion']  ?></td>
+                                                    <td><?php echo $compras['fechaCompra']  ?></td>
+                                                    <td><?php echo $compras['precioUnitario']  ?></td>
+                                                    <td><?php echo $compras['cantidad']  ?></td>
+                                                    <td><?php echo $compras['medida']  ?></td>
+                                                    <td><?php echo $compras['total']  ?></td>
+                                                    <td><?php echo $compras['nombre']?></td>
                                                 <?php } ?>
 
                                                 </tr>

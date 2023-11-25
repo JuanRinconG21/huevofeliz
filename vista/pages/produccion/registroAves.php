@@ -7,15 +7,20 @@ $conexion = new MySQL();
 $pdo = $conexion->conectar();
 
 
-//traigo las aves
-$sql = "SELECT * FROM `aves`";
+//traigo las aves activas
+$sql = "SELECT * from `aves` where fechaDeRetiro is null";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//traigo las aves activas
+//traigo las aves inactivas
+$sql4 = "SELECT * FROM aves WHERE fechaDeRetiro is NOT Null; ";
+$stmt4 = $pdo->prepare($sql4);
+$stmt4->execute();
+$fila4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+//traigo las aves 
 
-$sql3 = "SELECT * from `aves` where fechaDeRetiro is null";
+$sql3 = "SELECT * from `aves`";
 $stmt3 = $pdo->prepare($sql3);
 $stmt3->execute();
 $fila3 = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -330,7 +335,16 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../produccion/proovedor.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Proovedores</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -680,11 +694,11 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de vacunacion</label>
-                                                        <input type="date" name="fechaVa" class="form-control" id="exampleInputPassword1">
+                                                        <input type="datetime-local" name="fechaVa" class="form-control" id="exampleInputPassword1">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de Ingreso</label>
-                                                        <input type="date" name="fechaIn" class="form-control" id="exampleInputPassword1">
+                                                        <input type="datetime-local" name="fechaIn" class="form-control" id="exampleInputPassword1">
                                                     </div>
 
 
@@ -748,7 +762,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         Seguimiento de salud
                                                     </button></td>
 
-                                                <td><?php echo $aves['fechaDeRetiro'] ?><button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                                                <td><button value="<?php echo $aves['idAves'] ?>" style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default<?php echo $aves['idAves'] ?>">
                                                         <i class="bi bi-calendar-date"></i>
                                                     </button></td>
 
@@ -762,16 +776,13 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="modal-body">
                                                                 <form action="../../../controller/seguimientoSalud.php" method="post">
                                                                     <div class="card-body">
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputEmail1">Id de la vacuna</label>
-                                                                            <input name="idVacuna" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
-                                                                        </div>
+
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Nombre de la vacuna</label>
                                                                             <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
 
 
-                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
 
                                                                         </div>
                                                                         <div class="form-group">
@@ -787,6 +798,47 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleSelectBorder">ID ave</label>
+                                                                            <select name="proveedor" class="custom-select form-control-border" id="idAve">
+                                                                                <?php foreach ($fila as $aves) { ?>
+                                                                                    <option value="<?php echo $aves['idAves'] ?>"><?php echo $aves['idAves'] ?></option>
+                                                                                <?php } ?>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <div class="modal fade" id="modal-default<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Fecha de retiro del ave</h4>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/fechaRetiroave.php" method="post">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputPassword1">Fecha de Retiro</label>
+                                                                            <input type="datetime-local" name="fechaRe" class="form-control" id="exampleInputPassword1">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                        <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" hidden  class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">
@@ -802,17 +854,15 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                             <?php } ?>
-
                                     </tbody>
-
                                 </table>
                             </div>
                             <!-- /.card-header -->
 
-                            <h1 style="text-align: center;">Aves Pensionadas</h1>
+                            <h1 style="text-align: center;">Aves Inactivas</h1>
                             <br>
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example3" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Id ave</th>
@@ -828,7 +878,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($fila as $aves) { ?>
+                                        <?php foreach ($fila4 as $aves) { ?>
                                             <tr>
                                                 <td scope="row"><?php echo $aves['idAves'] ?></td>
                                                 <td><?php echo $aves['especie'] ?></td>
@@ -842,8 +892,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         Seguimiento de salud
                                                     </button></td>
 
-                                                <td><?php echo $aves['fechaDeRetiro'] ?><button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                                                        <i class="bi bi-calendar-date"></i>
+                                                <td><?php echo $aves['fechaDeRetiro'] ?>
+                                                        
                                                     </button></td>
 
                                                 <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
@@ -856,16 +906,13 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="modal-body">
                                                                 <form action="../../../controller/seguimientoSalud.php" method="post">
                                                                     <div class="card-body">
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputEmail1">Id de la vacuna</label>
-                                                                            <input name="idVacuna" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
-                                                                        </div>
+
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Nombre de la vacuna</label>
                                                                             <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
 
 
-                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
 
                                                                         </div>
                                                                         <div class="form-group">
@@ -881,6 +928,47 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleSelectBorder">ID ave</label>
+                                                                            <select name="proveedor" class="custom-select form-control-border" id="idAve">
+                                                                                <?php foreach ($fila as $aves) { ?>
+                                                                                    <option value="<?php echo $aves['idAves'] ?>"><?php echo $aves['idAves'] ?></option>
+                                                                                <?php } ?>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <div class="modal fade" id="modal-default<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Fecha de retiro del ave</h4>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/fechaRetiroave.php" method="post">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputPassword1">Fecha de Retiro</label>
+                                                                            <input type="date" name="fechaRe" class="form-control" id="exampleInputPassword1">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                        <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">
@@ -896,40 +984,11 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                             <?php } ?>
-
                                     </tbody>
-
                                 </table>
                             </div>
-                            <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Fecha de retiro del ave</h4>
 
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="../../../controller/registroAves.php" method="post">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Fecha de Retiro</label>
-                                                        <input type="date" name="fechaRe" class="form-control" id="exampleInputPassword1">
-                                                    </div>
 
-                                                </div>
-                                                <!-- /.card-body -->
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
                             <!-- /.card-body -->
                         </div>
                     </div>
@@ -1015,6 +1074,25 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $("#example3").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+            $('#example4').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": false,
