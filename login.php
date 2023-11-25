@@ -10,27 +10,27 @@
 <body>
     <div class="container">
         <div class="sign-up-wrapper">
-            <form id="form">
+            <form id="form" action="./controller/registro.php" method="POST">
                 <h1>Crear Cuenta</h1>
                 <div class="social">
                 </div>
                 <div class="input-group">
-                    <input type="text" placeholder="usuario" id="">
-                    <input type="email" placeholder="email" id="">
-                    <input type="password" placeholder="password" id="">
+                    <input type="text" placeholder="nombre completo" id="" name="nombre">
+                    <input type="text" placeholder="telefono" id="" name="telefono">
+                    <input type="email" placeholder="email" id="" name="email">
+                    <input type="text" placeholder="direccion" id="" name="direccion">
+                    <input type="password" placeholder="contraseña" id="" name="password">
                     
-                    <select id="opciones" name="opciones">
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
+                    <select id="opciones" name="rol" placeholder="elige el rol">
+                        <option value="1">Cliente</option>
+                        <option value="2">Cliente Empresarial</option>
                     </select>
                     <button class="overlay-btn">Registrar</button>
                 </div>
             </form>
         </div>
         <div class="sign-in-wrapper">
-            <form>
+            <form action="./controller/login.php" method="POST">
                 <img src="./assets/images/oie_transparent.png" class="mi-imagen">
                 <div class="social">
                     <div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <input type="text" placeholder="usuario" id="">
+                    <input type="email" placeholder="email" id="">
                     <input type="password" placeholder="password" id="">
                     <button class="overlay-btn">Ingresar</button>
                 </div>

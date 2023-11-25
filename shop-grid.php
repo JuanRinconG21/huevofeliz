@@ -152,8 +152,8 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class='bx bxs-heart' ></i> <span>1</span></a></li>
-                            <li><a href="#"><i class='bx bxs-cart-alt'></i> <span>3</span></a></li>
+                            <li><a href="#"><i class='bx bxs-heart' ></i> <span>0</span></a></li>
+                            <li><a href="#"><i class='bx bxs-cart-alt'></i> <span>0</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$0</span></div>
                     </div>
