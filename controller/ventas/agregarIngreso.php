@@ -32,7 +32,7 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
             $capMax = $capturarMax->fetch(PDO::FETCH_ASSOC);
             //capturo cantidad Maxima
             $capciMax = $capMax['cantidadMaxima'];
-
+            echo $capciMax;
             //VALIDO QUE LA CANTIDAD INGRESADA NO SEA MAYOR A LA QUE HAY
             if($cantidad > $capciMax){
                 // MENSAJE ERROR CAPACIDAD 

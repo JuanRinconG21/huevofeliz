@@ -1,5 +1,18 @@
 <?php 
  session_start();
+  //llamo la conexion a la BD
+  require_once '../../../models/MySQL.php';  
+  // Intenta crear una instancia de la clase MySQL y establecer la conexión
+  $conexion = new Mysql();
+  $pdo = $conexion->conectar();
+  //TRAIGO INVENTARIO ACTUAL
+  $traerDesc= $pdo->prepare('SELECT lotehuevo.identificadorLote,lotehuevo.tipoLote,
+  lotehuevo.fechaVencimiento,ingresos.cantidad,ingresos.idIngresos,
+  ingresos.descuentos
+  FROM ingresos
+  INNER JOIN lotehuevo ON ingresos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo');
+  $traerDesc->execute();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,14 +57,14 @@
     <!-- summernote -->
     <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css" />
     <!-- Select2 -->
-  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- DataTables -->
-  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+      <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+      <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        <!-- DataTables -->
+      <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+      <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+      <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+      <!-- bootstrap -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -611,9 +624,9 @@
         <!-- Cabecera de la pagina del cuerpo index (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row mb-2 d-flex justify-content-center">
               <div class="col-sm-6">
-                <h1 class="m-0">Ingresos de Ventas 1</h1>
+                <h1 class="m-0 text-center fw-bold">INGRESO DE VENTAS 1</h1>
               </div>
               <!-- /.col -->
             </div>
@@ -621,11 +634,11 @@
           </div>
           <!-- /.container-fluid -->
         </div>
-          <div class="row">
+          <div class="row d-flex justify-content-center">
                 <!-- general form elements disabled -->
-            <div class="card card-success m-4 col-6">
-              <div class="card-header">
-                <h3 class="card-title">Registro de Ingresos al Local</h3>
+            <div class="card card-success m-4 col-6 px-0">
+              <div class="card-header ">
+                <h3 class="card-title ">Registro de Ingresos al Local</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -645,7 +658,6 @@
               <!-- /.card-body -->
             </div>
           </div>
-          
           <!-- Table Descuentos-->
           <div class="row m-2">
             <div class="card col-12">
@@ -662,22 +674,61 @@
                     <th>Tipo de Huevo</th>
                     <th>Fecha Vencimiento</th>
                     <th>Cantidad</th>
-                    <th>Valor Panal</th>
                     <th>Descuento</th>
                     <th>Generar Descuento</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Local 1 Huevo Feliz</td>
-                    <td>GH-10097</td>
-                    <td>AAA</td>
-                    <td>5/12/2023-8:00:00</td>
-                    <td>609</td>
-                    <td>25.700</td>
-                    <td>0%</td>
-                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-percent" data-toggle="modal" data-target="#descuento"></button></td>
-                  </tr>
+                  <?php while ($fila = $traerDesc->fetch(PDO::FETCH_ASSOC)) { ?>
+                        <tr>
+                          <th>Local 1</th> 
+                          <th scope="row"> <?php echo $fila['identificadorLote'] ?></th>
+                          <th scope="row"> <?php echo $fila['tipoLote'] ?></th>
+                          <th scope="row"> <?php echo $fila['fechaVencimiento'] ?></th>
+                          <th scope="row"> <?php echo $fila['cantidad'] ?></th>
+                          <th scope="row"> <?php echo $fila['descuentos'] ?></th>
+                          <td class="text-center">
+                          <button type="button" class="btn btn-danger bi bi-percent" 
+                          data-toggle="modal" data-target="#descuento<?php echo $fila['idIngresos'] ?>">
+                          </button></td>
+                              <!-- modales -->
+                              <div class="modal fade" id="descuento<?php echo $fila['idIngresos'] ?>">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Cantidad a Recibir</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <form action="../../../controller/ventas/agregarDesc.php" method="POST">
+                                    <div class="modal-body">
+                                      <!-- TOTAL RECIBIDO -->
+                                      <div class="form-group" style="width: 80%;">
+                                          <label>DESCUENTO %:</label>
+
+                                          <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fa fa-plus"></i></span>
+                                            </div>
+                                            <input type="number" name="descuento" class="form-control"  data-mask name="recibido">
+                                            <input type="text" name="idIngresos" value="<?php echo $fila['idIngresos'] ?>" hidden>
+                                          </div>
+                                          <!-- /.input group -->
+                                      </div>
+                                   </div>
+                                    <div class="modal-footer justify-content-between">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                      <button type="submit" class="btn btn-primary bi bi-cash-coin">  Comprar</button>
+                                    </div>
+                                    </form>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                        </tr>
+                      <?php } ?>
                   </tbody>
                   <tfoot>
                   <tr>
@@ -686,7 +737,6 @@
                     <th>Tipo de Huevo</th>
                     <th>Fecha Vencimiento</th>
                     <th>Cantidad</th>
-                    <th>Valor Panal</th>
                     <th>Descuento</th>
                     <th>Generar Descuento</th>
                   </tr>

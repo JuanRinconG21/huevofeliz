@@ -1,5 +1,23 @@
 <?php 
  session_start();
+  //llamo la conexion a la BD
+  require_once '../../../models/MySQL.php';  
+  // Intenta crear una instancia de la clase MySQL y establecer la conexión
+  $conexion = new Mysql();
+  $pdo = $conexion->conectar();
+  //TRAIGO INVENTARIO ACTUAL
+  $traer= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
+  correoElectronico,direccion,pass,cedula 
+  FROM clientes');
+  $traer->execute();
+
+  $cd=$_SESSION['cedula'];
+  //TRAER POR CEDULA
+  $traerCedula= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
+  correoElectronico,direccion,pass,cedula 
+  FROM clientes WHERE cedula=:cedula');
+  $traerCedula->bindParam(":cedula",$cd,PDO::PARAM_INT);
+  $traerCedula->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -613,7 +631,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Puesto de Ventas 1</h1>
+                <h1 class="m-0">Punto de Ventas 1</h1>
               </div>
               <!-- /.col -->
             </div>
@@ -646,27 +664,32 @@
                         <!-- productos inventario -->
                       <div class="form-group">
                               <label>Cedula Cliente</label>
-                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 80%;">
-                                    <option selected="selected"></option>
-                                    <option>1113858848</option>
-                                    <option>31427280</option>
-                                    <option>....</option>
+                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" 
+                              style="width: 80%;" name="cedula" id="opciones">
+                                <option selected></option>
+                                <?php while ($fila2 = $traer->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    <option value="<?php echo $fila2["cedula"]; ?>">
+                                      <?php $_SESSION['cedula']=$fila2["cedula"];?>
+                                      <?php echo $fila2['cedula'] ?>
+                                    </option>
+                                <?php } ?>
                               </select>
                       </div>
                     </div>
                     <!-- /.form-group -->
                   </div>
-                   <!-- nombre  -->
-                    <div class="form-group" style="width: 60%; ">
+                  <?php while ($fila3 = $traerCedula->fetch(PDO::FETCH_ASSOC)) { ?>
+                      <!-- nombre  -->
+                      <div class="form-group" style="width: 60%; ">
                         <label>Nombre:</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
                           </div>
-                          <input type="text" class="form-control" disabled value="chimbolas">
+                          <input type="text" class="form-control" disabled value="<?php echo $fila3['nombreCompleto'] ?>">
                         </div>
                         <!-- /.input group -->
-                    </div>
+                      </div>
                       <!-- telefono mask -->
                       <div class="form-group" style="width: 60%; ">
                         <label>Telefono:</label>
@@ -674,21 +697,22 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-mobile" ></i></span>
                           </div>
-                          <input type="text" class="form-control" disabled value="(666)88577">
-                      </div>
-                        <!-- /.input group -->
+                          <input type="text" class="form-control" disabled value="<?php echo $fila3['numeroTelefono'] ?>">
+                        </div>
                       </div>
                       <!-- email mask -->
                       <div class="form-group" style="width: 60%; ">
                         <label>Email:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
+                              </div>
+                            <input type="text" class="form-control" disabled value="<?php echo $fila3['correoElectronico'] ?>">
                           </div>
-                          <input type="text" class="form-control" disabled value="chimbolas@example.com">
                       </div>
-                        <!-- /.input group -->
-                      </div>
+
+                    <?php } ?>
+                   
                 </div>
                   <!-- /.card-body -->
                 </div>  
@@ -1001,6 +1025,8 @@
       <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
       <!-- Sweel Alerts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <!-- actualizar inputs -->
+
       <!-- modales -->
       <div class="modal fade" id="compra">
         <div class="modal-dialog">

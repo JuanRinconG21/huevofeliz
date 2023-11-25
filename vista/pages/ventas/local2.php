@@ -1,4 +1,25 @@
-<?php ?>
+<?php 
+  session_start();
+  //llamo la conexion a la BD
+  require_once '../../../models/MySQL.php';  
+  // Intenta crear una instancia de la clase MySQL y establecer la conexión
+  $conexion = new Mysql();
+  $pdo = $conexion->conectar();
+  //TRAIGO INVENTARIO ACTUAL
+  $traer= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
+  correoElectronico,direccion,pass,cedula 
+  FROM clientes');
+  $traer->execute();
+
+  $cd=$_SESSION['cedula'];
+  //TRAER POR CEDULA
+  $traerCedula= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
+  correoElectronico,direccion,pass,cedula 
+  FROM clientes WHERE cedula=:cedula');
+  $traerCedula->bindParam(":cedula",$cd,PDO::PARAM_INT);
+  $traerCedula->execute();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -627,7 +648,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Puesto de Ventas 2</h1>
+                <h1 class="m-0">Punto de Ventas 2</h1>
               </div>
               <!-- /.col -->
             </div>
@@ -639,10 +660,10 @@
         <!-- Contenido Cuerpo -->
         <div class="container-fluid">
           <div class="row ">
-            <!-- SELECT2 EXAMPLE -->
+              <!-- SELECT2 EXAMPLE -->
             <div class="card card-default col-6 m-2">
-            <div class="card-header">
-              <h3 class="card-title">Selecione Cliente</h3>
+              <div class="card-header">
+              <h3 class="card-title">Modulo Clientes</h3>
                 <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
@@ -651,68 +672,69 @@
                   <i class="fas fa-times"></i>
                 </button>
                 </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
                 <div class="row" >
                   <div class="col-12 col-sm-8">
                     <div class="form-group">
-                      <label>Nombre Cliente</label>
-                      <div class="input-group mxauto p-1">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
+                        <!-- productos inventario -->
+                      <div class="form-group">
+                              <label>Cedula Cliente</label>
+                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" 
+                              style="width: 80%;" name="cedula" id="opciones">
+                                <option selected></option>
+                                <?php while ($fila2 = $traer->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    <option value="<?php echo $fila2["cedula"]; ?>">
+                                      <?php $_SESSION['cedula']=$fila2["cedula"];?>
+                                      <?php echo $fila2['cedula'] ?>
+                                    </option>
+                                <?php } ?>
+                              </select>
                       </div>
                     </div>
                     <!-- /.form-group -->
                   </div>
-                </div>
-                <div class="row">
-                  <div class="card">
-                  <div class="card-header">
-                  <h3 class="card-title">El Huevo Feliz</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  </ol>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img class="d-block w-60" src="../../dist/img/panal32.jpg" alt="First slide" >
-                    </div>
-                    <div class="carousel-item">
-                      <img class="d-block w-60" src="../../dist/img/panal12.jpg" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="d-block w-60" src="../../dist/img/panal10.jpeg" alt="Third slide">
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-custom-icon" aria-hidden="true">
-                      <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-custom-icon" aria-hidden="true">
-                      <i class="fas fa-chevron-right"></i>
-                    </span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                  </div>
+                  <?php while ($fila3 = $traerCedula->fetch(PDO::FETCH_ASSOC)) { ?>
+                      <!-- nombre  -->
+                      <div class="form-group" style="width: 60%; ">
+                        <label>Nombre:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
+                          </div>
+                          <input type="text" class="form-control" disabled value="<?php echo $fila3['nombreCompleto'] ?>">
+                        </div>
+                        <!-- /.input group -->
+                      </div>
+                      <!-- telefono mask -->
+                      <div class="form-group" style="width: 60%; ">
+                        <label>Telefono:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-mobile" ></i></span>
+                          </div>
+                          <input type="text" class="form-control" disabled value="<?php echo $fila3['numeroTelefono'] ?>">
+                        </div>
+                      </div>
+                      <!-- email mask -->
+                      <div class="form-group" style="width: 60%; ">
+                        <label>Email:</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
+                              </div>
+                            <input type="text" class="form-control" disabled value="<?php echo $fila3['correoElectronico'] ?>">
+                          </div>
+                      </div>
+
+                  <?php } ?>
+                   
                 </div>
                   <!-- /.card-body -->
+                </div>  
             </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-            Creador ilustrador Niko-Berserker
-            </div>
-            </div>
+           
              <!-- /.card -->
             <div class="col-4 m-2">
               <div class="card card-danger">
