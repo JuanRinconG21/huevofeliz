@@ -8,6 +8,9 @@ $stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote,lotehuevo.idLoteHuevo,
 // Paso 2: Ejecutar la consulta preparada.
 $stmt->execute();
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +18,7 @@ $stmt->execute();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El huevo | Feliz</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -44,9 +48,28 @@ $stmt->execute();
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css" />
   <!-- summernote -->
   <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+  <?php
+  if (isset($_SESSION['mensajeErr'])) {
+  ?>
+    <script>
+      let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+      let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+      Swal.fire(
+        titulo,
+        msj,
+        'success'
+      )
+    </script>
+  <?php
+    unset($_SESSION['mensajeErr']);
+  }
+  ?>
+
   <div class="wrapper">
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">

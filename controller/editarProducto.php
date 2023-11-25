@@ -20,9 +20,9 @@ if (isset($_POST['loteHuevos']) && !empty($_POST['loteHuevos'])) {
 
         // Captura los datos de la consulta, captura una sola fila
         $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $_SESSION['agregar'] = "EDITAR";
         header("Location: ../vista/pages/inventario/huevos.php");
-        $_SESSION["ok"] = "ok";
+        $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";
+        $_SESSION['mensajeErr'] = "Felicidades";
     } catch (\Throwable $th) {
         echo "Error: " . $e->getMessage();
     }
