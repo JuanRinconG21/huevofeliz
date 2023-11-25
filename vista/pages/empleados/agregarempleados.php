@@ -1,6 +1,7 @@
-<?php ?>
+<?php
 
-<?php ?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -537,74 +538,83 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <form method="post" action="../../../controller/empleados/agregarempleados.php">
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Cedula</label>
-                                                    <input type="number" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="number" name="cedula" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nombre Completo</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" name="nombreCompleto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Fecha de Nacimiento</label>
-                                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="date" name="fechaNac" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Direccion de Residencia</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" name="direccion" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Numero de Telefono</label>
-                                                    <input type="number" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="number" name="telefono" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Correo Electronico</label>
-                                                    <input type="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="mail" name="correo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Cargo</label>
                                                     <br>
-                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btncheck1">Gerente</label>
-                                                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btncheck2">Vendedor</label>
-                                                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btncheck3">Almacen</label>
+                                                    <div class="form-check ms-2">
+                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteGeneral" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Gerente General
+                                                        </label>
+                                                        <br>
+                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteProduccion" id="flexCheckDefault">
+
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Gerente Produccion
+                                                        </label>
+                                                        <br>
+                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteVentas" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Gerente Ventas
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Fecha de Ingreso</label>
-                                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="date" class="form-control" name="fechaIngreso" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Numero de Cuenta</label>
-                                                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="number" class="form-control" name="numeroCuenta" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Numero de Emergencia</label>
-                                                    <input type="number" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="number" min="1" name="numeroEmergencia" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nivel de Educacion</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" class="form-control" name="nivelEducacion" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Experiencia Laboral</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" class="form-control" name="experienciaLaboral" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Evaluacion de Desempeño</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" class="form-control" name="evaluacionDesempeño" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Salario</label>
-                                                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="number" class="form-control" name="salario" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Contraseña para el Software</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <input type="text" class="form-control" name="pass" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Agregar</button>
                                             </form>
