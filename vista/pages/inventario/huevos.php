@@ -4,7 +4,7 @@ include('../../../models/MySQL.php');
 // Paso 1: Preparar una consulta SQL usando consultas preparadas.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote, lotehuevo.tipoLote,lotehuevo.cantidadMaxima,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
+$stmt = $pdo->prepare("SELECT lotehuevo.identificadorLote,lotehuevo.idLoteHuevo,lotehuevo.tipoLote,lotehuevo.cantidadMaxima,lotehuevo.fechaVencimiento,produccion.cantidad AS cantidadHuevos,produccion.fechaRecoleccion,precios.Tipo,precios.precio FROM lotehuevo INNER JOIN produccion ON lotehuevo.idLoteHuevo = produccion.LoteHuevo_idLoteHuevo INNER JOIN precios on lotehuevo.Precios_idPrecios=precios.idPrecios;");
 // Paso 2: Ejecutar la consulta preparada.
 $stmt->execute();
 ?>
@@ -312,6 +312,24 @@ $stmt->execute();
                     <p>Punto de Venta Pedido 3</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Punto de Venta Ingreso 1</p>
+                  </a>
+                  </li>
+                  <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso3.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 3</p>
+                                    </a>
+                                </li>
 
               </ul>
             </li>
@@ -574,6 +592,7 @@ $stmt->execute();
 
                         <th>Tipo Huevo</th>
                         <th>Precio Huevos</th>
+                        <th>Editar</th>
                         <!--<th>CSS grade</th>-->
                       </tr>
                     </thead>
@@ -594,7 +613,40 @@ $stmt->execute();
 
                             <td><?php echo $fila['Tipo'] ?></td>
                             <td><?php echo $fila['precio'] ?></td>
+                            <td><button type="button" class="btn btn-success bi bi-pencil" data-bs-toggle="modal" data-bs-target="#editarProducto<?php echo $fila['idLoteHuevo'] ?>">
+                                        </button></td>
                           </tr>
+                          
+
+
+                          <div class="modal fade" id="editarProducto<?php echo $fila['idLoteHuevo'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Huevos</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" action="..../controlador/editarProducto.php">
+                                                <div class="modal-body">
+                                                    <input type="text" class="form-control" id="idLoteHuevo" name="idLoteHuevo" aria-describedby="emailHelp" value="<?php echo $fila['idLoteHuevo'] ?>">
+
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Lote Huevos</label>
+                                                        <input type="number" class="form-control" min="1" id="loteHuevos" name="loteHuevos" aria-describedby="emailHelp" value="<?php echo $fila['cantidadMaxima'] ?>">
+                                                    </div>
+              
+                                                    <div class="modal-footer">
+                                                        <button type="submit" value="s" id="actualizarSweet<?php echo $fila['idLoteHuevo'] ?>" class="btn btn-primary">Enviar</button>
+
+
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                       <?php
                         }
                       } catch (\Throwable $th) {
@@ -613,6 +665,7 @@ $stmt->execute();
 
                         <th>Tipo Huevo</th>
                         <th>Precio Huevos</th>
+                        <th>Editar</th>
                         <!-- <th>CSS grade</th> -->
                       </tr>
                     </tfoot>

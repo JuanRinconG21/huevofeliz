@@ -310,6 +310,24 @@ $stmt->execute();
                                         <p>Punto de Venta Pedido 3</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Punto de Venta Ingreso 1</p>
+                  </a>
+                  </li>
+                  <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso3.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 3</p>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>

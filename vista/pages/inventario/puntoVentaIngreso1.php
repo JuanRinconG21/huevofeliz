@@ -5,7 +5,7 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT puntosventa.nombre,pedidos_puntos.fecha,pedidos_puntos.estado,pedidos_puntos.idPedidos,usuario.nombreCompleto,usuario.direccionResidencia,usuario.numeroTelefono FROM pedidos_puntos INNER JOIN puntosventa ON pedidos_puntos.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta INNER JOIN usuario on pedidos_puntos.Usuario_idUsuario=usuario.idUsuario Where PuntosVenta_idPuntosVenta=3;");
+$stmt = $pdo->prepare("SELECT puntosventa.nombre,ingresos.idIngresos,ingresos.cantidad,lotehuevo.identificadorLote,lotehuevo.fechaVencimiento FROM ingresos INNER JOIN puntosventa ON ingresos.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta INNER JOIN lotehuevo on ingresos.LoteHuevo_idLoteHuevo=lotehuevo.idLoteHuevo Where PuntosVenta_idPuntosVenta=1;");
 $stmt->execute();
 ?>
 <!DOCTYPE html>
@@ -305,18 +305,18 @@ $stmt->execute();
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../../pages/inventario/puntoVentaPedidos3.php" class="nav-link active">
+                                    <a href="../../pages/inventario/puntoVentaPedidos3.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Punto de Venta Pedido 3</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                  <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Punto de Venta Ingreso 1</p>
-                  </a>
-                  </li>
-                  <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 1</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Punto de Venta Ingreso 2</p>
@@ -328,6 +328,7 @@ $stmt->execute();
                                         <p>Punto de Venta Ingreso 3</p>
                                     </a>
                                 </li>
+
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -415,18 +416,7 @@ $stmt->execute();
                                         <p>Simple Tables</p>
                                     </a>
                                 </li>
-                                <!-- <li class="nav-item">
-                    <a href="../../pages/tables/data.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>DataTables</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/tables/jsgrid.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>jsGrid</p>
-                    </a>
-                  </li> -->
+                     
                             </ul>
                         </li>
                         <li class="nav-header">FECHAS</li>
@@ -577,12 +567,11 @@ $stmt->execute();
                                         <thead>
                                             <tr>
                                                 <th>Nombre Punto Venta</th>
-                                                <th>Fecha Entrega</th>
-                                                <th>estado</th>
-                                                <th>id pedido</th>
-                                                <th>Nombre Cliente</th>
-                                                <th>direccion Pedido</th>
-                                                <th>Numero Telefono</th>
+                                                <th>id ingreso</th>
+                                                <th>cantidad</th>
+                                                <th>identificador Lote</th>
+                                                <th>fecha Vencimiento</th>
+                                              
 
                                                 <!-- <th>CSS grade</th> -->
                                             </tr>
@@ -597,12 +586,11 @@ $stmt->execute();
                                             ?>
                                                     <tr>
                                                         <td><?php echo $fila1['nombre'] ?></td>
-                                                        <td><?php echo $fila1['fecha'] ?></td>
-                                                        <td><?php echo $fila1['estado'] ?></td>
-                                                        <td><?php echo $fila1['idPedidos'] ?></td>
-                                                        <td><?php echo $fila1['nombreCompleto'] ?></td>
-                                                        <td><?php echo $fila1['direccionResidencia'] ?></td>
-                                                        <td><?php echo $fila1['numeroTelefono'] ?></td>
+                                                        <td><?php echo $fila1['idIngresos'] ?></td>
+                                                        <td><?php echo $fila1['cantidad'] ?></td>
+                                                        <td><?php echo $fila1['identificadorLote'] ?></td>
+                                                        <td><?php echo $fila1['fechaVencimiento'] ?></td>
+                                                       
 
                                                     </tr>
                                             <?php
@@ -615,13 +603,11 @@ $stmt->execute();
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Nombre Punto Venta</th>
-                                                <th>Fecha Entrega</th>
-                                                <th>estado</th>
-                                                <th>id pedido</th>
-                                                <th>Nombre Cliente</th>
-                                                <th>direccion Pedido</th>
-                                                <th>Numero Telefono</th>
+                                            <th>Nombre Punto Venta</th>
+                                                <th>id ingreso</th>
+                                                <th>cantidad</th>
+                                                <th>identificador Lote</th>
+                                                <th>fecha Vencimiento</th>
                                                 <!-- <th>CSS grade</th> -->
                                             </tr>
                                         </tfoot>
