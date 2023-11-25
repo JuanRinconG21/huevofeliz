@@ -15,8 +15,9 @@ $stmt->execute();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El huevo | Feliz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -314,22 +315,22 @@ $stmt->execute();
                 </li>
                 <li class="nav-item">
                   <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Punto de Venta Ingreso 1</p>
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Ingreso 1</p>
                   </a>
-                  </li>
-                  <li class="nav-item">
-                                    <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Punto de Venta Ingreso 2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/inventario/puntoVentaIngreso3.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Punto de Venta Ingreso 3</p>
-                                    </a>
-                                </li>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Ingreso 2</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../pages/inventario/puntoVentaIngreso3.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Punto de Venta Ingreso 3</p>
+                  </a>
+                </li>
 
               </ul>
             </li>
@@ -613,40 +614,40 @@ $stmt->execute();
 
                             <td><?php echo $fila['Tipo'] ?></td>
                             <td><?php echo $fila['precio'] ?></td>
-                            <td><button type="button" class="btn btn-success bi bi-pencil" data-bs-toggle="modal" data-bs-target="#editarProducto<?php echo $fila['idLoteHuevo'] ?>">
-                                        </button></td>
+                            <td><button type="button" value="<?php echo $fila['idLoteHuevo'] ?>" class="btn btn-success bi bi-pencil" data-bs-toggle="modal" data-bs-target="#editarProducto<?php echo $fila['idLoteHuevo'] ?>">
+                              </button></td>
                           </tr>
-                          
+
 
 
                           <div class="modal fade" id="editarProducto<?php echo $fila['idLoteHuevo'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Huevos</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form method="post" action="..../controlador/editarProducto.php">
-                                                <div class="modal-body">
-                                                    <input type="text" class="form-control" id="idLoteHuevo" name="idLoteHuevo" aria-describedby="emailHelp" value="<?php echo $fila['idLoteHuevo'] ?>">
-
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Lote Huevos</label>
-                                                        <input type="number" class="form-control" min="1" id="loteHuevos" name="loteHuevos" aria-describedby="emailHelp" value="<?php echo $fila['cantidadMaxima'] ?>">
-                                                    </div>
-              
-                                                    <div class="modal-footer">
-                                                        <button type="submit" value="s" id="actualizarSweet<?php echo $fila['idLoteHuevo'] ?>" class="btn btn-primary">Enviar</button>
-
-
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    </div>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Huevos</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <form method="post" action="../../../controller/editarProducto.php">
+                                  <div class="modal-body">
+                                    <input type="text" class="form-control" id="idLoteHuevo" name="idLoteHuevo" aria-describedby="emailHelp" value="<?php echo $fila['idLoteHuevo'] ?>" hidden>
+
+                                    <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Lote Huevos</label>
+                                      <input type="number" class="form-control" min="1" id="loteHuevos" name="loteHuevos" aria-describedby="emailHelp" value="<?php echo $fila['cantidadMaxima'] ?>">
+                                    </div>
+
+                                    <div class="modal-footer">
+                                      <button type="submit" value="s" id="actualizarSweet<?php echo $fila['idLoteHuevo'] ?>" class="btn btn-primary">Enviar</button>
+
+
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    </div>
+                                  </div>
+
+                                </form>
+                              </div>
+                            </div>
+                          </div>
                       <?php
                         }
                       } catch (\Throwable $th) {
@@ -776,6 +777,7 @@ $stmt->execute();
       });
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
