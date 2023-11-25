@@ -329,7 +329,7 @@ $stmt->execute();
                 </li>
 
                 <li class="nav-item">
-                  <a href="../../pages/logistica/index.php" class="nav-link ">
+                  <a href="../../pages/logistica/asignarConductores.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Asignar Conductores</p>
                   </a>
