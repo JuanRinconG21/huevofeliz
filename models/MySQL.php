@@ -2,7 +2,7 @@
 class MySQL
 {
     private $ipServidor = "localhost";
-    private $namedb ='mydb';
+    private $namedb = 'avi';
     private $usuarioBase = 'root';
     private $contrasena = '';
     private $conexion;
@@ -40,4 +40,3 @@ class MySQL
         return $this->resultadoConsulta;
     }
 }
-?>
