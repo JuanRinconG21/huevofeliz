@@ -59,9 +59,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
-        </div>
+
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -662,10 +660,10 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Telefono</label>
-                                                         <input name="telefono" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Tipo de producto">
+                                                        <input name="telefono" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Tipo de producto">
                                                     </div>
-                                                    
-                                                    
+
+
                                                 </div>
                                                 <!-- /.card-body -->
                                                 <div class="modal-footer justify-content-between">
@@ -694,7 +692,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <th>Id Compras</th>
                                                 <th>Nombre producto</th>
                                                 <th>Tipo</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -703,8 +701,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <td scope="row"><?php echo $proovedor['idProveedor']  ?></td>
                                                     <td><?php echo $proovedor['nombre']  ?></td>
                                                     <td><?php echo $proovedor['telefono']  ?></td>
-                                                    
-                                                    
+
+
                                                 <?php } ?>
 
                                                 </tr>

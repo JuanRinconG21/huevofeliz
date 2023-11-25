@@ -762,7 +762,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         Seguimiento de salud
                                                     </button></td>
 
-                                                <td><button value="<?php echo $aves['idAves'] ?>" style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default<?php echo $aves['idAves'] ?>">
+                                                <td><button value="<?php echo $aves['idAves'] ?>" style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?php echo $aves['idAves'] ?>">
                                                         <i class="bi bi-calendar-date"></i>
                                                     </button></td>
 
@@ -801,8 +801,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                         <div class="form-group">
                                                                             <label for="exampleSelectBorder">ID ave</label>
                                                                             <select name="proveedor" class="custom-select form-control-border" id="idAve">
-                                                                                <?php foreach ($fila as $aves) { ?>
-                                                                                    <option value="<?php echo $aves['idAves'] ?>"><?php echo $aves['idAves'] ?></option>
+                                                                                <?php foreach ($fila as $aveSeleccionada) { ?>
+                                                                                    <option value="<?php echo $aveSeleccionada['idAves'] ?>"><?php echo $aveSeleccionada['idAves'] ?></option>
                                                                                 <?php } ?>
 
                                                                             </select>
@@ -821,8 +821,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
-                                                <div class="modal fade" id="modal-default<?php echo $aves['idAves'] ?>">
-                                                    <div class="modal-dialog">
+                                                <div class="modal fade" id="modal<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title">Fecha de retiro del ave</h4>
@@ -836,7 +836,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <input type="datetime-local" name="fechaRe" class="form-control" id="exampleInputPassword1">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                        <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" hidden  class="form-control" id="exampleInputEmail1">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" hidden class="form-control" id="exampleInputEmail1">
                                                                         </div>
 
                                                                     </div>
@@ -893,7 +893,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </button></td>
 
                                                 <td><?php echo $aves['fechaDeRetiro'] ?>
-                                                        
+
                                                     </button></td>
 
                                                 <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
@@ -966,7 +966,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <input type="date" name="fechaRe" class="form-control" id="exampleInputPassword1">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                        <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1">
                                                                         </div>
 
                                                                     </div>

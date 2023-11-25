@@ -1,5 +1,23 @@
-<?php ?>
-<?php ?>
+<?php
+//
+session_start();
+//traigo el modelo
+include('../../../models/MySQL.php');
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
+
+//traigo  el id de los lotes
+$sql1 = "SELECT * from `loteaves`";
+$stmt1 = $pdo->prepare($sql1);
+$stmt1->execute();
+$fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+//traigo todos los registro de la produccion de huevos
+$sql2 = "SELECT * from produccion;";
+$stmt2 = $pdo->prepare($sql2);
+$stmt2->execute();
+$fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,14 +50,16 @@
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
-        </div>
+
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -544,6 +564,55 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensaje'] ?>'
+                let titulo = '<?php echo $_SESSION['mensaje2'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'success'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+
+        <?php
+        if (isset($_SESSION['mensajeErr'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+                let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'success'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensajeErr']);
+        }
+        ?>
+        <?php
+        if (isset($_SESSION['mensajeErr3'])) {
+        ?>
+            <script>
+                let msj = '<?php echo $_SESSION['mensajeErr4'] ?>'
+                let titulo = '<?php echo $_SESSION['mensajeErr3'] ?>'
+                Swal.fire(
+                    titulo,
+                    msj,
+                    'error'
+                )
+            </script>
+        <?php
+            unset($_SESSION['mensajeErr3']);
+        }
+        ?>
 
         <!--contenido del Inicio. -->
         <div class="content-wrapper">
@@ -584,7 +653,7 @@
 
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <form action="../../../controller/registrohuevos.php" method="post">
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Cantidad</label>
@@ -595,10 +664,13 @@
                                                         <input type="date" name="fecharRe" class="form-control" id="exampleInputPassword1">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="exampleSelectBorder">Lote del huevo</label>
-                                                        <select name="estadoSalud" class="custom-select form-control-border" id="exampleSelectBorder">
-                                                            <option>Lote 1</option>
-                                                            <option>Lote 2</option>
+                                                        <label for="exampleSelectBorder">Id de lote de aves</label>
+                                                        <select name="Idlote" class="custom-select form-control-border" id="idAve">
+                                                            <?php foreach ($fila1 as $aveSeleccionada) { ?>
+
+                                                                <option value="<?php echo $aveSeleccionada['idLoteAves'] ?>"><?php echo $aveSeleccionada['idLoteAves'] ?>
+
+                                                                <?php } ?>
 
                                                         </select>
                                                     </div>
@@ -606,14 +678,14 @@
 
                                                 </div>
                                                 <!-- /.card-body -->
-
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
 
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
+
                                     </div>
                                     <!-- /.modal-content -->
                                 </div>
@@ -633,30 +705,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.5
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td>Win 95+</td>
-                                        </tr>
+                                        <?php foreach ($fila2 as $produccion) { ?>
+                                            <tr>
+                                                <td scope="row"><?php echo $produccion['idProduccion']  ?></td>
+                                                <td><?php echo $produccion['cantidad']  ?></td>
+                                                <td><?php echo $produccion['fechaRecoleccion']  ?></td>
+                                                <td><?php echo $produccion['LoteHuevo_idLoteHuevo']  ?></td>
+                                            <?php } ?>
+
+                                            </tr>
 
                                     </tbody>
 
