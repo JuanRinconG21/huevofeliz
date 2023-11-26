@@ -2,6 +2,7 @@
 session_start();
 // validar que no se repita el nombre
 $_POST['fechaRe'] = trim(($_POST['fechaRe']));
+$_POST['retirada'] = trim(($_POST['retirada']));
 $_POST['idAve'] = trim(($_POST['idAve']));
 if (
     isset($_POST['fechaRe']) && !empty($_POST['fechaRe']) &&
@@ -10,6 +11,7 @@ if (
     try
     {
         $fechaRe = $_POST['fechaRe'];
+        $retirada = $_POST['retirada'];
         $idAve = $_POST['idAve'];
 
         $fechaHoraFormateadaRe = date('Y-m-d H:i:s', strtotime($fechaRe));
@@ -18,10 +20,11 @@ if (
         $conexion = new MySQL();
         $pdo = $conexion->conectar();
     
-        $sql1 =  "UPDATE aves set fechaDeRetiro = :fechaHoraFormateadaRe WHERE idAves = :idAve";
+        $sql1 =  "UPDATE aves set fechaDeRetiro = :fechaHoraFormateadaRe,  motivoRetiro= :retirada WHERE idAves = :idAve";
         $stmt1 = $pdo->prepare($sql1);
         $stmt1->bindParam(':idAve', $idAve, PDO::PARAM_STR);
         $stmt1->bindParam(':fechaHoraFormateadaRe', $fechaHoraFormateadaRe, PDO::PARAM_STR);
+        $stmt1->bindParam(':retirada', $retirada, PDO::PARAM_STR);
         $stmt1->execute();    
         header("Location: ../vista/pages/produccion/registroAves.php");
         $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";

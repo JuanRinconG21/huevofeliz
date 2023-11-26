@@ -663,19 +663,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         <label for="exampleInputEmail1">Cantidad maxima de huevos </label>
                                                         <input name="cantidadMax" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Identificador del lote">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleSelectBorder">Tipo de lote</label>
-                                                        <select name="tipoLote" class="custom-select form-control-border" id="exampleSelectBorder">
-                                                            <option>A</option>
-
-                                                            <option>AA
-                                                            <option>
-                                                            <option>AAA
-                                                            <option>
-                                                            <option>PREMIUM
-                                                            <option>
-                                                        </select>
-                                                    </div>
+                                                    
 
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de vencimiento</label>
@@ -695,6 +683,14 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                             <?php } ?>
 
 
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleSelectBorder">Tipo de lote</label>
+                                                        <select name="estado" class="custom-select form-control-border" id="exampleSelectBorder">
+                                                            <option value="1" >Activo
+                                                            <option value="0">Inactivo
+                                                                                                                    
                                                         </select>
                                                     </div>
 
@@ -721,10 +717,11 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                         <tr>
                                             <th>IdLoteHuevo</th>
                                             <th>Identificador Lote</th>
-                                            <th>Tipo Lote</th>
+                                            <th>Cantidad maxima</th>
                                             <th>Fecha Vencimiento</th>
                                             <th>Fecha Puesta</th>
                                             <th>Id de los precios</th>
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -732,12 +729,13 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <tr>
                                                 <td scope="row"><?php echo $lotehuevos['idLoteHuevo'] ?></td>
                                                 <td><?php echo $lotehuevos['identificadorLote'] ?></td>
-                                                <td><?php echo $lotehuevos['tipoLote'] ?></td>
+                                                <td><?php echo $lotehuevos['cantidadMaxima'] ?></td>
                                                 <td><?php echo $lotehuevos['fechaVencimiento'] ?></td>
                                                 <td><?php echo $lotehuevos['fechaPuesta'] ?></td>
                                                 <td><?php echo $lotehuevos['Precios_idPrecios'] ?></td>
+                                                <td><?php echo $lotehuevos['estado'] ?></td>
                                             <?php } ?>
-                                            <tr>
+                                            
 
 
                                             </tr>

@@ -78,10 +78,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
-        </div>
-
+      
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -798,15 +795,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="exampleSelectBorder">ID ave</label>
-                                                                            <select name="proveedor" class="custom-select form-control-border" id="idAve">
-                                                                                <?php foreach ($fila as $aveSeleccionada) { ?>
-                                                                                    <option value="<?php echo $aveSeleccionada['idAves'] ?>"><?php echo $aveSeleccionada['idAves'] ?></option>
-                                                                                <?php } ?>
-
-                                                                            </select>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">
@@ -834,6 +823,10 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                         <div class="form-group">
                                                                             <label for="exampleInputPassword1">Fecha de Retiro</label>
                                                                             <input type="datetime-local" name="fechaRe" class="form-control" id="exampleInputPassword1">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputPassword1">Motivo del Retiro</label>
+                                                                            <input type="text" name="retirada" class="form-control" id="exampleInputPassword1">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" hidden class="form-control" id="exampleInputEmail1">
@@ -874,7 +867,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <th>lote del ave</th>
                                             <th>seguimiento Salud</th>
                                             <th>Fecha de retiro</th>
-
+                                            <th>Motivo de </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -893,7 +886,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </button></td>
 
                                                 <td><?php echo $aves['fechaDeRetiro'] ?>
-
+                                                <td><?php echo $aves['motivoRetiro'] ?>
                                                     </button></td>
 
                                                 <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
@@ -928,15 +921,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="exampleSelectBorder">ID ave</label>
-                                                                            <select name="proveedor" class="custom-select form-control-border" id="idAve">
-                                                                                <?php foreach ($fila as $aves) { ?>
-                                                                                    <option value="<?php echo $aves['idAves'] ?>"><?php echo $aves['idAves'] ?></option>
-                                                                                <?php } ?>
-
-                                                                            </select>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">

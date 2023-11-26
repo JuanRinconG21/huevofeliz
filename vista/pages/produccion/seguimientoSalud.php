@@ -8,7 +8,7 @@ $pdo = $conexion->conectar();
 
 
 //traigo las aves
-$sql = "SELECT * from `vacunas`;";
+$sql = "SELECT * from `estadosalud`;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -593,7 +593,7 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <thead>
                                         <tr>
                                             <th>Id de vacunas</th>
-                                            <th>Vacunas</th>
+                                           
                                             <th>Entorno</th>
                                             <th>Sintomas</th>
                                             <th>Id ave</th>
@@ -604,7 +604,7 @@ $fila = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?php foreach ($fila as $seguimiento) { ?>
                                             <tr>
                                                 <td scope="row"><?php echo $seguimiento['idVacunas'] ?></td>
-                                                <td><?php echo $seguimiento['vacunas'] ?></td>
+                                                
                                                 <td><?php echo $seguimiento['entorno'] ?></td>
                                                 <td><?php echo $seguimiento['sintomas'] ?></td>
                                                 <td><?php echo $seguimiento['Aves_idAves'] ?></td>

@@ -27,10 +27,10 @@ if (
         $conexion = new MySQL();
         $pdo = $conexion->conectar();
 
-        $sql1 =  "INSERT INTO `vacunas` (`idVacunas`, `vacunas`, `entorno`, `sintomas`, `comentario`, `Aves_idAves`) VALUES (NULL, :nombreva, :entorno, :sintoma, :comentarioAd, :idAve);";
+        $sql1 =  "INSERT INTO `estadosalud` (`idVacunas`,  `entorno`, `sintomas`, `comentario`, `Aves_idAves`) VALUES (NULL,  :entorno, :sintoma, :comentarioAd, :idAve);";
         $stmt1 = $pdo->prepare($sql1);
        
-        $stmt1->bindParam(':nombreva', $nombreva, PDO::PARAM_STR);
+      
         $stmt1->bindParam(':entorno', $entorno, PDO::PARAM_STR);
         $stmt1->bindParam(':sintoma', $sintoma, PDO::PARAM_STR);
         $stmt1->bindParam(':comentarioAd', $comentarioAd, PDO::PARAM_STR);

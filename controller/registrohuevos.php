@@ -29,9 +29,10 @@ if (
         $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (Exception $e) {
-        header("Location: ../vista/pages/produccion/registrohuevos.php");
-        $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
-        $_SESSION['mensajeErr3'] = "Error";
+        // header("Location: ../vista/pages/produccion/registrohuevos.php");
+        // $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
+        // $_SESSION['mensajeErr3'] = "Error";
+        echo $e;
     }
 } else {
     header("Location: ../vista/pages/produccion/registrohuevos.php");
