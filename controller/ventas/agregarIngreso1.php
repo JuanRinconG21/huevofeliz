@@ -7,6 +7,7 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
     try {
         $cantidad =($_POST['cantidad']);
         $desc = 0;
+        $estado =0;
         $puntoVenta = 1;
         $identi =($_POST['identificador']);
         // Intenta crear una instancia de la clase MySQL y establecer la conexión
@@ -33,7 +34,9 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
             //capturo cantidad Maxima
             $capciMax = $capMax['cantidadMaxima'];
             echo $capciMax;
-            //VALIDO QUE LA CANTIDAD INGRESADA NO SEA MAYOR A LA QUE HAY
+            //VALIDO QUE SEA MAYOR A 0 LA CANTIDAD INGRESADA
+            if($cantidad > 9) {
+                    //VALIDO QUE LA CANTIDAD INGRESADA NO SEA MAYOR A LA QUE HAY
             if($cantidad > $capciMax){
                 // MENSAJE ERROR CAPACIDAD 
                 $_SESSION["mensajeError"] = "Error No hay suficiente Cantidad, Cantidad Actual :".$capciMax;
@@ -41,12 +44,13 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
             }
             //INSERTO EN LA TABLA INGRESOS
             $insertar = $pdo->prepare('INSERT INTO ingresos 
-            (cantidad,descuentos,PuntosVenta_idPuntosVenta,LoteHuevo_idLoteHuevo) 
-            VALUES (:cantidad,:descu,:puntoVenta,:idLote)');
+            (cantidad,descuentos,PuntosVenta_idPuntosVenta,LoteHuevo_idLoteHuevo,estado) 
+            VALUES (:cantidad,:descu,:puntoVenta,:idLote,:estado)');
             $insertar->bindParam(":cantidad",$cantidad, PDO::PARAM_INT);
             $insertar->bindParam(":descu",$desc, PDO::PARAM_INT);
             $insertar->bindParam(":puntoVenta",$puntoVenta, PDO::PARAM_INT);
             $insertar->bindParam(":idLote",$idCap, PDO::PARAM_STR);
+            $insertar->bindParam(":estado",$estado, PDO::PARAM_INT);
             $fila = $insertar->execute();
 
             //RESTO A LA CANTIDAD TOTAL
@@ -67,6 +71,12 @@ if(!empty($_POST['cantidad']) && !empty($_POST['identificador'])){
                     $_SESSION["mensajeError"] = "Error en la Consulta";
                     header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
             }
+            }else{
+            // MENSAJE ERROR CANTIDAD 0 
+            $_SESSION["mensajeError"] = "Error Cantidad MINIMA DE 10";
+            header("Location:../../vista/pages/ventas/ingresosLocal1.php"); 
+            }
+            
              
         }else{
              // MENSAJE ERROR IDENTIFICADOR 

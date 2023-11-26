@@ -5,19 +5,40 @@
   // Intenta crear una instancia de la clase MySQL y establecer la conexión
   $conexion = new Mysql();
   $pdo = $conexion->conectar();
-  //TRAIGO INVENTARIO ACTUAL
+  //TRAIGO DATOS CLIENTE
   $traer= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
-  correoElectronico,direccion,pass,cedula 
+  correoElectronico,direccion,pass,idClientes 
   FROM clientes');
   $traer->execute();
 
-  $cd=$_SESSION['cedula'];
-  //TRAER POR CEDULA
-  $traerCedula= $pdo->prepare('SELECT nombreCompleto,numeroTelefono,
-  correoElectronico,direccion,pass,cedula 
-  FROM clientes WHERE cedula=:cedula');
-  $traerCedula->bindParam(":cedula",$cd,PDO::PARAM_INT);
-  $traerCedula->execute();
+  //TRAER PRODUCTOS Y PRECIOS
+  $traerPrecio= $pdo->prepare('SELECT precio 
+  FROM precios');
+  $traerPrecio->execute();
+  //TRAE HUEVO TIPO A
+  $traerHuevoA= $pdo->prepare('SELECT precio FROM precios WHERE Tipo = "A"');
+  $traerHuevoA->execute();
+  $capHuevoA = $traerHuevoA->fetch(PDO::FETCH_ASSOC);
+  //capturo huevo TIPO A
+  $huevoA = $capHuevoA['precio'];
+  //TRAE HUEVO TIPO AA
+  $traerHuevoAA= $pdo->prepare('SELECT precio FROM precios WHERE Tipo = "AA"');
+  $traerHuevoAA->execute();
+  $capHuevoAA = $traerHuevoAA->fetch(PDO::FETCH_ASSOC);
+  //capturo HUEVO TIPO AA
+  $huevoAA = $capHuevoAA['precio'];
+  //TRAE HUEVO TIPO AAA
+  $traerHuevoAAA= $pdo->prepare('SELECT precio FROM precios WHERE Tipo = "AAA"');
+  $traerHuevoAAA->execute();
+  $capHuevoAAA = $traerHuevoAAA->fetch(PDO::FETCH_ASSOC);
+  //capturo HUEVO TIPO AAA
+  $huevoAAA = $capHuevoAAA['precio'];
+  //TRAE HUEVO TIPO PREMIUM
+  $traerHuevoPREMIUM= $pdo->prepare('SELECT precio FROM precios WHERE Tipo = "PREMIUM"');
+  $traerHuevoPREMIUM->execute();
+  $capHuevoPREMIUM = $traerHuevoPREMIUM->fetch(PDO::FETCH_ASSOC);
+  //capturo HUEVO TIPO PREMIUM
+  $huevoPREMIUM = $capHuevoPREMIUM['precio'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +91,12 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Bootstrap JS (Popper.js and jQuery are required for Bootstrap JS) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -642,7 +669,7 @@
 
         <!-- Contenido Cuerpo -->
         <div class="container-fluid">
-          <div class="row ">
+          <div class="row">
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default col-6 m-2">
               <div class="card-header">
@@ -657,65 +684,74 @@
                 </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
+                <div class="card-body ">
                 <div class="row" >
-                  <div class="col-12 col-sm-8">
-                    <div class="form-group">
+                  <div class="col-12 d-flex justify-content-center mx-0 px-0"> 
                         <!-- productos inventario -->
-                      <div class="form-group">
-                              <label>Cedula Cliente</label>
-                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" 
-                              style="width: 80%;" name="cedula" id="opciones">
+                      <div class="form-group" style="width: 60%;">
+                                <label>Cedula Cliente</label>
+                              <select  class="form-control select2 select2-danger" 
+                                 data-dropdown-css-class="select2-danger" 
+                                 name="cedula" id="cedula" onchange="select(this)">
                                 <option selected></option>
                                 <?php while ($fila2 = $traer->fetch(PDO::FETCH_ASSOC)) { ?>
-                                    <option value="<?php echo $fila2["cedula"]; ?>">
-                                      <?php $_SESSION['cedula']=$fila2["cedula"];?>
-                                      <?php echo $fila2['cedula'] ?>
-                                    </option>
+                                    <option value="<?php echo $fila2["idClientes"]; ?>">
+                                    <?php echo $fila2["idClientes"]; ?>
+                                  </option> 
+                                    
                                 <?php } ?>
                               </select>
-                      </div>
                     </div>
                     <!-- /.form-group -->
                   </div>
-                  <?php while ($fila3 = $traerCedula->fetch(PDO::FETCH_ASSOC)) { ?>
-                      <!-- nombre  -->
-                      <div class="form-group" style="width: 60%; ">
-                        <label>Nombre:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
-                          </div>
-                          <input type="text" class="form-control" disabled value="<?php echo $fila3['nombreCompleto'] ?>">
-                        </div>
-                        <!-- /.input group -->
+                </div>
+                      <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                  <!-- nombre  -->
+                                  <div class="form-group" style="width: 60%; ">
+                                    <label>Nombre:</label>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle" ></i></span>
+                                  </div>
+                                      <input type="text" class="form-control" disabled  id="nombre">
+                                    </div>
+                                    <!-- /.input group -->
+                                  </div>
+                            </div>
                       </div>
-                      <!-- telefono mask -->
+                      <div class="row">
+                          <div class="col-12  d-flex justify-content-center">
+                            <!-- telefono mask -->
                       <div class="form-group" style="width: 60%; ">
                         <label>Telefono:</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-mobile" ></i></span>
                           </div>
-                          <input type="text" class="form-control" disabled value="<?php echo $fila3['numeroTelefono'] ?>">
+                          <input type="text" class="form-control" disabled id="telefono">
                         </div>
                       </div>
-                      <!-- email mask -->
+                          </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-12  d-flex justify-content-center">
+                                  <!-- email mask -->
                       <div class="form-group" style="width: 60%; ">
                         <label>Email:</label>
                           <div class="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-envelope" ></i></span>
                               </div>
-                            <input type="text" class="form-control" disabled value="<?php echo $fila3['correoElectronico'] ?>">
+                            <input type="text" class="form-control" disabled id="correo">
                           </div>
+                      </div> 
                       </div>
-
-                    <?php } ?>
-                   
+                        </div>
                 </div>
                   <!-- /.card-body -->
-                </div>  
+                 
             
             </div>
              <!-- /.card -->
@@ -727,51 +763,41 @@
               <div class="card-body">
                 <!-- productos inventario -->
                 <div class="form-group">
-                      <label>Productos</label>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                      <label >Productos</label>
+                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;"
+                      id="huevos">
                         <option selected="selected"></option>
-                        <option>Huevo A</option>
-                        <option>Huevo AA</option>
-                        <option>Huevo AAA</option>
-                        <option>Huevo PREMIUM</option>
-                        <option>Panal de Huevo A</option>
-                        <option>Panal de Huevo AA</option>
-                        <option>Panal de Huevo AAA</option>
-                        <option>Panal de Huevo PREMIUM</option>
-                        <option>Medio Panal de Huevo PREMIUM</option>
-                        <option>Medio Panal de Huevo AAA</option>
-                        <option>Medio Panal de Huevo AA</option>
-                        <option>Medio Panal de Huevo A</option>
+                        <option id="1-1">Huevo A</option>
+                        <option id="2-1">Huevo AA</option>
+                        <option id="3-1">Huevo AAA</option>
+                        <option id="4-1">Huevo PREMIUM</option>
+                        <option id="1-30">Panal de Huevo A</option>
+                        <option id="2-30">Panal de Huevo AA</option>
+                        <option id="3-30">Panal de Huevo AAA</option>
+                        <option id="4-30">Panal de Huevo PREMIUM</option>
+                        <option id="1-15">Medio Panal de Huevo A</option>
+                        <option id="2-15">Medio Panal de Huevo AA</option>
+                        <option id="3-15">Medio Panal de Huevo AAA</option>
+                        <option id="4-15">Medio Panal de Huevo PREMIUM</option>
                       </select>
                 </div>
-                 <!-- phone mask -->
+                 <!-- Cantidad mask -->
                  <div class="form-group" style="width: 100%; ">
                   <label>Cantidad:</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fa fa-check-square" ></i></span>
                     </div>
-                    <input type="number" class="form-control" >
+                    <input type="number" class="form-control" id="cantidad">
                   </div>
                   <!-- /.input group -->
                 </div>
                   <!-- /.form group -->
-                  
-                 <!-- TOTAL -->
-                  <div class="form-group" style="width: 100%;">
-                      <label>TOTAL %:</label>
-                      <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="fa fa-cart-plus"></i></span>
-                      </div>
-                      <input type="number" class="form-control" data-mask disabled value="147.000">
-                      </div>
-                  </div>
-                  <!-- /.input group -->
                 </div>
                 <!-- /.form group -->
                 <div class="form-group text-center">
-                <button type="button" class="btn btn-success w-50 btn-lg border"><i class="fa fa-cart-arrow-down"></i>  Success</button>
+                <button type="button" class="btn btn-success w-50 btn-lg border" id="agregar">
+                  <i class="fa fa-cart-arrow-down"></i>  Añadir</button>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -798,12 +824,11 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap" id="listarProductos">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Id</th>
                       <th>Nombre</th>
-                      <th>Tipo</th>
                       <th>Precio</th>
                       <th>Cantidad</th>
                       <th>Total</th>
@@ -812,7 +837,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                       <td>1</td> 
                       <td>PANAL DE HUEVO</td>
                       <td>HUEVO AAA</td>
@@ -821,46 +846,27 @@
                       <td>$94.000</td>
                       <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
                       <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <tr>
-                      <td>2</td> 
-                      <td>MEDIO PANAL DE HUEVO</td>
-                      <td>HUEVO AA</td>
-                      <td>18.500</td>
-                      <td>2</td>
-                      <td>$37.000</td>
-                      <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
-                      <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <tr>
-                    <td>3</td> 
-                      <td>DOCENA DE HUEVO</td>
-                      <td>HUEVO A</td>
-                      <td>16.500</td>
-                      <td>1</td>
-                      <td>$16.500</td>
-                      <td><button type="button" class="btn btn-danger bi bi-trash"></button></td>
-                      <td><button type="button" class="btn btn-warning bi bi-pencil-square"></button></td>
-                    </tr>
-                    <td>4</td> 
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <th>Total Productos</th>
-                      <td id="miCelda"></td>
-                      <td><button type="button" class="btn btn-success bi bi-bag-check" 
-                      data-toggle="modal" data-target="#compra"> Comprar</button></td>
-                      <td></td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
+                <div class="col-10 text-left" id="total" 
+                style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                 font-size:large; font-weight: bold;"></div>
               </div>
+              
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
         <!-- /.row -->
+        <div class="row text-right">
+                <div class="col-12">
+                  <button type="button" class="btn btn-success w-20 btn-lg border rounded-pill" 
+                   data-toggle="modal" data-target="#agregarCompra">
+                    <i class="fa fa-cart-arrow-down"></i>  Comprar</button>
+                  </div>
+              </div>
           <!-- Table Facturas -->
           <div class="row m-2">
             <div class="card col-12">
@@ -957,78 +963,202 @@
       </div>
       <!-- /.fin del contenedor general -wrapper -->
 
-      <footer class="main-footer">
-        <strong
-          >Copyright &copy; 2014-2021
-          <a href="https://adminlte.io">Adso.Work</a>.</strong
-        >
-        Todos los derechos Reservados
-        <div class="float-right d-none d-sm-inline-block">
-          <b>Version</b> 0.0.1
-        </div>
-      </footer>
-
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
       </aside>
       <!-- /.control-sidebar -->
-    </div>
-    <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge("uibutton", $.ui.button);
-    </script>
-    <!-- Select2 -->
-    <script src="../../plugins/select2/js/select2.full.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="../../plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="../../plugins/moment/moment.min.js"></script>
-    <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="../../dist/js/pages/dashboard.js"></script>
-    <!-- DataTables  & Plugins -->
-      <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-      <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-      <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-      <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-      <script src="../../plugins/jszip/jszip.min.js"></script>
-      <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-      <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-      <!-- Sweel Alerts -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-      <!-- actualizar inputs -->
+                <script>
+                  
+                </script>
+                <!-- script para Listar los productos -->
+                <script>
+                    var boton = document.getElementById("agregar");
+                    var lista = document.getElementById("listarProductos");
+                    var data = [];
+                    var cant = 0;
+                    
+                    boton.addEventListener("click", agregar);
+                      function agregar() {
+                        var select = document.getElementById("huevos");
+                          var tipo = select.value;
+                          if(tipo == 'Huevo A'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoA); ?>;
+                            var total2 = precio;
+                          }else if(tipo == 'Huevo AA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAA); ?>;
+                            var total2 = precio;
+                          }else if(tipo == 'Huevo AAA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAAA); ?>;
+                            var total2 = precio;
+                          }else if(tipo == 'Huevo PREMIUM'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoPREMIUM); ?>;
+                            var total2 = precio;
+                          }else if(tipo == 'Panal de Huevo A'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoA); ?>;
+                            var total2 = precio * 30;
+                          }else if(tipo == 'Panal de Huevo AA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAA); ?>;
+                            var total2 = precio * 30;
+                          }else if(tipo == 'Panal de Huevo AAA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAAA); ?>;
+                            var total2 = precio * 30;
+                          }else if(tipo == 'Panal de Huevo PREMIUM'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoPREMIUM); ?>;
+                            var total2 = precio * 30;
+                          }else if(tipo == 'Medio Panal de Huevo A'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoA); ?>;
+                            var total2 = precio * 15;
+                          }else if(tipo == 'Medio Panal de Huevo AA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAA); ?>;
+                            var total2 = precio * 15;
+                          }else if(tipo == 'Medio Panal de Huevo AAA'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoAAA); ?>;
+                            var total2 = precio * 15;
+                          }else if(tipo == 'Medio Panal de Huevo PREMIUM'){
+                            var nombre = tipo;
+                            var precio = <?php echo json_encode($huevoPREMIUM); ?>;
+                            var total2 = precio * 15;
+                          }
+                        var cantidad = parseFloat(document.getElementById("cantidad").value);
+                        var total = total2 * cantidad;
+                        data.push({
+                          id: cant,
+                          nombre:nombre,
+                          total2: total2,
+                          cantidad: cantidad,
+                          total: total,
+                        });
+                        var id_row = "row" + cant;
+                        var fila =
+                          "<tr id=" +
+                          id_row +
+                          "> <td>" +
+                          cant +
+                          "</td> <td>"+
+                          nombre +
+                          "</td> <td>" +
+                          total2 +
+                          "</td> <td>" +
+                          cantidad +
+                          "</td> <td>" +
+                          total +
+                          // <button type="button" class="btn btn-danger bi bi-trash"></button>
+                          "</td> <td > <button class='btn btn-danger btn-lg bi bi-trash' onclick='eliminar(" +
+                          cant +
+                          ")'</button> </td> <td> <button class='btn btn-warning btn-lg bi bi-pencil-square' onclick='cantidad(" +
+                          cant +
+                          ")';></button> </td> </tr>";
+                        //agregar tabla
+                        $("#listarProductos").append(fila);
+                        $("#cantidad").val("");
+                        $("#huevos").focus();
+                        cant++;
+
+                        sumar();
+                     }
+                     function sumar() {
+                        var tot = 0;
+                        for (x of data) {
+                          tot = tot + x.total;
+                        }
+                        document.getElementById("total").innerHTML = "Total : " + tot;
+                      }
+                      function eliminar(row) {
+                        //remover la fila de la tabla
+                        $("#row" + row).remove();
+                        var i = 0;
+                        var pos = 0;
+                        for (x of data) {
+                          if (x.id == row) {
+                            pos = i;
+                          }
+                          i++;
+                        }
+                        data.splice(pos, 1);
+                        sumar();
+                      }
+
+                      function cantidad(row) {
+                        var canti = parseFloat(prompt("Nueva cantidad"));
+                        data[row].cantidad = canti;
+                        data[row].total = data[row].cantidad * data[row].total2;
+                        var filaId = document.getElementById("row" + row);
+                        celda = filaId.getElementsByTagName("td");
+                        celda[3].innerHTML = canti;
+                        celda[4].innerHTML = data[row].total;
+                        sumar();
+                      } 
+
+                </script>
+                </div>
+                <script src="../../dist/js/listarProductos.js"></script>
+                <!-- jQuery -->
+               <script src="../../plugins/jquery/jquery.min.js"></script>
+                <!-- jQuery UI 1.11.4 -->
+                <script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
+                <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+                <script>
+                  $.widget.bridge("uibut            ton", $.ui.button);
+                </script>
+                <!-- Select2 -->
+                <script src="../../plugins/select2/js/select2.full.min.js"></script>
+                <!-- Bootstrap 4 -->
+                <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+               <!-- ChartJS -->
+                <script src="../../plugins/chart.js/Chart.min.js"></script>
+               <!-- Sparkline -->
+                <script src="plugins/sparklines/sparkline.js"></script>
+               <!-- JQVMap -->
+                <script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
+                <script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+                <!-- jQuery Knob Chart -->
+                <script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
+                <!-- daterangepicker -->
+               <script src="../../plugins/moment/moment.min.js"></script>
+               <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+                <!-- Tempusdominus Bootstrap 4 -->
+                <script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+                <!-- Summernote -->
+                <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+               <!-- overlayScrollbars -->
+                <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+                <!-- AdminLTE App -->
+                <script src="../../dist/js/adminlte.js"></script>
+                <!-- AdminLTE for demo purposes -->
+                <script src="../../dist/js/demo.js"></script>
+                <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+                <script src="../../dist/js/pages/dashboard.js"></script>
+                <!-- DataTables  & Plugins -->
+                  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+                 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+                  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+                  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+                  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+                  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+                  <script src="../../plugins/jszip/jszip.min.js"></script>
+                  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+                  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+                  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+                  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+                  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+                  <!-- Sweel Alerts -->
+               <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                  <!-- actualizar inputs -->
 
       <!-- modales -->
-      <div class="modal fade" id="compra">
+      <div class="modal fade" id="agregarCompra">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -1037,7 +1167,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="../../../controller/ventas/agregarVenta.php" method="post">
+            <form action="../../../controller/ventas/agregarComprar.php"method="post">
             <div class="modal-body">
               <!-- TOTAL RECIBIDO -->
               <div class="form-group" style="width: 80%;">
@@ -1050,7 +1180,23 @@
                     <input type="number" class="form-control"  data-mask name="recibido">
                   </div>
                   <!-- /.input group -->
-                </div>
+              </div>
+              <!-- METODO DE PAGO -->
+              <div class="form-group">
+                      <label >Seleccione el Metodo de Pago</label>
+                      <select class="form-control select2 select2-danger" 
+                        data-dropdown-css-class="select2-danger" style="width:80%;"
+                        id="seleccion" onchange="mostrarInput()" name="metodoPago">
+                        <option value="" selected="selected"></option>
+                        <option value="1">Efectivo</option>
+                        <option value="2">Tarjeta Debito</option>
+                        <option value="3">Tarjeta Crédito</option>
+                      </select> 
+              </div>
+                  <div id="metodoPago" style="display: none;">
+                    <input type="text" id="metodoPago" 
+                    placeholder="Numero de Tarjeta" style="width:80%;" name="numeroTarjeta">
+                  </div>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -1063,6 +1209,18 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
+        <script>
+              function mostrarInput() {
+                var seleccion = document.getElementById("seleccion").value;
+                var inputAdicional = document.getElementById("metodoPago");
+
+                if (seleccion === "2" || seleccion === "3") {
+                  inputAdicional.style.display = "block";
+                } else {
+                  inputAdicional.style.display = "none";
+                }
+              }
+        </script>
       <!--- MENSAJE EXITOSO -->
     <script>
       <?php
@@ -1089,179 +1247,198 @@
       }
       ?>
     </script>
-      <script>
-        // Cambiar el valor de la celda con JavaScript
-        document.getElementById("miCelda").innerHTML = "$147.500";
-      </script>
     <script>
-    $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+        function select(e) {
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
+          let cedula = document.getElementById("cedula").value;
+          let xmr = new XMLHttpRequest();
+          xmr.open("POST", "../../../controller/ventas/buscarCliente.php", true);
+          xmr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xmr.onreadystatechange = function() {
+            if (xmr.readyState == 4 && xmr.status == 200) {
+             let response = JSON.parse(xmr.responseText);
+              const nombreClienteInput = document.getElementById('nombre');
+              const telefonoClienteInput = document.getElementById('telefono');
+              const correoClienteInput = document.getElementById('correo');
+              for (let index = 0; index < response.length; index++) {
+                  nombreClienteInput.value = response[index].nombreCompleto;
+                  telefonoClienteInput.value = response[index].numeroTelefono;
+                  correoClienteInput.value = response[index].correoElectronico;
+              }
+            }
+          }
+          xmr.send("cedula=" + cedula);
+        }
+    </script>
+          <script>
+              $(function () {
+              //Initialize Select2 Elements
+              $('.select2').select2()
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
+              //Initialize Select2 Elements
+             $('.select2bs4').select2({
+                theme: 'bootstrap4'
+              })
 
-    //Date picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
+              //Datemask dd/mm/yyyy
+              $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+              //Datemask2 mm/dd/yyyy
+              $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+              //Money Euro
+              $('[data-mask]').inputmask()
 
-    //Date and time picker
-    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+              //Date picker
+              $('#reservationdate').datetimepicker({
+                  format: 'L'
+              });
 
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
+              //Date and time picker
+              $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
 
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
+              //Date range picker
+              $('#reservation').daterangepicker()
+              //Date range picker with time picker
+              $('#reservationtime').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+               locale: {
+                 format: 'MM/DD/YYYY hh:mm A'
+               }
+              })
+              //Date range as a button
+              $('#daterange-btn').daterangepicker(
+                {
+                  ranges   : {
+                   'Today'       : [moment(), moment()],
+                   'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                   'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                   'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                  },
+                  startDate: moment().subtract(29, 'days'),
+                  endDate  : moment()
+                },
+                function (start, end) {
+                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+              )
 
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
+              //Timepicker
+              $('#timepicker').datetimepicker({
+               format: 'LT'
+              })
 
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
+              //Bootstrap Duallistbox
+              $('.duallistbox').bootstrapDualListbox()
 
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    })
+              //Colorpicker
+              $('.my-colorpicker1').colorpicker()
+              //color picker with addon
+              $('.my-colorpicker2').colorpicker()
 
-    $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    })
+              $('.my-colorpicker2').on('colorpickerChange', function(event) {
+                $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+              })
 
-    })
-      // BS-Stepper Init
-    document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
+              $("input[data-bootstrap-switch]").each(function(){
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+              })
 
-      // DropzoneJS Demo Code Start
-      Dropzone.autoDiscover = false
+              })
+                // BS-Stepper Init
+              document.addEventListener('DOMContentLoaded', function () {
+              window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+              })
 
-      // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-      var previewNode = document.querySelector("#template")
-      previewNode.id = ""
-      var previewTemplate = previewNode.parentNode.innerHTML
-      previewNode.parentNode.removeChild(previewNode)
+                // DropzoneJS Demo Code Start
+                Dropzone.autoDiscover = false
 
-      var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-              url: "/target-url", // Set the url
-              thumbnailWidth: 80,
-              thumbnailHeight: 80,
-              parallelUploads: 20,
-              previewTemplate: previewTemplate,
-              autoQueue: false, // Make sure the files aren't queued until manually added
-              previewsContainer: "#previews", // Define the container to display the previews
-              clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-      })
+                // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+                var previewNode = document.querySelector("#template")
+                previewNode.id = ""
+                var previewTemplate = previewNode.parentNode.innerHTML
+                previewNode.parentNode.removeChild(previewNode)
 
-      myDropzone.on("addedfile", function(file) {
-        // Hookup the start button
-        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
-      })
+                var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+                       url: "/target-url", // Set the url
+                       thumbnailWidth: 80,
+                       thumbnailHeight: 80,
+                       parallelUploads: 20,
+                       previewTemplate: previewTemplate,
+                       autoQueue: false, // Make sure the files aren't queued until manually added
+                       previewsContainer: "#previews", // Define the container to display the previews
+                       clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+                })
 
-  // Update the total progress bar
-  myDropzone.on("totaluploadprogress", function(progress) {
-    document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-  })
+                myDropzone.on("addedfile", function(file) {
+                  // Hookup the start button
+                  file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
+                })
 
-  myDropzone.on("sending", function(file) {
-    // Show the total progress bar when upload starts
-    document.querySelector("#total-progress").style.opacity = "1"
-    // And disable the start button
-    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-  })
+            // Update the total progress bar
+            myDropzone.on("totaluploadprogress", function(progress) {
+              document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+            })
 
-  // Hide the total progress bar when nothing's uploading anymore
-  myDropzone.on("queuecomplete", function(progress) {
-    document.querySelector("#total-progress").style.opacity = "0"
-  })
+            myDropzone.on("sending", function(file) {
+              // Show the total progress bar when upload starts
+              document.querySelector("#total-progress").style.opacity = "1"
+              // And disable the start button
+              file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+            })
 
-  // Setup the buttons for all transfers
-  // The "add files" button doesn't need to be setup because the config
-  // `clickable` has already been specified.
-  document.querySelector("#actions .start").onclick = function() {
-    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-  }
-  document.querySelector("#actions .cancel").onclick = function() {
-    myDropzone.removeAllFiles(true)
-  }
-  // DropzoneJS Demo Code End
-  </script>
-  <!-- tables -->
-  <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["excel", "pdf", "print"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-<!-- tables -->
-<script>
-  $(function () {
-    $("#exampleNiko").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["excel", "pdf", "print"]
-    }).buttons().container().appendTo('#exampleNiko_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
+            // Hide the total progress bar when nothing's uploading anymore
+           myDropzone.on("queuecomplete", function(progress) {
+              document.querySelector("#total-progress").style.opacity = "0"
+            })
+
+            // Setup the buttons for all transfers
+            // The "add files" button doesn't need to be setup because the config
+            // `clickable` has already been specified.
+            document.querySelector("#actions .start").onclick = function() {
+              myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+            }
+            document.querySelector("#actions .cancel").onclick = function() {
+              myDropzone.removeAllFiles(true)
+            }
+            // DropzoneJS Demo Code End
+        </script>
+              <!-- tables -->
+            <script>
+              $(function () {
+                $("#example1").DataTable({
+                  "responsive": true, "lengthChange": false, "autoWidth": false,
+                 "buttons": ["excel", "pdf", "print"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                 "paging": true,
+                 "lengthChange": false,
+                 "searching": false,
+                 "ordering": true,
+                 "info": true,
+                  "autoWidth": false,
+                 "responsive": true,
+                });
+              });
+            </script>
+            <!-- tables -->
+              <script>
+                  $(function () {
+                    $("#exampleNiko").DataTable({
+                      "responsive": true, "lengthChange": false, "autoWidth": false,
+                      "buttons": ["excel", "pdf", "print"]
+                    }).buttons().container().appendTo('#exampleNiko_wrapper .col-md-6:eq(0)');
+                    $('#example2').DataTable({
+                     "paging": true,
+                     "lengthChange": false,
+                      "searching": false,
+                     "ordering": true,
+                     "info": true,
+                     "autoWidth": false,
+                     "responsive": true,
+                    });
+                  });
+            </script>
   </body>
 </html>

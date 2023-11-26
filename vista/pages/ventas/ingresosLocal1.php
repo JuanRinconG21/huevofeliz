@@ -6,11 +6,12 @@
   $conexion = new Mysql();
   $pdo = $conexion->conectar();
   //TRAIGO INVENTARIO ACTUAL
-  $traerDesc= $pdo->prepare('SELECT lotehuevo.identificadorLote,lotehuevo.tipoLote,
+  $traerDesc= $pdo->prepare('SELECT lotehuevo.identificadorLote,precios.Tipo,
   lotehuevo.fechaVencimiento,ingresos.cantidad,ingresos.idIngresos,
-  ingresos.descuentos
+  ingresos.descuentos,ingresos.estado
   FROM ingresos
-  INNER JOIN lotehuevo ON ingresos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo');
+  INNER JOIN lotehuevo ON ingresos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo
+  INNER JOIN precios ON lotehuevo.Precios_idPrecios = precios.idPrecios');
   $traerDesc->execute();
 
 ?>
@@ -642,7 +643,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <form  action="../../../controller/ventas/agregarIngreso.php" method="post">
+                <form  action="../../../controller/ventas/agregarIngreso1.php" method="post">
                   <!-- input states -->
                   <div class="form-group">
                     <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Cantidad de Huevos</label>
@@ -669,11 +670,12 @@
                 <table id="exampleNiko" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Local 1</th>
+                    <th>Localalidad</th>
                     <th>N° Lote</th>
                     <th>Tipo de Huevo</th>
                     <th>Fecha Vencimiento</th>
                     <th>Cantidad</th>
+                    <th>Estado</th>
                     <th>Descuento</th>
                     <th>Generar Descuento</th>
                   </tr>
@@ -683,9 +685,10 @@
                         <tr>
                           <th>Local 1</th> 
                           <th scope="row"> <?php echo $fila['identificadorLote'] ?></th>
-                          <th scope="row"> <?php echo $fila['tipoLote'] ?></th>
+                          <th scope="row"> <?php echo $fila['Tipo'] ?></th>
                           <th scope="row"> <?php echo $fila['fechaVencimiento'] ?></th>
                           <th scope="row"> <?php echo $fila['cantidad'] ?></th>
+                          <th scope="row"> <?php echo $fila['estado'] ?></th>
                           <th scope="row"> <?php echo $fila['descuentos'] ?></th>
                           <td class="text-center">
                           <button type="button" class="btn btn-danger bi bi-percent" 
@@ -701,7 +704,7 @@
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
-                                    <form action="../../../controller/ventas/agregarDesc.php" method="POST">
+                                    <form action="../../../controller/ventas/agregarDesc1.php" method="POST">
                                     <div class="modal-body">
                                       <!-- TOTAL RECIBIDO -->
                                       <div class="form-group" style="width: 80%;">
@@ -732,11 +735,12 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Local 1</th>
+                    <th>Localalidad</th>
                     <th>N° Lote</th>
                     <th>Tipo de Huevo</th>
                     <th>Fecha Vencimiento</th>
                     <th>Cantidad</th>
+                    <th>Estado</th>
                     <th>Descuento</th>
                     <th>Generar Descuento</th>
                   </tr>
