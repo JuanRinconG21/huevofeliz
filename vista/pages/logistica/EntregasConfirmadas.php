@@ -1,6 +1,50 @@
-<?php ?>
+<?php session_start();
+include('../../../models/MySQL.php');
+// Paso 1: Preparar una consulta SQL usando consultas preparadas.
+// Paso 2: Ejecutar la consulta preparada.
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS cliente,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=3;");
+$stmt->execute();
+?>
 
-<?php ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<?php
+if (isset($_SESSION['mensajeErr'])) {
+?>
+  <script>
+    let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+    let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+    Swal.fire(
+      titulo,
+      msj,
+      'success'
+    )
+  </script>
+<?php
+  unset($_SESSION['mensajeErr']);
+}
+?>
+
+
+<?php
+if (isset($_SESSION['error2'])) {
+?>
+  <script>
+    let msj = '<?php echo $_SESSION['error'] ?>'
+    let titulo = '<?php echo $_SESSION['error2'] ?>'
+    Swal.fire(
+      titulo,
+      msj,
+      'error'
+    )
+  </script>
+<?php
+  unset($_SESSION['error2']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -548,32 +592,41 @@
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
+
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
+                        <th>conductor</th>
+
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1785</td>
-                        <td>12/11/2023 - 14:30</td>
-                        <td>Mercamos</td>
-                        <td>Calle 34 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>Entregado</td>
-                      </tr>
-                      <tr>
-                        <td>1786</td>
-                        <td>12/11/2023 - 15:30</td>
-                        <td>Super Inter</td>
-                        <td>Calle 35 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>Entregado</td>
-                      </tr>
+                      <?php
+
+                      //  Cerrar la conexión a la base de datos.
+                      $pdo = null;
+                      try {
+                        while ($fila1 = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                          <tr>
+                            <td><?php echo $fila1['idPedidos'] ?></td>
+                            <td><?php echo $fila1['fecha'] ?></td>
+                            <td><?php echo $fila1['cliente'] ?></td>
+                            <td><?php echo $fila1['direccion'] ?></td>
+                            <td><?php echo $fila1['cantidad'] ?></td>
+                            <td><?php echo $fila1['tipoPago'] ?></td>
+                            <td><?php echo $fila1['estado'] ?></td>
+                            <td><?php echo $fila1['nombreCompleto'] ?></td>
+                          </tr>
+
+
+
+                      <?php
+                        }
+                      } catch (\Throwable $th) {
+                        echo "Error: " . $e->getMessage();
+                      }
+
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -581,10 +634,11 @@
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
+                        <th>conductor</th>
+
                       </tr>
                     </tfoot>
                   </table>

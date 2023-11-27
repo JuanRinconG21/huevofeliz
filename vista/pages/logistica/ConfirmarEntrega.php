@@ -1,8 +1,50 @@
-<?php ?>
+<?php session_start();
+include('../../../models/MySQL.php');
+// Paso 1: Preparar una consulta SQL usando consultas preparadas.
+// Paso 2: Ejecutar la consulta preparada.
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=1;");
+$stmt->execute();
+?>
 
-<?php ?>
+
 <!DOCTYPE html>
 <html lang="en">
+<?php
+if (isset($_SESSION['mensajeErr'])) {
+?>
+  <script>
+    let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+    let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+    Swal.fire(
+      titulo,
+      msj,
+      'success'
+    )
+  </script>
+<?php
+  unset($_SESSION['mensajeErr']);
+}
+?>
+
+
+<?php
+if (isset($_SESSION['error2'])) {
+?>
+  <script>
+    let msj = '<?php echo $_SESSION['error'] ?>'
+    let titulo = '<?php echo $_SESSION['error2'] ?>'
+    Swal.fire(
+      titulo,
+      msj,
+      'error'
+    )
+  </script>
+<?php
+  unset($_SESSION['error2']);
+}
+?>
 
 <head>
   <meta charset="utf-8" />
@@ -370,24 +412,6 @@
                     <p>LOCAL 1</p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="../../pages/forms/advanced.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Advanced Elements</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/forms/editors.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Editors</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../pages/forms/validation.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Validation</p>
-                    </a>
-                  </li> -->
               </ul>
             </li>
             <li class="nav-item">
@@ -548,38 +572,86 @@
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
+
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
-                        <th>Finalizar Entrega</th>
-                        <th>Cancelar Entrega</th>
+                        <th>conductor</th>
+                        <th>Finalizar Pedido</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1785</td>
-                        <td>12/11/2023 - 14:30</td>
-                        <td>Mercamos</td>
-                        <td>Calle 34 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>En Camino</td>
-                        <td><button type="button" class="btn btn-primary">Finalizar Entrega</button></td>
-                        <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2">Cancelar Entrega</button></td>
-                      </tr>
-                      <tr>
-                        <td>1786</td>
-                        <td>12/11/2023 - 15:30</td>
-                        <td>Super Inter</td>
-                        <td>Calle 35 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>En Camino</td>
-                        <td><button type="button" class="btn btn-primary">Finalizar Entrega</button></td>
-                        <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2">Cancelar Entrega</button></td>
-                      </tr>
+                      <?php
+
+                      //  Cerrar la conexión a la base de datos.
+                      $pdo = null;
+                      try {
+                        while ($fila1 = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                          <tr>
+                            <td><?php echo $fila1['idPedidos'] ?></td>
+                            <td><?php echo $fila1['fecha'] ?></td>
+                            <td><?php echo $fila1['nombreCompleto'] ?></td>
+                            <td><?php echo $fila1['direccion'] ?></td>
+                            <td><?php echo $fila1['cantidad'] ?></td>
+                            <td><?php echo $fila1['tipoPago'] ?></td>
+                            <td><?php echo $fila1['estado'] ?></td>
+                            <td><?php echo $fila1['nombreCompleto'] ?></td>
+
+
+                            <td>
+                              <form action="../../../controller/confirmarEntrega.php" method="post">
+                                <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
+
+
+                                <button type="submit" class="btn btn-success">Enviar</button>
+                              </form>
+                            </td>
+                          </tr>
+
+                          <!-- Button trigger modal -->
+
+
+                          <!-- Modal -->
+                          <!-- <div class="modal fade" id="confirmarPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Estado</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form method="post" action="../../../controller/aceptarPedido.php">
+                                    <div class="mb-3">
+                                      <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
+                                      <label for="exampleInputEmail1" class="form-label">Tipo de estado</label>
+                                      <select class="form-select" aria-label="Default select example" name="estadoPedido">
+                                        <option selected>Opciones</option>
+                                        <option value="1">Aceptar</option>
+                                        <option value="0">Rechazar</option>
+
+                                      </select>
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                  </form>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div> -->
+
+
+                      <?php
+                        }
+                      } catch (\Throwable $th) {
+                        echo "Error: " . $e->getMessage();
+                      }
+
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -587,12 +659,12 @@
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
+
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
-                        <th>Finalizar Entrega</th>
-                        <th>Cancelar Entrega</th>
+                        <th>Conductor</th>
+                        <th>Finalizar Pedido</th>
                       </tr>
                     </tfoot>
                   </table>
