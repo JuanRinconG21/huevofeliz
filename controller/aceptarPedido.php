@@ -25,7 +25,7 @@ if (isset($_POST['estadoPedido']) && !empty($_POST['estadoPedido'])) {
         $_SESSION['mensajeErr2'] = "Se ha Actualizado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (\Throwable $th) {
-        echo "Error: " . $e->getMessage();
+        header("Location: ../vista/pages/logistica/AceptarPedidos.php");
     }
 } else {
     $_SESSION["error"] = "error";

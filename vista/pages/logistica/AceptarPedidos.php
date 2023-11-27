@@ -727,7 +727,7 @@ $stmt2->execute();
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  <form action="../../../controller/aceptarPedido.php">
+                                  <form method="post" action="../../../controller/aceptarPedido.php">
                                     <div class="mb-3">
                                       <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
                                       <label for="exampleInputEmail1" class="form-label">Tipo de estado</label>
@@ -742,7 +742,7 @@ $stmt2->execute();
 
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                      <button type="submit" id="actualizarSweet<?php echo $fila['idPedidos'] ?>" class="btn btn-primary">Guardar</button>
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
                                   </form>
                                 </div>
