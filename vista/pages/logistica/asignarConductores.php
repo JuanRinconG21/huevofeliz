@@ -331,7 +331,7 @@
                 <li class="nav-item">
                   <a href="../../pages/logistica/ConfirmarEntrega.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Finalizar Entregas</p>
+                    <p>Entregas Pendientes</p>
                   </a>
                 </li>
 
