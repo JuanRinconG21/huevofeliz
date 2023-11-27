@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/login.css">
 </head>
+
 <body>
     <div class="container">
         <div class="sign-up-wrapper">
@@ -15,12 +17,13 @@
                 <div class="social">
                 </div>
                 <div class="input-group">
+                    <input type="number" placeholder="Cedula o NIT" id="" name="id">
                     <input type="text" placeholder="nombre completo" id="" name="nombre">
                     <input type="text" placeholder="telefono" id="" name="telefono">
                     <input type="email" placeholder="email" id="" name="email">
                     <input type="text" placeholder="direccion" id="" name="direccion">
                     <input type="password" placeholder="contraseña" id="" name="password">
-                    
+
                     <select id="opciones" name="rol" placeholder="elige el rol">
                         <option value="1">1-Cliente</option>
                         <option value="2">2-Cliente Empresarial</option>
@@ -44,7 +47,7 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="email"  name="email">
+                    <input type="email" placeholder="email" name="email">
                     <input type="password" placeholder="password" name="password">
                     <button type="submit" class="overlay-btn">Ingresar</button>
                 </div>
@@ -66,4 +69,5 @@
     </div>
     <script src="./assets/js/login.js"></script>
 </body>
+
 </html>
