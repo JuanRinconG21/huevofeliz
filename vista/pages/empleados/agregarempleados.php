@@ -1,4 +1,13 @@
 <?php
+session_start();
+include("../../../models/MySQL.php");
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
+
+$sql2 =  "SELECT * FROM roles";
+$stmt2 = $pdo->prepare($sql2);
+$stmt2->execute();
+$fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -566,27 +575,17 @@
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Cargo</label>
                                                     <br>
-                                                    <div class="form-check ms-2">
-                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteGeneral" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Gerente General
-                                                        </label>
-                                                        <br>
-                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteProduccion" id="flexCheckDefault">
-
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Gerente Produccion
-                                                        </label>
-                                                        <br>
-                                                        <input class="form-check-input" type="checkbox" name="checkCargo[]" value="gerenteVentas" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Gerente Ventas
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Fecha de Ingreso</label>
-                                                    <input type="date" class="form-control" name="fechaIngreso" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                    <?php
+                                                    foreach ($fila as $key) {
+                                                        if ($key['nombre'] != "Cliente" && $key['nombre'] != "Empresa") {
+                                                    ?>
+                                                            <input type="checkbox" name="checkCargo[]" value id="cbox2" value="<?php echo $key['idRoles'] ?>" />
+                                                            <label for="cbox2"><?php echo $key['nombre'] ?></label>
+                                                            <br>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Numero de Cuenta</label>
