@@ -5,8 +5,13 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN detallepedidos on pedidos.idPedidos=detallepedidos.Pedidos_idPedidos; ");
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN detallepedidos on pedidos.idPedidos=detallepedidos.Pedidos_idPedidos WHERE estado=0;");
 $stmt->execute();
+
+
+
+$stmt2 = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN detallepedidos on pedidos.idPedidos=detallepedidos.Pedidos_idPedidos WHERE estado=1;");
+$stmt2->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +20,24 @@ $stmt->execute();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El huevo | Feliz</title>
+
+
+  <?php
+  if (isset($_SESSION['mensajeErr'])) {
+  ?>
+    <script>
+      let msj = '<?php echo $_SESSION['mensajeErr2'] ?>'
+      let titulo = '<?php echo $_SESSION['mensajeErr'] ?>'
+      Swal.fire(
+        titulo,
+        msj,
+        'success'
+      )
+    </script>
+  <?php
+    unset($_SESSION['mensajeErr']);
+  }
+  ?>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
@@ -667,7 +690,7 @@ $stmt->execute();
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
                         <th>Aceptar Pedido</th>
-                        <th>Rechazar Pedido</th>
+
                     </thead>
                     <tbody>
                       <?php
@@ -687,9 +710,48 @@ $stmt->execute();
                             <td><?php echo $fila1['estado'] ?></td>
 
 
-                            <td><button type="button" class="btn btn-primary">Confirmar Pedido</button></td>
-                            <td><button type="button" class="btn btn-danger">Rechazar Pedido</button></td>
+                            <td><button type="button" value="<?php echo $fila1['idPedidos'] ?>" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmarPedido<?php echo $fila1['idPedidos'] ?>">
+                                Confirmar pedido
+                              </button></td>
                           </tr>
+
+                          <!-- Button trigger modal -->
+
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="confirmarPedido<?php echo $fila1['idPedidos'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Estado</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form action="../../../controller/aceptarPedido.php">
+                                    <div class="mb-3">
+                                      <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
+                                      <label for="exampleInputEmail1" class="form-label">Tipo de estado</label>
+                                      <select class="form-select" aria-label="Default select example" name="estadoPedido">
+                                        <option selected>Opciones</option>
+                                        <option value="1">Aceptar</option>
+                                        <option value="0">Rechazar</option>
+
+                                      </select>
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                                      <button type="submit" id="actualizarSweet<?php echo $fila['idPedidos'] ?>" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                  </form>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+
                       <?php
                         }
                       } catch (\Throwable $th) {
@@ -709,7 +771,7 @@ $stmt->execute();
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
                         <th>Aceptar Pedido</th>
-                        <th>Rechazar Pedido</th>
+
                       </tr>
                     </tfoot>
                   </table>
@@ -737,32 +799,37 @@ $stmt->execute();
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
+
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1785</td>
-                        <td>12/11/2023 - 14:30</td>
-                        <td>Mercamos</td>
-                        <td>Calle 34 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>Confirmado</td>
-                      </tr>
-                      <tr>
-                        <td>1786</td>
-                        <td>12/11/2023 - 15:30</td>
-                        <td>Super Inter</td>
-                        <td>Calle 35 #5</td>
-                        <td>4</td>
-                        <td>100 huevos</td>
-                        <td>Transferencia electrónica</td>
-                        <td>Confirmado</td>
-                      </tr>
+                      <?php
+
+                      //  Cerrar la conexión a la base de datos.
+                      $pdo = null;
+                      try {
+                        while ($fila2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                          <tr>
+                            <td><?php echo $fila2['idPedidos'] ?></td>
+                            <td><?php echo $fila2['fecha'] ?></td>
+                            <td><?php echo $fila2['nombreCompleto'] ?></td>
+                            <td><?php echo $fila2['direccion'] ?></td>
+                            <td><?php echo $fila2['cantidad'] ?></td>
+                            <td><?php echo $fila2['tipoPago'] ?></td>
+                            <td><?php echo $fila2['estado'] ?></td>
+                          </tr>
+
+
+                      <?php
+                        }
+                      } catch (\Throwable $th) {
+                        echo "Error: " . $e->getMessage();
+                      }
+
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -770,7 +837,7 @@ $stmt->execute();
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
                         <th>Dirección</th>
-                        <th>Id Lote</th>
+
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
@@ -813,156 +880,12 @@ $stmt->execute();
       <!-- / fin del cuerpo del contenido container-fluid -->
     </section>
     <!-- /  cierre del section todo el cuerpo del index-->
-    >>>>>>> 44a84f253e0fd09417521e358ed10432087c0bb3
+
   </div>
   <!-- /.sidebar -->
   </aside>
 
-  <!--contenido del Inicio. -->
-  <div class="content-wrapper">
-    <!-- Cabecera de la pagina del cuerpo index (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <h1 class="m-0 mb-3 text-center">Confirmar Pedidos</h1>
-            <div class="card mb-5">
-              <div class="card-header">
-                <h3 class="card-title">Tabla Pedidos Pendientes</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Id Pedido</th>
-                      <th>Fecha Creación</th>
-                      <th>Nombre Cliente</th>
-                      <th>Dirección</th>
-                      <th>Id Lote</th>
-                      <th>Cantidad</th>
-                      <th>Tipo de Pago</th>
-                      <th>Estado</th>
-                      <th>Aceptar Pedido</th>
-                      <th>Rechazar Pedido</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1785</td>
-                      <td>12/11/2023 - 14:30</td>
-                      <td>Mercamos</td>
-                      <td>Calle 34 #5</td>
-                      <td>4</td>
-                      <td>100 huevos</td>
-                      <td>Transferencia electrónica</td>
-                      <td>Pendiente</td>
-                      <td><button type="button" class="btn btn-primary">Confirmar Pedido</button></td>
-                      <td><button type="button" class="btn btn-danger">Rechazar Pedido</button></td>
-                    </tr>
-                    <tr>
-                      <td>1786</td>
-                      <td>12/11/2023 - 15:30</td>
-                      <td>Super Inter</td>
-                      <td>Calle 35 #5</td>
-                      <td>4</td>
-                      <td>100 huevos</td>
-                      <td>Transferencia electrónica</td>
-                      <td>Pendiente</td>
-                      <td><button type="button" class="btn btn-primary">Confirmar Pedido</button></td>
-                      <td><button type="button" class="btn btn-danger">Rechazar Pedido</button></td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>Id Pedido</th>
-                      <th>Fecha Creación</th>
-                      <th>Nombre Cliente</th>
-                      <th>Dirección</th>
-                      <th>Id Lote</th>
-                      <th>Cantidad</th>
-                      <th>Tipo de Pago</th>
-                      <th>Estado</th>
-                      <th>Aceptar Pedido</th>
-                      <th>Rechazar Pedido</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-          </div><!-- /.col -->
-        </div> <!-- /.row -->
 
-
-
-        <div class="row">
-          <div class="col-sm-12">
-            <h1 class="m-0 mb-3 mt-3 text-center">Pedidos Confirmados</h1>
-            <div class="card mb-5">
-              <div class="card-header">
-                <h3 class="card-title">Tabla De Pedidos Confirmados</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example3" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Id Pedido</th>
-                      <th>Fecha Creación</th>
-                      <th>Nombre Cliente</th>
-                      <th>Dirección</th>
-                      <th>Id Lote</th>
-                      <th>Cantidad</th>
-                      <th>Tipo de Pago</th>
-                      <th>Estado</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1785</td>
-                      <td>12/11/2023 - 14:30</td>
-                      <td>Mercamos</td>
-                      <td>Calle 34 #5</td>
-                      <td>4</td>
-                      <td>100 huevos</td>
-                      <td>Transferencia electrónica</td>
-                      <td>Confirmado</td>
-                    </tr>
-                    <tr>
-                      <td>1786</td>
-                      <td>12/11/2023 - 15:30</td>
-                      <td>Super Inter</td>
-                      <td>Calle 35 #5</td>
-                      <td>4</td>
-                      <td>100 huevos</td>
-                      <td>Transferencia electrónica</td>
-                      <td>Confirmado</td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>Id Pedido</th>
-                      <th>Fecha Creación</th>
-                      <th>Nombre Cliente</th>
-                      <th>Dirección</th>
-                      <th>Id Lote</th>
-                      <th>Cantidad</th>
-                      <th>Tipo de Pago</th>
-                      <th>Estado</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div><!-- /.card -->
-          </div><!-- /.col -->
-        </div> <!-- /.row -->
-
-
-
-
-      </div><!-- /.container-fluid -->
-    </div> <!-- /.content-header -->
-  </div> <!-- /.content-wrapper -->
 
 
 
