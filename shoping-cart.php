@@ -120,7 +120,7 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class='bx bxs-user'></i>Login</a>
+                                <a href="./login.php"></i>Cerrar Sesion</a>
                             </div>
                         </div>
                     </div>
@@ -131,13 +131,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
+                        <a href="./dashboard.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.php">Inicio</a></li>
+                            <li class="active"><a href="./dashboard.php">Inicio</a></li>
                             <li><a href="./shop-grid.php">Productos</a></li>
                             <li><a href="#">Compras</a>
                                 <ul class="header__menu__dropdown">
@@ -198,7 +198,7 @@
                     <div class="breadcrumb__text">
                         <h2>Carrito de Compras</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.php">Inicio</a>
+                            <a href="./dashboard.php">Inicio</a>
                             <span>Carrito de Compras</span>
                         </div>
                     </div>
@@ -322,7 +322,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
+                            <a href="./dashboard.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Direccion: Avenida falsa Calle 123</li>

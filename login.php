@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huevo Feliz E-Commerce - Log-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/login.css">
+    
 </head>
 
 <body>
@@ -67,7 +69,22 @@
         </div>
 
     </div>
-    <script src="./assets/js/login.js"></script>
+    <script src="../huevofeliz/assets/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script>
+        <?php
+        if (isset($_SESSION["mensajeExitoso"]))
+        {
+         echo   
+          "Swal.fire({
+            icon: 'success',
+            title: 'Ok',
+            text: 'Usuario Registrado Exitosamente',
+            });";
+         unset ($_SESSION["mensajeExitoso"]);
+        }
+        ?>
+    </script>
 </body>
 
 </html>

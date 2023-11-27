@@ -118,7 +118,7 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class='bx bxs-user'></i>Login</a>
+                                <a href="./login.php"></i>Cerrar Sesion</a>
                             </div>
                         </div>
                     </div>
@@ -129,41 +129,21 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./inicio.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
+                        <a href="./dashboard.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./inicio.php">Inicio</a></li>
-                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Productos</a></li>
+                            <li class="active"><a href="./dashboard.php">Inicio</a></li>
+                            <li><a href="./shop-grid.php">Productos</a></li>
                             <li><a href="#">Compras</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Registro De Compras</a></li>
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Carrito de Compra</a></li>
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Check Out</a></li>
+                                    <li><a href="./shop-details.php">Registro De Compras</a></li>
+                                    <li><a href="./shoping-cart.php">Carrito de Compra</a></li>
+                                    <li><a href="./checkout.php">Check Out</a></li>
                                 </ul>
                             </li>
-
-                            <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-        ...
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                         </ul>
                     </nav>
                 </div>
@@ -592,7 +572,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./inicio.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
+                            <a href="./dashboard.php"><img src="./assets/images/oie_transparent.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Direccion: Avenida falsa Calle 123</li>

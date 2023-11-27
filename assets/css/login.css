@@ -25,10 +25,10 @@ body
 
 .container 
 {
-  border-radius:10px;
   position:absolute;
-  width:768px;
-  min-height:480px;
+  border-radius:10px;
+  width:850px;
+  min-height:600px;
   overflow: hidden;
 }
 
@@ -143,7 +143,6 @@ button:hover
 
 .sign-in-wrapper
 {
-  position:absolute;
   left:0;
   width:50%;
   height:100%;
@@ -152,7 +151,6 @@ button:hover
 
 .sign-up-wrapper
 {
-  position:absolute;
   left:0;
   width:50%;
   height:100%;
@@ -168,7 +166,6 @@ button:hover
   justify-content: center;
   align-items: center;
   text-align:center;
-  position:absolute;
   font-weight: 600;
   right:0;
   width:50%;
@@ -188,7 +185,6 @@ button:hover
   justify-content: center;
   align-items: center;
   text-align:center;
-  position:absolute;
   font-weight: 600;
   right:0;
   width:50%;
@@ -378,5 +374,3 @@ form h1
 
   /* Otros estilos específicos para dispositivos móviles */
 }
-
-
