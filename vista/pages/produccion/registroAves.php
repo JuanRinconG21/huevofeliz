@@ -18,8 +18,8 @@ $sql4 = "SELECT * FROM aves WHERE fechaDeRetiro is NOT Null; ";
 $stmt4 = $pdo->prepare($sql4);
 $stmt4->execute();
 $fila4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
-//traigo las aves 
 
+//traigo las aves 
 $sql3 = "SELECT * from `aves`";
 $stmt3 = $pdo->prepare($sql3);
 $stmt3->execute();
@@ -37,6 +37,11 @@ $sql1 = "SELECT idLoteAves,nombre from `loteaves`";
 $stmt1 = $pdo->prepare($sql1);
 $stmt1->execute();
 $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+//traigo los nombres de la vacunas
+$sql5 = "SELECT * FROM vacunas;";
+$stmt5 = $pdo->prepare($sql5);
+$stmt5->execute();
+$fila5 = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +76,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -78,7 +85,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-      
+
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -679,7 +686,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Peso</label>
-                                                        <input type="number" name="peso" class="form-control" id="exampleInputPassword1" placeholder="Kg">
+                                                        <input type="number" min="1" name="peso" step="0.01" class="form-control" id="exampleInputPassword1" placeholder="Kg">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Estado de salud</label>
@@ -691,11 +698,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de vacunacion</label>
-                                                        <input type="datetime-local" name="fechaVa" class="form-control" id="exampleInputPassword1">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Fecha de Ingreso</label>
-                                                        <input type="datetime-local" name="fechaIn" class="form-control" id="exampleInputPassword1">
+                                                        <input type="date" name="fechaVa" class="form-control" id="exampleInputPassword1">
                                                     </div>
 
 
@@ -741,7 +744,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <th>lote del ave</th>
                                             <th>seguimiento Salud</th>
                                             <th>Fecha de retiro</th>
-
+                                            <th>Vacunas</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -763,6 +766,10 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         <i class="bi bi-calendar-date"></i>
                                                     </button></td>
 
+                                                <td><button value="<?php echo $aves['idAves'] ?>" style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-va<?php echo $aves['idAves'] ?>">
+                                                        <i class="bi bi-clipboard-heart-fill"></i>
+                                                    </button></td>
+
                                                 <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
@@ -774,28 +781,22 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                 <form action="../../../controller/seguimientoSalud.php" method="post">
                                                                     <div class="card-body">
 
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputEmail1">Nombre de la vacuna</label>
-                                                                            <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
 
-
-                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
-
-                                                                        </div>
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Entorno</label>
-                                                                            <input name="entorno" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                            <input name="entorno" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Entorno">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Sintomas</label>
-                                                                            <input name="sintoma" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
+                                                                            <input name="sintoma" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Sintomas">
                                                                         </div>
 
                                                                         <div class="form-group">
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">
@@ -846,6 +847,50 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
+
+                                                <div class="modal fade" id="modal-va<?php echo $aves['idAves'] ?>">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Vacunas del ave</h4>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/vacunas.php" method="post">
+                                                                    <div class="card-body">
+
+                                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                                            <?php foreach ($fila5 as $vacu) { ?>
+
+                                                                                <input type="checkbox" value="<?php echo $vacu['idvacunas']  ?>" name="vacunas_idvacunas[]" id="btncheck<?php echo $vacu['idvacunas']; ?>" autocomplete="off">
+                                                                                <hr>
+                                                                                <label for="btncheck1"><?php echo $vacu['detalle']  ?></label>
+                                                                            <?php } ?>
+
+                                                                            <input name="aves_idAves" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
+
+                                                                            <input name="aves_idAves" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
+                                                                        </div>
+
+
+                                                                        <div class="form-group">
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" hidden class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
                                             <?php } ?>
                                     </tbody>
                                 </table>
@@ -868,6 +913,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <th>seguimiento Salud</th>
                                             <th>Fecha de retiro</th>
                                             <th>Motivo de </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -888,6 +934,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $aves['fechaDeRetiro'] ?>
                                                 <td><?php echo $aves['motivoRetiro'] ?>
                                                     </button></td>
+
 
                                                 <div class="modal fade" id="modal-salud<?php echo $aves['idAves'] ?>">
                                                     <div class="modal-dialog modal-lg">
@@ -921,7 +968,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                                             <label>Comentario adicional</label>
                                                                             <textarea class="form-control" name="comentarioAd" rows="3" placeholder="Agregar comentario"></textarea>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="modal-footer justify-content-between">

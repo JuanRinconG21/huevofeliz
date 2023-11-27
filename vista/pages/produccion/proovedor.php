@@ -652,7 +652,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Id del proveedor</label>
-                                                        <input name="idProveedor" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre del producto">
+                                                        <input name="idProveedor" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Id">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Nombre del proveedor</label>
