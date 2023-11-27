@@ -942,6 +942,19 @@ ol {
 	font-weight: 700;
 }
 
+#btnCarrito
+{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  /* Otros estilos según tus preferencias */
+}
+
+.oculto {
+  display: none;
+}
+
 /*---------------------
   Latest Product
 -----------------------*/

@@ -22,10 +22,10 @@
                     <input type="password" placeholder="contraseña" id="" name="password">
                     
                     <select id="opciones" name="rol" placeholder="elige el rol">
-                        <option value="1">Cliente</option>
-                        <option value="2">Cliente Empresarial</option>
+                        <option value="1">1-Cliente</option>
+                        <option value="2">2-Cliente Empresarial</option>
                     </select>
-                    <button class="overlay-btn">Registrar</button>
+                    <button class="overlay-btn" type="submit">Registrar</button>
                 </div>
             </form>
         </div>
@@ -44,9 +44,9 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="email" id="">
-                    <input type="password" placeholder="password" id="">
-                    <button class="overlay-btn">Ingresar</button>
+                    <input type="email" placeholder="email"  name="email">
+                    <input type="password" placeholder="password" name="password">
+                    <button type="submit" class="overlay-btn">Ingresar</button>
                 </div>
             </form>
         </div>

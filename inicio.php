@@ -150,8 +150,8 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class='bx bxs-heart' ></i> <span>0</span></a></li>
-                            <li><a href="#"><i class='bx bxs-cart-alt'></i> <span>0</span></a></li>
+                            <li><a href="index.php"><i class='bx bxs-heart' ></i> <span>0</span></a></li>
+                            <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i> <span id="contadorCarrito">0</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$0</span></div>
                     </div>
@@ -247,7 +247,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-1.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -261,7 +261,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-2.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#"id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -275,7 +275,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-3.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -289,7 +289,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-4.png">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -303,7 +303,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-5.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -317,7 +317,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-6.png">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -331,7 +331,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-7.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -345,7 +345,7 @@
                         <div class="featured__item__pic set-bg" data-setbg="./assets/images/featured/feature-8.png">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class='bx bxs-heart'></i></i></a></li>
-                                <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i></a></li>
+                                <li><a href="#" id="agregarCarrito"><i class='bx bxs-cart-alt'></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -625,7 +625,7 @@
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__payment"><img src="./assets/images/payment-item.png" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -642,6 +642,7 @@
     <script src="./assets/js/mixitup.min.js"></script>
     <script src="./assets/js/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="./assets/js/contadorCarrito.js"></script>
     <script src="./assets/js/main.js"></script>
 
 
