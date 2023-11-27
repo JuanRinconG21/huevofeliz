@@ -24,7 +24,9 @@ if (isset($_POST['loteHuevos']) && !empty($_POST['loteHuevos'])) {
         $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (\Throwable $th) {
-        echo "Error: " . $e->getMessage();
+        $_SESSION['mensajeErr3'] = "Error";
+        $_SESSION['mensajeErr4'] = "Fuera de rango";
+        header("Location: ../vista/pages/inventario/huevos.php");
     }
 } else {
     $_SESSION["error"] = "error";

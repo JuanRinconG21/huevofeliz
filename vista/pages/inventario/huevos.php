@@ -70,6 +70,23 @@ $stmt->execute();
   }
   ?>
 
+  <?php
+  if (isset($_SESSION['mensajeErr3'])) {
+  ?>
+    <script>
+      let msj = '<?php echo $_SESSION['mensajeErr3'] ?>'
+      let titulo = '<?php echo $_SESSION['mensajeErr4'] ?>'
+      Swal.fire(
+        titulo,
+        msj,
+        'error'
+      )
+    </script>
+  <?php
+    unset($_SESSION['mensajeErr3']);
+  }
+  ?>
+
   <div class="wrapper">
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
