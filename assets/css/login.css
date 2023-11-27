@@ -27,8 +27,6 @@ body
 {
   position:absolute;
   border-radius:10px;
-  width:850px;
-  min-height:600px;
   overflow: hidden;
 }
 

@@ -1,10 +1,14 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huevo Feliz E-Commerce - Log-in</title>
+    <title>Huevo Feliz - Inicio de Sesion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/login.css">
@@ -12,7 +16,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="width:860px;min-height:600px;">
         <div class="sign-up-wrapper">
             <form id="form" action="./controller/registro.php" method="POST">
                 <h1>Crear Cuenta</h1>
@@ -69,8 +73,10 @@
         </div>
 
     </div>
-    <script src="../huevofeliz/assets/js/login.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="./assets/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    <!-- Mensaje Usuario Registrado-->
     <script>
         <?php
         if (isset($_SESSION["mensajeExitoso"]))
@@ -78,10 +84,26 @@
          echo   
           "Swal.fire({
             icon: 'success',
-            title: 'Ok',
-            text: 'Usuario Registrado Exitosamente',
+            title: 'Bienvenido!',
+            text: '". $_SESSION["mensajeExitoso"] ."',
+            
             });";
          unset ($_SESSION["mensajeExitoso"]);
+        }
+        ?>
+    </script>
+
+    <!-- Mensaje De Error-->
+    <!--- MENSAJE DE ERROR -->
+    <script>
+        <?php
+        if (isset($_SESSION["mensajeError"])) {
+            echo  "Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '" . $_SESSION["mensajeError"] . "'
+      });";
+            unset($_SESSION["mensajeError"]);
         }
         ?>
     </script>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -14,6 +18,7 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <!-- Css Styles -->
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css" type="text/css">
@@ -151,7 +156,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="index.php"><i class='bx bxs-heart' ></i> <span>0</span></a></li>
-                            <li><a href="shoping-cart.php"><i class='bx bxs-cart-alt'></i> <span id="contadorCarrito">0</span></a></li>
+                            <li ><a href="shoping-cart.php" ><i class='bx bxs-cart-alt'></i> <span id="contadorCarrito">0</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$0</span></div>
                     </div>
@@ -195,6 +200,11 @@
     <section class="categories">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Todas las categorias</h2>
+                    </div>
+                </div>
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="./assets/images/categories/cat-1.jpg">
@@ -359,211 +369,6 @@
     </section>
     <!-- Featured Section End -->
 
-    <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Ultimos Productos</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-4.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA x 12 Unds</h6>
-                                        <span>$9000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AA x 12 Unds</h6>
-                                        <span>$6000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-7.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA La Vaquita</h6>
-                                        <span>$10000</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevo AA x 15 Unds</h6>
-                                        <span>$7800</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Jumbo</h6>
-                                        <span>$22500</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-5.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Blancos x 30 Unds</h6>
-                                        <span>$18000</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Productos Valorados</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-4.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA x 12 Unds</h6>
-                                        <span>$9000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AA x 12 Unds</h6>
-                                        <span>$6000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-7.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA La Vaquita</h6>
-                                        <span>$10000</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-5.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Blancos x 30 Unds</h6>
-                                        <span>$18000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Jumbo</h6>
-                                        <span>$22500</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevo AA x 15 Unds</h6>
-                                        <span>$7800</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Productos Revisados</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-4.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA x 12 Unds</h6>
-                                        <span>$9000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AA x 12 Unds</h6>
-                                        <span>$6000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-7.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos AAA La Vaquita</h6>
-                                        <span>$10000</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevo AA x 15 Unds</h6>
-                                        <span>$7800</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Jumbo</h6>
-                                        <span>$22500</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="./assets/images/featured/feature-5.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Huevos Blancos x 30 Unds</h6>
-                                        <span>$18000</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Latest Product Section End -->
-
-    
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -643,8 +448,39 @@
     <script src="./assets/js/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="./assets/js/contadorCarrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="./assets/js/main.js"></script>
+    <!-- Mensaje Usuario Registrado-->
+    <script>
+        <?php
+        if (isset($_SESSION["mensajeExitoso"]))
+        {
+         echo   
+          "Swal.fire({
+            icon: 'success',
+            title: 'Bienvenido!',
+            text: '". $_SESSION["mensajeExitoso"] ."',
+            
+            });";
+         unset ($_SESSION["mensajeExitoso"]);
+        }
+        ?>
+    </script>
 
+    <!-- Mensaje De Error-->
+    <!--- MENSAJE DE ERROR -->
+    <script>
+        <?php
+        if (isset($_SESSION["mensajeError"])) {
+            echo  "Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '" . $_SESSION["mensajeError"] . "'
+      });";
+            unset($_SESSION["mensajeError"]);
+        }
+        ?>
+    </script>
 
 
 </body>

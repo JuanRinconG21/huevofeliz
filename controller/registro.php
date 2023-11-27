@@ -56,14 +56,15 @@ if (
       
     } else {
       $_SESSION["mensajeError"] = "Error en el registro";
-      
+      header("Location:../login.php");
     }
   } catch (PDOException $e) {
     // Manejo de errores en caso de que ocurra una excepción.
     $_SESSION["mensajeError"] = "Error en la base de datos: ";
+    header("Location:../login.php");
     
   }
 } else {
   $_SESSION["mensajeError"] = "Los campos están vacíos, por favor ingrese los datos correctamente.";
-  echo "Los campos están vacíos, por favor ingrese los datos correctamente.";
+  header("Location:../login.php");
 }
