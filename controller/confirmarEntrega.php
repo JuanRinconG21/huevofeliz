@@ -6,12 +6,12 @@ $pdo = $conexion->conectar();
 
 
 
-if (isset($_POST['idPedidos']) && !empty($_POST['idPedidos'])) {
+if (isset($_POST['numeroDelPedido']) && !empty($_POST['numeroDelPedido'])) {
 
     try {
 
 
-        $id = $_POST["idPedidos"];
+        $id = $_POST["numeroDelPedido"];
         $sql2 = "SELECT estado from pedidos where idPedidos=:id";
         $stmt2 = $pdo->prepare($sql2);
         $stmt2->bindParam(":id", $id, PDO::PARAM_STR);

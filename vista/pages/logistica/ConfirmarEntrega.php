@@ -4,7 +4,7 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=1;");
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos AS numeroDelPedido,pedidos.fecha,clientes.nombreCompleto,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=1;");
 $stmt->execute();
 ?>
 
@@ -588,7 +588,7 @@ if (isset($_SESSION['error2'])) {
                         while ($fila1 = $stmt->fetch(PDO::FETCH_ASSOC)) {
                       ?>
                           <tr>
-                            <td><?php echo $fila1['idPedidos'] ?></td>
+                            <td><?php echo $fila1['numeroDelPedido'] ?></td>
                             <td><?php echo $fila1['fecha'] ?></td>
                             <td><?php echo $fila1['nombreCompleto'] ?></td>
                             <td><?php echo $fila1['direccion'] ?></td>
@@ -600,7 +600,7 @@ if (isset($_SESSION['error2'])) {
 
                             <td>
                               <form action="../../../controller/confirmarEntrega.php" method="post">
-                                <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
+                                <input type="text" class="form-control" id="numeroDelPedido" name="numeroDelPedido" aria-describedby="emailHelp" value="<?php echo $fila1['numeroDelPedido'] ?>" hidden>
 
 
                                 <button type="submit" class="btn btn-success">Enviar</button>

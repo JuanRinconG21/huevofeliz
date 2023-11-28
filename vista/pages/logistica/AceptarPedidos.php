@@ -734,7 +734,7 @@ $stmt2->execute();
                                       <select class="form-select" aria-label="Default select example" name="estadoPedido">
                                         <option selected>Opciones</option>
                                         <option value="1">Aceptar</option>
-                                        <option value="0">Rechazar</option>
+
 
                                       </select>
                                     </div>
