@@ -2,14 +2,12 @@
 session_start();
 // validar que no se repita el nombre
 
-$_POST['nombreva'] = trim(($_POST['nombreva']));
+
 $_POST['idAve'] = trim(($_POST['idAve']));
 $_POST['entorno'] = trim(($_POST['entorno']));
 $_POST['sintoma'] = trim(($_POST['sintoma']));
 $_POST['comentarioAd'] = trim(($_POST['comentarioAd']));
 if (
-  
-    isset($_POST['nombreva']) && !empty($_POST['nombreva']) &&
     isset($_POST['idAve']) && !empty($_POST['idAve']) &&
     isset($_POST['entorno']) && !empty($_POST['entorno']) &&
     isset($_POST['sintoma']) && !empty($_POST['sintoma'])&&
@@ -49,4 +47,5 @@ if (
     header("Location: ../vista/pages/produccion/registroAves.php");
     $_SESSION['mensajeErr4'] = "Debes llenar todos los campos";
     $_SESSION['mensajeErr3'] = "Error";
+    
 }

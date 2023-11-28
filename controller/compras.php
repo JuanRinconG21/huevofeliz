@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 //validar que la fecha de ingreso no se mayor que la fecha de retiro//////////////////////////////
 $_POST['nombreProducto'] = trim(($_POST['nombreProducto']));
 $_POST['tipo'] = trim(($_POST['tipo']));

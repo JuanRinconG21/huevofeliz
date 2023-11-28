@@ -952,10 +952,10 @@ $fila5 = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                                             <input name="nombreva" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de la vacuna">
 
 
-                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="text" class="form-control" id="exampleInputEmail1" hidden>
+                                                                            <input name="idAve" value="<?php echo $aves['idAves'] ?>" min="1" type="number" class="form-control" id="exampleInputEmail1">
 
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group">n 
                                                                             <label for="exampleInputEmail1">Entorno</label>
                                                                             <input name="entorno" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de lote">
                                                                         </div>

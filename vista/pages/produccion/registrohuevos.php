@@ -657,7 +657,7 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Cantidad</label>
-                                                        <input name="cantidad" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Cantidad">
+                                                        <input name="cantidad" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Cantidad">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de recoleccion</label>
@@ -666,9 +666,9 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Id de lote de aves</label>
                                                         <select name="Idlote" class="custom-select form-control-border" id="idAve">
-                                                            <?php foreach ($fila1 as $aveSeleccionada) { ?>
+                                                            <?php foreach ($fila2 as $Lotehuevo) { ?>
 
-                                                                <option value="<?php echo $aveSeleccionada['idLoteAves'] ?>"><?php echo $aveSeleccionada['idLoteAves'] ?>
+                                                                <option value="<?php echo $Lotehuevo['idProduccion'] ?>"><?php echo $Lotehuevo['idProduccion'] ?>
 
                                                                 <?php } ?>
 
@@ -693,6 +693,7 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <hr>
                             <h1 style="text-align: center;">Lista de huevo registrados</h1>
+                            <br>
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>

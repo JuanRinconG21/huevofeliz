@@ -661,7 +661,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Cantidad maxima de huevos </label>
-                                                        <input name="cantidadMax" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Identificador del lote">
+                                                        <input name="cantidadMax" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Cantidad maxima">
                                                     </div>
                                                     
 
@@ -686,7 +686,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="exampleSelectBorder">Tipo de lote</label>
+                                                        <label for="exampleSelectBorder">Estado</label>
                                                         <select name="estado" class="custom-select form-control-border" id="exampleSelectBorder">
                                                             <option value="1" >Activo
                                                             <option value="0">Inactivo
@@ -710,7 +710,9 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- /.modal-dialog -->
                             </div>
                             <hr>
-                            <h1 style="text-align: center;"></h1>
+                          
+                            <h1 style="text-align: center;">Lotes de huevos</h1>
+                            <br>
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>

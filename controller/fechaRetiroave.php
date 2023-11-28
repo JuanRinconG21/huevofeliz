@@ -13,10 +13,19 @@ if (
         $fechaRe = $_POST['fechaRe'];
         $retirada = $_POST['retirada'];
         $idAve = $_POST['idAve'];
-
+        $fechahoy= date('Y-m-d H:i:s');
         $fechaHoraFormateadaRe = date('Y-m-d H:i:s', strtotime($fechaRe));
-        include('../models/MySQL.php');
-       
+        $replace = str_replace("T", " ", $fechahoy);
+
+        if($replace < $fechaHoraFormateadaRe)
+        {
+            header("Location: ../vista/pages/produccion/registroAves.php");
+            $_SESSION['mensajeErr4'] = "La fecha de retiro es mayor a la fecha actual";
+            $_SESSION['mensajeErr3'] = "Error";
+        }
+        else{
+            include('../models/MySQL.php');
+        
         $conexion = new MySQL();
         $pdo = $conexion->conectar();
     
@@ -29,6 +38,8 @@ if (
         header("Location: ../vista/pages/produccion/registroAves.php");
         $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
+        }
+        
     }
     catch(Exception $e){
         header("Location: ../vista/pages/produccion/registroAves.php");

@@ -52,7 +52,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -667,11 +667,11 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Precio Unitario</label>
-                                                        <input name="precioUnitario" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Precio unitario">
+                                                        <input name="precioUnitario" min="1" type="text" class="form-control" id="numero1" placeholder="Precio unitario">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">cantidad</label>
-                                                        <input name="cantidad" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Cantidad">
+                                                        <input name="cantidad" min="1" type="text" class="form-control" id="numero2" placeholder="Cantidad">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">medida</label>
@@ -679,7 +679,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">total</label>
-                                                        <input name="total" min="1" type="text" class="form-control" id="exampleInputEmail1" placeholder="Total">
+                                                        <input name="total" class="form-control" id="resultado" placeholder="Total" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Proovedor</label>
@@ -697,6 +697,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                                 </div>
                                             </form>
+
+
                                         </div>
 
                                     </div>
@@ -704,12 +706,33 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
+                            <script>
+                                // Obtener los elementos HTML
+                                var num1Input = document.getElementById('numero1');
+                                var num2Input = document.getElementById('numero2');
+                                var resultadoInput = document.getElementById('resultado');
+
+                                // Agregar evento input a los campos de entrada
+                                num1Input.addEventListener('input', realizarMultiplicacion);
+                                num2Input.addEventListener('input', realizarMultiplicacion);
+
+                                function realizarMultiplicacion() {
+                                    // Obtener los valores de los inputs
+                                    var num1 = parseFloat(num1Input.value) || 0;
+                                    var num2 = parseFloat(num2Input.value) || 0;
+
+                                    // Realizar la operación de multiplicación
+                                    var resultado = num1 * num2;
+
+                                    // Mostrar el resultado en el input
+                                    resultadoInput.value = resultado;
+                                }
+                            </script>
                             <hr>
                             <h1 style="text-align: center;">Listar las compras registradas</h1>
+                            <br>
                             <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">DataTable with default features</h3>
-                                </div>
+
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
@@ -725,6 +748,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <th>Medida</th>
                                                 <th>Total</th>
                                                 <th>Proovedor</th>
+                                                <th>Codigo de barras</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -740,8 +764,12 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <td><?php echo $compras['medida']  ?></td>
                                                     <td><?php echo $compras['total']  ?></td>
                                                     <td><?php echo $compras['nombre'] ?></td>
+                                                    <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud">
+                                                    <i class="bi bi-eye-fill"></i>
+                                                    </button></td>
+                                                    
                                                 <?php } ?>
-
+                                                    
                                                 </tr>
                                         </tbody>
 
@@ -750,7 +778,34 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card-header -->
+                            <div class="modal fade" id="modal-salud">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Codigo de la compra</h4>
 
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/seguimientoSalud.php" method="post">
+                                                                    <div class="card-body" >
+
+                                                                        
+                                                                    <img src="../../../codigobarras/barcode.php?text=3453453&size=50&orientation=horizontal" alt="">
+
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
                             <!-- /.card-body -->
                         </div>
                     </div>

@@ -660,7 +660,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Telefono</label>
-                                                        <input name="telefono" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Tipo de producto">
+                                                        <input name="telefono" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Telefono">
                                                     </div>
 
 
