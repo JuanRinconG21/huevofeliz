@@ -9,6 +9,11 @@ $stmt2 = $pdo->prepare($sql2);
 $stmt2->execute();
 $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
+$sql3 = "SELECT * FROM usuario WHERE estado=0";
+$stmt3 = $pdo->prepare($sql3);
+$stmt3->execute();
+$fila2 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +48,39 @@ $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php if (isset($_SESSION['mensaje'])) {
+    ?>
+        <script>
+            Swal.fire({
+                title: "Felecitaciones",
+                text: "<?php echo $_SESSION['mensaje'] ?>",
+                icon: "success"
+            });
+        </script>
+    <?php
+    }
+    unset($_SESSION['mensaje']);
+    ?>
+
+    <?php if (isset($_SESSION['mensajeError'])) {
+    ?>
+        <script>
+            Swal.fire({
+                title: "Error",
+                text: "<?php echo $_SESSION['mensajeError'] ?>",
+                icon: "error"
+            });
+        </script>
+    <?php
+    }
+    unset($_SESSION['mensajeError']);
+    ?>
+
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -579,7 +614,7 @@ $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                     foreach ($fila as $key) {
                                                         if ($key['nombre'] != "Cliente" && $key['nombre'] != "Empresa") {
                                                     ?>
-                                                            <input type="checkbox" name="checkCargo[]" value id="cbox2" value="<?php echo $key['idRoles'] ?>" />
+                                                            <input type="checkbox" name="checkCargo[]" id="cbox2" value="<?php echo $key['idRoles'] ?>" />
                                                             <label for="cbox2"><?php echo $key['nombre'] ?></label>
                                                             <br>
                                                     <?php
@@ -621,6 +656,7 @@ $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card" style="width: 100%">
                                 <div class="card-header">
                                     <h3 class="card-title">Listado de Empleados</h3>
@@ -634,42 +670,270 @@ $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                 <th>Nombre Completo</th>
                                                 <th>Fecha de Nacimiento</th>
                                                 <th>Direccion de Residencia</th>
-                                                <th>Correo Electronico</th>
-                                                <th>Cargo/s</th>
+                                                <th>Telefono</th>
                                                 <th>Fecha de Ingreso</th>
                                                 <th>Numero de Emergencia</th>
-                                                <th>Salario</th>
                                                 <th>Acciones</th>
+                                                <th>Eliminar</th>
+
+
                                             </tr>
                                         </thead>
                                         <tbody class="text-center">
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                                <td>X</td>
-                                                <td>X</td>
-                                                <td>X</td>
-                                                <td>X</td>
-                                                <td><button class="btn btn-success">X</button><button class="btn btn-warning">X</button><button class="btn btn-danger">X</button> </td>
-                                            </tr>
+                                            <?php foreach ($fila2 as $key) {
+
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $key['idUsuario'] ?></td>
+                                                    <td><?php echo $key['nombreCompleto'] ?></td>
+                                                    <td><?php echo $key['fechaNacimiento'] ?></td>
+                                                    <td><?php echo $key['direccionResidencia'] ?></td>
+                                                    <td><?php echo $key['numeroTelefono'] ?></td>
+                                                    <td><?php echo $key['fechaIngreso'] ?></td>
+                                                    <td><?php echo $key['datosEmergencia'] ?></td>
+                                                    <td> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalVer<?php echo $key['idUsuario'] ?>"><i class="bi bi-eye-fill"></i></button> <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalEditarrol<?php echo $key['idUsuario'] ?>"><i class="bi bi-arrow-clockwise"></i></button><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEditar<?php echo $key['idUsuario'] ?>"><i class="bi bi-pencil-square"></i></button></td>
+                                                    <td> <a href="../../../controller/empleados/eliminarempleado.php?id=<?php echo $key['idUsuario'] ?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a> </td>
+                                                </tr>
+                                                <div class="modal fade" id="exampleModalVer<?php echo $key['idUsuario'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Formulario Para Agregar Empleados</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Cedula</label>
+                                                                    <input type="number" readonly value="<?php echo $key['idUsuario'] ?>" name="cedula" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Nombre Completo</label>
+                                                                    <input type="text" readonly value="<?php echo $key['nombreCompleto'] ?>" name="nombreCompleto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Fecha de Nacimiento</label>
+                                                                    <input type="date" readonly value="<?php echo $key['fechaNacimiento'] ?>" name="fechaNac" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Direccion de Residencia</label>
+                                                                    <input type="text" name="direccion" readonly value="<?php echo $key['direccionResidencia'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Numero de Telefono</label>
+                                                                    <input type="number" name="telefono" readonly value="<?php echo $key['numeroTelefono'] ?>" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Correo Electronico</label>
+                                                                    <input type="mail" name="correo" class="form-control" readonly value="<?php echo $key['correo'] ?>" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Cargo</label>
+                                                                    <br>
+                                                                    <?php
+                                                                    $sql4 = "SELECT roles.idRoles, roles.nombre FROM roles INNER JOIN usuario_has_roles INNER JOIN usuario WHERE usuario.idUsuario = usuario_has_roles.Usuario_idUsuario AND usuario_has_roles.Roles_idRoles = roles.idRoles AND usuario.idUsuario = :idUsuario";
+                                                                    $stmt4 = $pdo->prepare($sql4);
+                                                                    $stmt4->bindParam(":idUsuario", $key['idUsuario'], PDO::PARAM_INT);
+                                                                    $stmt4->execute();
+                                                                    $fila3 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+                                                                    foreach ($fila3 as $key2) {
+                                                                    ?>
+                                                                        <label for="cbox2"><?php echo $key2['nombre'] ?></label>
+                                                                        <br>
+                                                                    <?php
+
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Numero de Cuenta</label>
+                                                                    <input type="number" readonly value="<?php echo $key['numCuenta'] ?>" class="form-control" name="numeroCuenta" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Numero de Emergencia</label>
+                                                                    <input type="number" min="1" readonly value="<?php echo $key['datosEmergencia'] ?>" name="numeroEmergencia" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Nivel de Educacion</label>
+                                                                    <input type="text" class="form-control" readonly value="<?php echo $key['nivelEducacion'] ?>" name="nivelEducacion" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Experiencia Laboral</label>
+                                                                    <input type="text" class="form-control" readonly value="<?php echo $key['experenciaLaboral'] ?>" name="experienciaLaboral" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Evaluacion de Desempeño</label>
+                                                                    <input type="text" class="form-control" readonly value="<?php echo $key['evalucacion'] ?>" name="evaluacionDesempeño" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Salario</label>
+                                                                    <input type="number" class="form-control" readonly value="<?php echo $key['salario'] ?>" name="salario" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="exampleInputEmail1" class="form-label">Contraseña para el Software</label>
+                                                                    <input type="text" class="form-control" name="pass" readonly value="<?php echo  base64_decode($key['pass']) ?>" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="exampleModalEditar<?php echo $key['idUsuario'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Formulario Para Agregar Empleados</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="post" action="../../../controller/empleados/editarempleados.php">
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Cedula</label>
+                                                                        <input type="number" readonly value="<?php echo $key['idUsuario'] ?>" name="cedula" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Nombre Completo</label>
+                                                                        <input type="text" value="<?php echo $key['nombreCompleto'] ?>" name="nombreCompleto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Fecha de Nacimiento</label>
+                                                                        <input type="date" value="<?php echo $key['fechaNacimiento'] ?>" name="fechaNac" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Direccion de Residencia</label>
+                                                                        <input type="text" name="direccion" value="<?php echo $key['direccionResidencia'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Numero de Telefono</label>
+                                                                        <input type="number" name="telefono" value="<?php echo $key['numeroTelefono'] ?>" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Correo Electronico</label>
+                                                                        <input type="mail" name="correo" class="form-control" value="<?php echo $key['correo'] ?>" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Cargo</label>
+                                                                        <p>Cargos Anteriores</p>
+                                                                        <?php
+                                                                        $sql4 = "SELECT roles.idRoles, roles.nombre FROM roles INNER JOIN usuario_has_roles INNER JOIN usuario WHERE usuario.idUsuario = usuario_has_roles.Usuario_idUsuario AND usuario_has_roles.Roles_idRoles = roles.idRoles AND usuario.idUsuario = :idUsuario";
+                                                                        $stmt4 = $pdo->prepare($sql4);
+                                                                        $stmt4->bindParam(":idUsuario", $key['idUsuario'], PDO::PARAM_INT);
+                                                                        $stmt4->execute();
+                                                                        $fila3 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+                                                                        foreach ($fila3 as $key2) {
+                                                                        ?>
+                                                                            <p for="cbox2"><?php echo $key2['nombre'] ?></p>
+                                                                            <br>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                        <p>Cargos Nuevos</p>
+                                                                        <?php
+                                                                        foreach ($fila as $key3) {
+                                                                            if ($key3['nombre'] != "Cliente" && $key3['nombre'] != "Empresa") {
+                                                                        ?>
+                                                                                <input type="checkbox" name="checkCargo[]" id="cbox2" value="<?php echo $key3['idRoles'] ?>" />
+                                                                                <label for="cbox2"><?php echo $key3['nombre'] ?></label>
+                                                                                <br>
+                                                                        <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Numero de Cuenta</label>
+                                                                        <input type="number" value="<?php echo $key['numCuenta'] ?>" class="form-control" name="numeroCuenta" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Numero de Emergencia</label>
+                                                                        <input type="number" min="1" value="<?php echo $key['datosEmergencia'] ?>" name="numeroEmergencia" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Nivel de Educacion</label>
+                                                                        <input type="text" class="form-control" value="<?php echo $key['nivelEducacion'] ?>" name="nivelEducacion" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Experiencia Laboral</label>
+                                                                        <input type="text" class="form-control" value="<?php echo $key['experenciaLaboral'] ?>" name="experienciaLaboral" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Evaluacion de Desempeño</label>
+                                                                        <input type="text" class="form-control" value="<?php echo $key['evalucacion'] ?>" name="evaluacionDesempeño" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Salario</label>
+                                                                        <input type="number" class="form-control" value="<?php echo $key['salario'] ?>" name="salario" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleInputEmail1" class="form-label">Contraseña para el Software</label>
+                                                                        <input type="text" class="form-control" name="pass" value="<?php echo  base64_decode($key['pass']) ?>" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <h1 class="text-center"><button type="submit" class="btn btn-primary">Editar</button></h1>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="exampleModalEditarrol<?php echo $key['idUsuario'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Formulario Para Agregar Empleados</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="post" action="../../../controller/empleados/editarroles.php">
+                                                                    <div class="mb-3">
+                                                                        <input type="number" hidden value="<?php echo $key['idUsuario'] ?>" name="cedula" min="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <h3>Cargos Anteriores</h3>
+                                                                        <br>
+                                                                        <?php
+                                                                        $sql4 = "SELECT roles.idRoles, roles.nombre FROM roles INNER JOIN usuario_has_roles INNER JOIN usuario WHERE usuario.idUsuario = usuario_has_roles.Usuario_idUsuario AND usuario_has_roles.Roles_idRoles = roles.idRoles AND usuario.idUsuario = :idUsuario";
+                                                                        $stmt4 = $pdo->prepare($sql4);
+                                                                        $stmt4->bindParam(":idUsuario", $key['idUsuario'], PDO::PARAM_INT);
+                                                                        $stmt4->execute();
+                                                                        $fila3 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+                                                                        foreach ($fila3 as $key2) {
+                                                                        ?>
+                                                                            <label for="cbox2"><?php echo $key2['nombre'] ?></label>
+                                                                            <br>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                        <br>
+                                                                        <h3>Cargos Nuevos</h3>
+                                                                        <br>
+                                                                        <?php
+                                                                        foreach ($fila as $key3) {
+                                                                            if ($key3['nombre'] != "Cliente" && $key3['nombre'] != "Empresa") {
+                                                                        ?>
+                                                                                <input type="checkbox" name="checkCargo[]" id="cbox2" value="<?php echo $key3['idRoles'] ?>" />
+                                                                                <label for="cbox2"><?php echo $key3['nombre'] ?></label>
+                                                                                <br>
+                                                                        <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                    <h1 class="text-center"><button type="submit" class="btn btn-primary">Editar</button></h1>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot class="text-center">
                                             <tr>
                                                 <th>Cedula</th>
                                                 <th>Nombre Completo</th>
                                                 <th>Fecha de Nacimiento</th>
                                                 <th>Direccion de Residencia</th>
-                                                <th>Correo Electronico</th>
-                                                <th>Cargo/s</th>
+                                                <th>Telefono</th>
                                                 <th>Fecha de Ingreso</th>
                                                 <th>Numero de Emergencia</th>
-                                                <th>Salario</th>
                                                 <th>Acciones</th>
+                                                <th>Eliminar</th>
                                             </tr>
                                         </tfoot>
                                     </table>

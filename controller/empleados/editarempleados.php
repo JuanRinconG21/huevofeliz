@@ -57,53 +57,54 @@ if (
                 $_SESSION['mensajeError'] = "No deje Campos Vacios";
                 header("Location: ../../vista/pages/empleados/agregarempleados.php");
             } else {
-
-
-
                 include("../../models/MySQL.php");
                 $conexion = new MySQL();
                 $pdo = $conexion->conectar();
+                $sql2 =  "UPDATE usuario SET
+                    nombreCompleto = :nombreCompleto,
+                    fechaNacimiento = :fechaNacimiento, 
+                    direccionResidencia = :direccionResidencia, 
+                    numeroTelefono = :numeroTelefono,
+                    correo = :correo,
+                    numCuenta = :numCuenta,
+                    datosEmergencia = :datosEmergencia,
+                    nivelEducacion = :nivelEducacion,
+                    experenciaLaboral = :experenciaLaboral ,
+                    evalucacion = :evalucacion,
+                    salario = :salario,
+                    estado = :estado,
+                    pass = :pass WHERE idUsuario = :idUsuario";
+                $stmt2 = $pdo->prepare($sql2);
+                $stmt2->bindParam(":idUsuario", $cedula, PDO::PARAM_INT);
+                $stmt2->bindParam(":nombreCompleto", $nombreCompleto, PDO::PARAM_STR);
+                $stmt2->bindParam(":fechaNacimiento", $fechaNac, PDO::PARAM_STR);
+                $stmt2->bindParam(":direccionResidencia", $direccion, PDO::PARAM_STR);
+                $stmt2->bindParam(":numeroTelefono", $telefono, PDO::PARAM_STR);
+                $stmt2->bindParam(":correo", $correo, PDO::PARAM_STR);
+                $stmt2->bindParam(":numCuenta", $numeroCuenta, PDO::PARAM_STR);
+                $stmt2->bindParam(":datosEmergencia", $numeroEmergencia, PDO::PARAM_STR);
+                $stmt2->bindParam(":nivelEducacion", $nivelEducacion, PDO::PARAM_STR);
+                $stmt2->bindParam(":experenciaLaboral", $experienciaLaboral, PDO::PARAM_STR);
+                $stmt2->bindParam(":evalucacion", $evaluacionDesempeño, PDO::PARAM_STR);
+                $stmt2->bindParam(":salario", $salario, PDO::PARAM_STR);
+                $stmt2->bindParam(":estado", $estado, PDO::PARAM_INT);
+                $stmt2->bindParam(":pass", $pass, PDO::PARAM_STR);
+                $stmt2->execute();
 
-                $sql4 = "SELECT * FROM usuario WHERE idUsuario=:idUsuario";
-                $stmt4 = $pdo->prepare($sql4);
-                $stmt4->bindParam(":idUsuario", $cedula, PDO::PARAM_INT);
-                $stmt4->execute();
-                if ($stmt4->rowCount() > 0) {
-                    $_SESSION['mensajeError'] = "El Empleado Ya Existe En la Base de datos";
-                    header("Location: ../../vista/pages/empleados/agregarempleados.php");
-                } else {
-                    $sql2 =  "INSERT INTO usuario (idUsuario,nombreCompleto,fechaNacimiento,direccionResidencia,numeroTelefono,correo,fechaIngreso,numCuenta,datosEmergencia,nivelEducacion,experenciaLaboral,evalucacion,salario,estado,pass) 
-                VALUES(:idUsuario,:nombreCompleto,:fechaNacimiento,:direccionResidencia,:numeroTelefono,:correo,:fechaIngreso,:numCuenta,:datosEmergencia,:nivelEducacion,:experenciaLaboral,:evalucacion,:salario,:estado,:pass)";
-                    $stmt2 = $pdo->prepare($sql2);
-                    $stmt2->bindParam(":idUsuario", $cedula, PDO::PARAM_INT);
-                    $stmt2->bindParam(":nombreCompleto", $nombreCompleto, PDO::PARAM_STR);
-                    $stmt2->bindParam(":fechaNacimiento", $fechaNac, PDO::PARAM_STR);
-                    $stmt2->bindParam(":direccionResidencia", $direccion, PDO::PARAM_STR);
-                    $stmt2->bindParam(":numeroTelefono", $telefono, PDO::PARAM_STR);
-                    $stmt2->bindParam(":correo", $correo, PDO::PARAM_STR);
-                    $stmt2->bindParam(":fechaIngreso", $fechaIngreso, PDO::PARAM_STR);
-                    $stmt2->bindParam(":numCuenta", $numeroCuenta, PDO::PARAM_STR);
-                    $stmt2->bindParam(":datosEmergencia", $numeroEmergencia, PDO::PARAM_STR);
-                    $stmt2->bindParam(":nivelEducacion", $nivelEducacion, PDO::PARAM_STR);
-                    $stmt2->bindParam(":experenciaLaboral", $experienciaLaboral, PDO::PARAM_STR);
-                    $stmt2->bindParam(":evalucacion", $evaluacionDesempeño, PDO::PARAM_STR);
-                    $stmt2->bindParam(":salario", $salario, PDO::PARAM_STR);
-                    $stmt2->bindParam(":estado", $estado, PDO::PARAM_INT);
-                    $stmt2->bindParam(":pass", $pass, PDO::PARAM_STR);
-                    $stmt2->execute();
-
-
-                    foreach ($checkCargo as $key) {
-                        $sql3 =  "INSERT INTO usuario_has_roles (Usuario_idUsuario,Roles_idRoles) 
+                $sql3 =  "DELETE FROM usuario_has_roles WHERE Usuario_idUsuario=:Usuario_idUsuario";
+                $stmt3 = $pdo->prepare($sql3);
+                $stmt3->bindParam(":Usuario_idUsuario", $cedula, PDO::PARAM_INT);
+                $stmt3->execute();
+                foreach ($checkCargo as $key) {
+                    $sql3 =  "INSERT INTO usuario_has_roles (Usuario_idUsuario,Roles_idRoles) 
                     VALUES (:Usuario_idUsuario,:Roles_idRoles)";
-                        $stmt3 = $pdo->prepare($sql3);
-                        $stmt3->bindParam(":Usuario_idUsuario", $cedula, PDO::PARAM_INT);
-                        $stmt3->bindParam(":Roles_idRoles", $key, PDO::PARAM_INT);
-                        $stmt3->execute();
-                    }
-                    $_SESSION['mensaje'] = "Insertado Correctamente";
-                    header("Location: ../../vista/pages/empleados/agregarempleados.php");
+                    $stmt3 = $pdo->prepare($sql3);
+                    $stmt3->bindParam(":Usuario_idUsuario", $cedula, PDO::PARAM_INT);
+                    $stmt3->bindParam(":Roles_idRoles", $key, PDO::PARAM_INT);
+                    $stmt3->execute();
                 }
+                $_SESSION['mensaje'] = "Actualizado Correctamente";
+                header("Location: ../../vista/pages/empleados/agregarempleados.php");
             }
         }
     } catch (\Throwable $th) {
