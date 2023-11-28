@@ -4,7 +4,8 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS cliente,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=3;");
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,
+detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado,usuario.nombreCompleto AS nombreUsuario FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN detallepedidos ON pedidos.idPedidos = detallepedidos.Pedidos_idPedidos WHERE pedidos.estado = '3'");
 $stmt->execute();
 ?>
 
@@ -610,12 +611,12 @@ if (isset($_SESSION['error2'])) {
                           <tr>
                             <td><?php echo $fila1['idPedidos'] ?></td>
                             <td><?php echo $fila1['fecha'] ?></td>
-                            <td><?php echo $fila1['cliente'] ?></td>
+                            <td><?php echo $fila1['nombreCliente'] ?></td>
                             <td><?php echo $fila1['direccion'] ?></td>
                             <td><?php echo $fila1['cantidad'] ?></td>
                             <td><?php echo $fila1['tipoPago'] ?></td>
                             <td><?php echo $fila1['estado'] ?></td>
-                            <td><?php echo $fila1['nombreCompleto'] ?></td>
+                            <td><?php echo $fila1['nombreUsuario'] ?></td>
                           </tr>
 
 

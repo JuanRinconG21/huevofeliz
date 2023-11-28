@@ -8,7 +8,7 @@ $stmt = $pdo->prepare("SELECT pedidos.idPedidos AS numeroDelPedido,pedidos.fecha
 INNER JOIN clientes ON clientes.idClientes = pedidos.Clientes_idClientes
 INNER JOIN detallepedidos ON detallepedidos.Pedidos_idPedidos = pedidos.idPedidos  
 INNER JOIN usuario ON usuario.idUsuario = pedidos.Usuario_idUsuario 
-WHERE pedidos.estado = 1;");
+WHERE pedidos.estado = 2;");
 $stmt->execute();
 ?>
 
@@ -607,7 +607,7 @@ if (isset($_SESSION['error2'])) {
                                 <input type="text" class="form-control" id="numeroDelPedido" name="numeroDelPedido" aria-describedby="emailHelp" value="<?php echo $fila1['numeroDelPedido'] ?>" hidden>
 
 
-                                <button type="submit" class="btn btn-success">Enviar</button>
+                                <button type="submit" class="btn btn-success">Confirmar Entrega</button>
                               </form>
                             </td>
                           </tr>

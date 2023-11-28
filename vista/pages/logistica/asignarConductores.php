@@ -6,11 +6,11 @@ include('../../../models/MySQL.php');
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
 //$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente ,clientes.direccion, lotehuevo.idLoteHuevo, detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN detallepedidos on pedidos.idPedidos=detallepedidos.Pedidos_idPedidos INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo WHERE pedido.estado=1;");
-$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,lotehuevo.idLoteHuevo, detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado,usuario.nombreCompleto AS nombreUsuario FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN detallepedidos ON pedidos.idPedidos = detallepedidos.Pedidos_idPedidos INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo WHERE pedidos.estado = '0';
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,lotehuevo.idLoteHuevo, detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado,usuario.nombreCompleto AS nombreUsuario FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN detallepedidos ON pedidos.idPedidos = detallepedidos.Pedidos_idPedidos INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo WHERE pedidos.estado = '1';
 ");
 $stmt->execute();
 
-$stmt2 = $pdo->prepare("SELECT usuario.idUsuario, usuario.nombreCompleto as nombre FROM usuario JOIN usuario_has_roles ON usuario.idUsuario = usuario_has_roles.Usuario_idUsuario WHERE usuario_has_roles.Roles_idRoles = 8;");
+$stmt2 = $pdo->prepare("SELECT usuario.idUsuario, usuario.nombreCompleto as nombre FROM usuario JOIN usuario_has_roles ON usuario.idUsuario = usuario_has_roles.Usuario_idUsuario WHERE usuario_has_roles.Roles_idRoles = 2;");
 $stmt2->execute();
 $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC)
 
@@ -662,7 +662,7 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC)
                                             <select class="form-select custom-select" id="conductor" name="idUsuario" aria-label="Default select example">
                                               <?php
                                               foreach ($fila2 as $key) {
-                                                if ($key['nombre'] != "pendiente") {
+                                                if ($key['nombre'] != "Pendiente") {
                                               ?>
                                                   <option value="<?php echo $key['idUsuario'] ?>"><?php echo $key['nombre'] ?></option>
                                               <?php
