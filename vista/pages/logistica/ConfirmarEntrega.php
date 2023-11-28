@@ -375,7 +375,7 @@ if (isset($_SESSION['error2'])) {
                 </li>
 
                 <li class="nav-item">
-                  <a href="../../pages/logistica/ConfirmarEntrega.php" class="nav-link ">
+                  <a href="../../pages/logistica/ConfirmarEntrega.php" class="nav-link active" >
                     <i class="far fa-circle nav-icon"></i>
                     <p>Entregas Pendientes</p>
                   </a>
@@ -607,7 +607,7 @@ if (isset($_SESSION['error2'])) {
                                 <input type="text" class="form-control" id="numeroDelPedido" name="numeroDelPedido" aria-describedby="emailHelp" value="<?php echo $fila1['numeroDelPedido'] ?>" hidden>
 
 
-                                <button type="submit" class="btn btn-success">Confirmar Entrega</button>
+                                <button type="submit" class="btn btn-primary">Confirmar Entrega</button>
                               </form>
                             </td>
                           </tr>

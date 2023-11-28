@@ -9,14 +9,23 @@ if (isset($_POST['estadoPedido']) && !empty($_POST['estadoPedido'])) {
 
     try {
 
-        $_POST['estadoPedido'] = trim($_POST['estadoPedido']);
-        $estadoPedido = $_POST['estadoPedido'];
-        $id = $_POST["idPedidos"];
+       
+        $id = $_POST["estadoPedido"];
+        $sql2 = "SELECT estado from pedidos where idPedidos=:id";
+        $stmt2 = $pdo->prepare($sql2);
+        $stmt2->bindParam(":id", $id, PDO::PARAM_STR);
 
-        $sql = "UPDATE pedidos SET estado = :estadoPedido WHERE idPedidos = :id";
+      
+
+        $stmt2->execute();
+        $fila2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $estadoPedido2 = $fila2['estado'];
+
+
+        $sql = "UPDATE pedidos SET estado = 1 WHERE idPedidos = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(":id", $id, PDO::PARAM_STR);
-        $stmt->bindParam(":estadoPedido", $estadoPedido, PDO::PARAM_STR);
+        //$stmt->bindParam(":estadoPedido", $estadoPedido, PDO::PARAM_STR);
         $stmt->execute();
 
         // Captura los datos de la consulta, captura una sola fila
