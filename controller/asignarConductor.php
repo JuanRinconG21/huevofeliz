@@ -1,52 +1,42 @@
 <?php
 session_start();
+include('../models/MySQL.php');
+$conexion = new MySQL();
+$pdo = $conexion->conectar();
 
-$_POST['estadoPedido'] ;
-if (isset($_POST['estadoPedido']) && !empty($_POST['estadoPedido'])) {
+
+
+if (isset($_POST['idPedidos']) && !empty($_POST['idPedidos'])) {
+
     try {
-        $_POST['estadoPedido'] = trim($_POST['estadoPedido']);
-        $estadoPedido = $_POST['estadoPedido'];
+
+
+      
+        $editarPedido = "UPDATE pedidos SET estado = :estadoPedido, idUsuario = :idUsuario where idPedidos= :id";
+
         $id = $_POST["idPedidos"];
-        include('../models/MySQL.php');
+        $estado = "2";
+        $idUsuario = $_POST["idUsuario"];
 
-        $conexion = new MySQL();
-        $pdo = $conexion->conectar();
-        // Update the nombreCompleto in usuario table
-        $sqlUsuario = "UPDATE usuario
-            SET nombreCompleto = :nuevoNombreConductor
-            WHERE idUsuario IN (
-                SELECT pedidos.Usuario_idUsuario
-                FROM pedidos 
-                INNER JOIN detallepedidos ON pedidos.idPedidos = detallepedidos.Pedidos_idPedidos
-                INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo
-                WHERE pedidos.estado = '1'
-            )";
+    
 
 
-        $nombreEmpleado = $_POST['conductor'];
+        $stmt = $pdo->prepare($editarPedido);
+        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+        $stmt->bindParam(":estadoPedido", $estado, PDO::PARAM_STR);
+        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
 
-        $stmtUsuario = $pdo->prepare($sqlUsuario);
-        $stmtUsuario->bindParam(":nuevoNombreConductor", $nombreEmpleado, PDO::PARAM_STR);
-        $stmtUsuario->execute();
-
-        // Update the estado in pedidos table
-        $sqlPedidos = "UPDATE pedidos
-            SET estado = :estadoPedido
-            WHERE estado = '1'";
-
-        $stmtPedidos = $pdo->prepare($sqlPedidos);
-        $stmtPedidos->bindParam(":estadoPedido", $estadoPedido, PDO::PARAM_STR);
-        $stmtPedidos->execute();
-
+        $stmt->execute();
+        
         header("Location: ../vista/pages/logistica/asignarConductores.php");
-        $_SESSION['mensajeErr2'] = "Se ha actualizado correctamente";
+        $_SESSION['mensajeErr2'] = "Se ha Confirmado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
-    } catch (Exception $e) {
-       
+    } catch (\Throwable $th) {
+        echo $th->getMessage();
+        // header("Location: ../vista/pages/logistica/AceptarPedidos.php");
     }
 } else {
-    $_SESSION["error"] = "error";
+    $_SESSION["error"] = "error al confirmar";
+    $_SESSION["error2"] = "error";
     echo "se daña";
-    echo $_POST['estadoPedido'] ;
 }
-?>

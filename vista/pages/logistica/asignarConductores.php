@@ -568,8 +568,8 @@ $stmt2->execute();
                         <th>Id Pedido</th>
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
-                        <th>Dirección</th>
                         <th>Id Lote</th>
+                        <th>Dirección</th>
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
@@ -616,21 +616,24 @@ $stmt2->execute();
                                   <div class="row">
                                     <div class="col-4">
 
-                                    <input type="text" class="form-control" id="id_usuario" name="id_usuario" aria-describedby="emailHelp" value="<?php echo $fila['idUsuario'] ?>" hidden>
+
+
+                                    <input type="text" class="form-control" id="id_usuario" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila['idPedidos'] ?>" hidden>
+
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                                        <input type="text" class="form-control"  id="idPedido" name="idPedido" value="<?php echo $fila1['idPedidos'] ?>" readonly>
+                                        <input readonly type="text" class="form-control"  id="idPedido" name="idPedido" value="<?php echo $fila1['idPedidos'] ?>">
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
-                                        <input type="text" class="form-control"  id="exampleFormControlInput1" value="<?php echo $fila1['fecha'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="fechaCreacion"  id="exampleFormControlInput1" value="<?php echo $fila1['fecha'] ?>">
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                        <input type="text" class="form-control"  id="exampleFormControlInput1" value="<?php echo $fila1['cantidad'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="cantidad"  id="exampleFormControlInput1" value="<?php echo $fila1['cantidad'] ?>">
                                       </div>
 
                                     </div>
@@ -639,17 +642,17 @@ $stmt2->execute();
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
-                                        <input type="text" class="form-control"  id="exampleFormControlInput1" value="<?php echo $fila1['nombreCliente'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="nombreCliente" id="exampleFormControlInput1" value="<?php echo $fila1['nombreCliente'] ?>" >
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
-                                        <input type="text" class="form-control"  id="exampleFormControlInput1" value="<?php echo $fila1['tipoPago'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="tipoPago"  id="exampleFormControlInput1" value="<?php echo $fila1['tipoPago'] ?>">
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" value="<?php echo $fila1['idLoteHuevo'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="idLote" id="exampleFormControlInput1" value="<?php echo $fila1['idLoteHuevo'] ?>">
                                       </div>
 
                                     </div>
@@ -658,18 +661,18 @@ $stmt2->execute();
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="estadoPedido" value="<?php echo $fila1['estado'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" id="exampleFormControlInput1" name="estadoPedido" value="<?php echo $fila1['estado'] ?>">
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" value="<?php echo $fila1['direccion'] ?>" readonly>
+                                        <input readonly type="text" class="form-control" name="direccion" id="exampleFormControlInput1" value="<?php echo $fila1['direccion'] ?>">
                                       </div>
 
                                       <div class="mb-3">
                                         <label for="conductor" class="form-label">Conductor</label>
                                         
-                                        <select class="form-select custom-select" id="conductor" name="conductor" aria-label="Default select example">
+                                        <select class="form-select custom-select" id="conductor" name="idUsuario" aria-label="Default select example">
                                         <?php
                                         
                                         while ($fila2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
@@ -719,8 +722,8 @@ $stmt2->execute();
                         <th>Id Pedido</th>
                         <th>Fecha Creación</th>
                         <th>Nombre Cliente</th>
-                        <th>Dirección</th>
                         <th>Id Lote</th>
+                        <th>Dirección</th>
                         <th>Cantidad</th>
                         <th>Tipo de Pago</th>
                         <th>Estado</th>
