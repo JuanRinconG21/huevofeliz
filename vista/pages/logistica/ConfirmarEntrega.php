@@ -4,7 +4,11 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-$stmt = $pdo->prepare("SELECT pedidos.idPedidos AS numeroDelPedido,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes INNER JOIN usuario INNER JOIN detallepedidos WHERE pedidos.Clientes_idClientes = clientes.idClientes AND pedidos.Usuario_idUsuario = usuario.idUsuario AND pedidos.estado=1;");
+$stmt = $pdo->prepare("SELECT pedidos.idPedidos AS numeroDelPedido,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos
+INNER JOIN clientes ON clientes.idClientes = pedidos.Clientes_idClientes
+INNER JOIN detallepedidos ON detallepedidos.Pedidos_idPedidos = pedidos.idPedidos  
+INNER JOIN usuario ON usuario.idUsuario = pedidos.Usuario_idUsuario 
+WHERE pedidos.estado = 1;");
 $stmt->execute();
 ?>
 
