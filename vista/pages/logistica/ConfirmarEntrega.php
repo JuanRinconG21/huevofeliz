@@ -629,7 +629,7 @@ if (isset($_SESSION['error2'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
 
-                              <form action="">
+                              <form method="post" action="../../../controller/enviarCorreoCancelar.php">
                                 <div class="modal-body">
                                   <div class="container">
                                     <div class="row">
@@ -637,7 +637,7 @@ if (isset($_SESSION['error2'])) {
 
                                         <div class="mb-3">
                                           <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['numeroDelPedido'] ?>">
+                                          <input readonly type="text" class="form-control" name="idPedido"  id="exampleFormControlInput1" value="<?php echo $fila1['numeroDelPedido'] ?>">
                                         </div>
 
                                       </div>
@@ -646,7 +646,7 @@ if (isset($_SESSION['error2'])) {
 
                                       <div class="mb-3">
                                           <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['estado'] ?>">
+                                          <input readonly type="text" class="form-control" name="estado"  id="exampleFormControlInput1" value="<?php echo $fila1['estado'] ?>">
                                         </div>
                                       </div>
 
@@ -654,7 +654,7 @@ if (isset($_SESSION['error2'])) {
 
                                         <div class="mb-3">
                                           <label for="exampleFormControlInput1" class="form-label">Conductor</label>
-                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['nombreCompleto'] ?>">
+                                          <input readonly type="text" class="form-control" name="conductor"  id="exampleFormControlInput1" value="<?php echo $fila1['nombreCompleto'] ?>">
                                         </div>
 
                                       </div>
@@ -664,7 +664,7 @@ if (isset($_SESSION['error2'])) {
                                     <div class="row">
                                       <div class="col-12">
                                         <label for="exampleFormControlInput1" class="form-label">Motivo de Cancelación</label>
-                                        <textarea class="form-control" id="exampleTextarea" rows="10" style="resize: none;"></textarea>
+                                        <textarea class="form-control" name="motivoCancelacion" id="exampleTextarea" rows="10" style="resize: none;"></textarea>
 
                                       </div>
                                     </div>
@@ -675,7 +675,7 @@ if (isset($_SESSION['error2'])) {
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
                                   <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
-                                  <button type="button" class="btn btn-primary btn-lg text-center">Enviar</button>
+                                  <button type="submit" class="btn btn-primary btn-lg text-center">Enviar</button>
                                 </div>
                                 </div>
 
@@ -683,7 +683,7 @@ if (isset($_SESSION['error2'])) {
 
                             </div>
                           </div>
-                      </div>
+                        </div>
 
                       <!-- Fin  Modal Para Cancelar la entrega del pedido -->
 
