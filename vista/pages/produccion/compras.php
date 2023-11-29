@@ -690,6 +690,13 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
                                                         </select>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleSelectBorder">Estado</label>
+                                                        <select name="estado" class="custom-select form-control-border" id="exampleSelectBorder">
+                                                            <option value="0">Activo</option>
+                                                            <option value="1">Inactivo</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <!-- /.card-body -->
                                                 <div class="modal-footer justify-content-between">
@@ -748,6 +755,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <th>Medida</th>
                                                 <th>Total</th>
                                                 <th>Proovedor</th>
+                                               
                                                 <th>Codigo de barras</th>
                                             </tr>
                                         </thead>
@@ -764,6 +772,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <td><?php echo $compras['medida']  ?></td>
                                                     <td><?php echo $compras['total']  ?></td>
                                                     <td><?php echo $compras['nombre'] ?></td>
+                                                    
+
                                                     <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud">
                                                     <i class="bi bi-eye-fill"></i>
                                                     </button></td>

@@ -7,7 +7,7 @@ $conexion = new MySQL();
 $pdo = $conexion->conectar();
 
 //traigo  el id de los lotes
-$sql1 = "SELECT * from `loteaves`";
+$sql1 = "SELECT * FROM `lotehuevo`";
 $stmt1 = $pdo->prepare($sql1);
 $stmt1->execute();
 $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
@@ -666,9 +666,9 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Id de lote de aves</label>
                                                         <select name="Idlote" class="custom-select form-control-border" id="idAve">
-                                                            <?php foreach ($fila2 as $Lotehuevo) { ?>
+                                                            <?php foreach ($fila1 as $Lotehuevo) { ?>
 
-                                                                <option value="<?php echo $Lotehuevo['idProduccion'] ?>"><?php echo $Lotehuevo['idProduccion'] ?>
+                                                                <option value="<?php echo $Lotehuevo['idLoteHuevo'] ?>"><?php echo $Lotehuevo['idLoteHuevo'] ?>
 
                                                                 <?php } ?>
 
