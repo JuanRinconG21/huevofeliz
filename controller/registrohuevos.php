@@ -2,17 +2,16 @@
 session_start();
 // validar que no se repita el nombre
 $_POST['cantidad'] = trim(($_POST['cantidad']));
-$_POST['fecharRe'] = trim(($_POST['fecharRe']));
+
 $_POST['Idlote'] = trim(($_POST['Idlote']));
 if (
     isset($_POST['cantidad']) && !empty($_POST['cantidad']) &&
-    isset($_POST['fecharRe']) && !empty($_POST['fecharRe']) &&
     isset($_POST['Idlote']) && !empty($_POST['Idlote'])
 ) {
     try {
 
         $cantidad =  $_POST['cantidad'];
-        $fechaRe =  $_POST['fecharRe'];
+        $fechaRe =  date("Y-m-d");
         $Idlote =  $_POST['Idlote'];
 
         include('../models/MySQL.php');
@@ -29,10 +28,9 @@ if (
         $_SESSION['mensajeErr2'] = "Se ha agregado corretamente";
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (Exception $e) {
-        // header("Location: ../vista/pages/produccion/registrohuevos.php");
-        // $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
-        // $_SESSION['mensajeErr3'] = "Error";
-        echo $e;
+        header("Location: ../vista/pages/produccion/registrohuevos.php");
+        $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
+        $_SESSION['mensajeErr3'] = "Error";
     }
 } else {
     header("Location: ../vista/pages/produccion/registrohuevos.php");

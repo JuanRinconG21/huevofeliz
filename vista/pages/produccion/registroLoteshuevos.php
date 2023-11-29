@@ -52,6 +52,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -663,16 +664,13 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                         <label for="exampleInputEmail1">Cantidad maxima de huevos </label>
                                                         <input name="cantidadMax" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Cantidad maxima">
                                                     </div>
-                                                    
+
 
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Fecha de vencimiento</label>
                                                         <input type="date" name="fechaVence" class="form-control" id="exampleInputPassword1">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Fecha de puesta</label>
-                                                        <input type="date" name="fechaPuesta" class="form-control" id="exampleInputPassword1">
-                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">precio</label>
                                                         <select name="precio" class="custom-select form-control-border" id="exampleSelectBorder">
@@ -688,9 +686,9 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Estado</label>
                                                         <select name="estado" class="custom-select form-control-border" id="exampleSelectBorder">
-                                                            <option value="1" >Activo
+                                                            <option value="1">Activo
                                                             <option value="0">Inactivo
-                                                                                                                    
+
                                                         </select>
                                                     </div>
 
@@ -710,7 +708,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- /.modal-dialog -->
                             </div>
                             <hr>
-                          
+
                             <h1 style="text-align: center;">Lotes de huevos</h1>
                             <br>
                             <div class="card-body">
@@ -724,6 +722,7 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Fecha Puesta</th>
                                             <th>Id de los precios</th>
                                             <th>Estado</th>
+                                            <th>Codigo de barras</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -736,8 +735,11 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $lotehuevos['fechaPuesta'] ?></td>
                                                 <td><?php echo $lotehuevos['Precios_idPrecios'] ?></td>
                                                 <td><?php echo $lotehuevos['estado'] ?></td>
+                                                <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud">
+                                                        <i class="bi bi-eye-fill"></i>
+                                                    </button></td>
                                             <?php } ?>
-                                            
+
 
 
                                             </tr>
@@ -748,7 +750,34 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 </table>
                             </div>
                             <!-- /.card-header -->
+                            <div class="modal fade" id="modal-salud">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Codigo de la compra</h4>
 
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="../../../controller/seguimientoSalud.php" method="post">
+                                                <div class="card-body">
+
+
+                                                    <img src="../../../codigobarras/barcode.php?text=3453453&size=50&orientation=horizontal" alt="">
+
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             <!-- /.card-body -->
                         </div>
                     </div>

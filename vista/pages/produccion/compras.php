@@ -755,8 +755,8 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                 <th>Medida</th>
                                                 <th>Total</th>
                                                 <th>Proovedor</th>
-                                               
-                                                <th>Codigo de barras</th>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -772,14 +772,12 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                                     <td><?php echo $compras['medida']  ?></td>
                                                     <td><?php echo $compras['total']  ?></td>
                                                     <td><?php echo $compras['nombre'] ?></td>
-                                                    
 
-                                                    <td> <button value="<?php echo $aves['idAves'] ?>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-salud">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                    </button></td>
-                                                    
+
+
+
                                                 <?php } ?>
-                                                    
+
                                                 </tr>
                                         </tbody>
 
@@ -788,58 +786,32 @@ $fila1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card-header -->
-                            <div class="modal fade" id="modal-salud">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Codigo de la compra</h4>
 
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="../../../controller/seguimientoSalud.php" method="post">
-                                                                    <div class="card-body" >
-
-                                                                        
-                                                                    <img src="../../../codigobarras/barcode.php?text=3453453&size=50&orientation=horizontal" alt="">
-
-                                                                    </div>
-                                                                    <!-- /.card-body -->
-                                                                    <div class="modal-footer justify-content-between">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
-                <!-- / fin del cuerpo del contenido container-fluid -->
-            </section>
-            <!-- /  cierre del section todo el cuerpo del index-->
         </div>
-        <!-- /.fin del contenedor general -wrapper -->
+        <!-- / fin del cuerpo del contenido container-fluid -->
+        </section>
+        <!-- /  cierre del section todo el cuerpo del index-->
+    </div>
+    <!-- /.fin del contenedor general -wrapper -->
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021
-                <a href="https://adminlte.io">Adso.Work</a>.</strong>
-            Todos los derechos Reservados
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 0.0.1
-            </div>
-        </footer>
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2021
+            <a href="https://adminlte.io">Adso.Work</a>.</strong>
+        Todos los derechos Reservados
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 0.0.1
+        </div>
+    </footer>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 

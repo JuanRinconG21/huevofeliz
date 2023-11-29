@@ -57,7 +57,7 @@ if (
         $_SESSION['mensajeErr'] = "Felicidades";
     } catch (Exception $e) {
         echo $e;
-         header("Location: ../vista/pages/produccion/compras.php");
+        header("Location: ../vista/pages/produccion/compras.php");
         $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
         $_SESSION['mensajeErr3'] = "Error";
     }
@@ -65,7 +65,6 @@ if (
     header("Location: ../vista/pages/produccion/compras.php");
     $_SESSION['mensajeErr4'] = "Debes llenar todos los campos";
     $_SESSION['mensajeErr3'] = "Error";
-  
 }
 
 //

@@ -31,10 +31,10 @@ if (
             $_SESSION['mensajeErr'] = "Felicidades";
         }
     } catch (Exception $e) {
-        echo $e;
-        // header("Location: ../vista/pages/produccion/registroAves.php");
-        // $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
-        // $_SESSION['mensajeErr3'] = "Error";
+
+        header("Location: ../vista/pages/produccion/registroAves.php");
+        $_SESSION['mensajeErr4'] = "Ha ocurrido un error";
+        $_SESSION['mensajeErr3'] = "Error";
     }
 } else {
     header("Location: ../vista/pages/produccion/registroAves.php");

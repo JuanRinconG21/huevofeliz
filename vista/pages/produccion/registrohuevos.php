@@ -659,10 +659,7 @@ $fila2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                                         <label for="exampleInputEmail1">Cantidad</label>
                                                         <input name="cantidad" min="1" type="number" class="form-control" id="exampleInputEmail1" placeholder="Cantidad">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Fecha de recoleccion</label>
-                                                        <input type="date" name="fecharRe" class="form-control" id="exampleInputPassword1">
-                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="exampleSelectBorder">Id de lote de aves</label>
                                                         <select name="Idlote" class="custom-select form-control-border" id="idAve">
