@@ -46,9 +46,7 @@ $stmt->execute();
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
-        </div>
+
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -328,7 +326,7 @@ $stmt->execute();
                                         <p>Punto de Venta Ingreso 3</p>
                                     </a>
                                 </li>
-                               
+
 
                             </ul>
                         </li>
@@ -417,7 +415,7 @@ $stmt->execute();
                                         <p>Simple Tables</p>
                                     </a>
                                 </li>
-                     
+
                             </ul>
                         </li>
                         <li class="nav-header">FECHAS</li>
@@ -572,7 +570,7 @@ $stmt->execute();
                                                 <th>cantidad</th>
                                                 <th>identificador Lote</th>
                                                 <th>fecha Vencimiento</th>
-                                              
+
 
                                                 <!-- <th>CSS grade</th> -->
                                             </tr>
@@ -591,7 +589,7 @@ $stmt->execute();
                                                         <td><?php echo $fila1['cantidad'] ?></td>
                                                         <td><?php echo $fila1['identificadorLote'] ?></td>
                                                         <td><?php echo $fila1['fechaVencimiento'] ?></td>
-                                                       
+
 
                                                     </tr>
                                             <?php
@@ -604,7 +602,7 @@ $stmt->execute();
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                            <th>Nombre Punto Venta</th>
+                                                <th>Nombre Punto Venta</th>
                                                 <th>id ingreso</th>
                                                 <th>cantidad</th>
                                                 <th>identificador Lote</th>

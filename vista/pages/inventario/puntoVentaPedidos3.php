@@ -46,9 +46,7 @@ $stmt->execute();
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" />
-        </div>
+
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -311,12 +309,12 @@ $stmt->execute();
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                  <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Punto de Venta Ingreso 1</p>
-                  </a>
-                  </li>
-                  <li class="nav-item">
+                                    <a href="../../pages/inventario/puntoVentaIngreso1.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Punto de Venta Ingreso 1</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="../../pages/inventario/puntoVentaIngreso2.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Punto de Venta Ingreso 2</p>
