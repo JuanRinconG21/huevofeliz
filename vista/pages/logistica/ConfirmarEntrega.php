@@ -582,6 +582,7 @@ if (isset($_SESSION['error2'])) {
                         <th>Estado</th>
                         <th>conductor</th>
                         <th>Finalizar Pedido</th>
+                        <th>Cancelar Pedido</th>
                     </thead>
                     <tbody>
                       <?php
@@ -610,43 +611,81 @@ if (isset($_SESSION['error2'])) {
                                 <button type="submit" class="btn btn-primary">Confirmar Entrega</button>
                               </form>
                             </td>
+
+                            <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                             Cancelar Entrega
+                            </button>
+                            </td>
                           </tr>
 
-                          <!-- Button trigger modal -->
+                        <!-- Incio Modal Para Cancelar la entrega del pedido -->
 
-
-                          <!-- Modal -->
-                          <!-- <div class="modal fade" id="confirmarPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Estado</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <form method="post" action="../../../controller/aceptarPedido.php">
-                                    <div class="mb-3">
-                                      <input type="text" class="form-control" id="idPedidos" name="idPedidos" aria-describedby="emailHelp" value="<?php echo $fila1['idPedidos'] ?>" hidden>
-                                      <label for="exampleInputEmail1" class="form-label">Tipo de estado</label>
-                                      <select class="form-select" aria-label="Default select example" name="estadoPedido">
-                                        <option selected>Opciones</option>
-                                        <option value="1">Aceptar</option>
-                                        <option value="0">Rechazar</option>
-
-                                      </select>
-                                    </div>
-
-
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                      <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                  </form>
-                                </div>
-
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Cancelar Entrega De Pedido</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
+
+                              <form action="">
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col-4">
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
+                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['numeroDelPedido'] ?>">
+                                        </div>
+
+                                      </div>
+
+                                      <div class="col-4">
+
+                                      <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Estado</label>
+                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['estado'] ?>">
+                                        </div>
+                                      </div>
+
+                                      <div class="col-4">
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Conductor</label>
+                                          <input type="text" class="form-control" disabled id="exampleFormControlInput1" value="<?php echo $fila1['nombreCompleto'] ?>">
+                                        </div>
+
+                                      </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <label for="exampleFormControlInput1" class="form-label">Motivo de Cancelación</label>
+                                        <textarea class="form-control" id="exampleTextarea" rows="10" style="resize: none;"></textarea>
+
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                  <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-primary btn-lg text-center">Enviar</button>
+                                </div>
+                                </div>
+
+                            </form>
+
                             </div>
-                          </div> -->
+                          </div>
+                      </div>
+
+                      <!-- Fin  Modal Para Cancelar la entrega del pedido -->
 
 
                       <?php
@@ -669,6 +708,7 @@ if (isset($_SESSION['error2'])) {
                         <th>Estado</th>
                         <th>Conductor</th>
                         <th>Finalizar Pedido</th>
+                        <th>Cancelar Pedido</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -689,104 +729,7 @@ if (isset($_SESSION['error2'])) {
 
 
 
-    <!-- Incio Modal Para Cancelar la entrega del pedido -->
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Cancelar Entrega De Pedido</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <form action="">
-            <div class="modal-body">
-              <div class="container">
-                <div class="row">
-                  <div class="col-4">
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Pedido">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Fecha Creación">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Cantidad">
-                    </div>
-
-                  </div>
-
-                  <div class="col-4">
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Nombre Cliente">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Tipo de Pago">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Id Lote">
-                    </div>
-
-                  </div>
-
-                  <div class="col-4">
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Dirección">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Estado">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Conductor</label>
-                      <input type="text" class="form-control" disabled id="exampleFormControlInput1" placeholder="Conductor">
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <label for="exampleFormControlInput1" class="form-label">Motivo de Cancelación</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="5" style="resize: none;"></textarea>
-
-                  </div>
-                </div>
-              </div>
-
-
-
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-              <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary btn-lg text-center">Confirmar</button>
-            </div>
-        </div>
-
-        </form>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Fin  Modal Para Cancelar la entrega del pedido -->
 
 
   <!-- /Fin de la cabecera del cuerpo index-header -->
