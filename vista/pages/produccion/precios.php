@@ -4,15 +4,11 @@ include("../../../models/MySQL.php");
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
 
-$sql2 =  "SELECT * FROM compras WHERE estado = 0";
+$sql2 =  "SELECT * FROM precios";
 $stmt2 = $pdo->prepare($sql2);
 $stmt2->execute();
 $fila = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-///
-$sql3 =  "SELECT gastos.idGastos, compras.nombreProducto,gastos.cantidad, compras.medida, compras.estado FROM compras INNER JOIN gastos ON compras.idCompras = gastos.Compras_idCompras";
-$stmt3 = $pdo->prepare($sql3);
-$stmt3->execute();
-$fila2 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <?php ?>
@@ -556,14 +552,9 @@ $fila2 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-sm-2">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title text-center" style=" font-weight: bold;">Registrar Gastos</h3>
+                                    <h3 class="card-title text-center" style=" font-weight: bold;">PRECIO PRODUCTOS</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
-                                    <h1 class="text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Registrar
-                                        </button></h1>
-                                </div>
                                 <!-- /.card-body -->
                             </div>
                         </div>
@@ -573,39 +564,9 @@ $fila2 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         <!-- /.col -->
                         <div class="col-sm-12">
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Formulario Para Registrar Gastos</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="../../../controller/gastos/agregarGastos.php" method="post">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Producto</label>
-                                                    <select class="form-select" name="idProd" aria-label="Default select example">
-                                                        <?php foreach ($fila as $key) {
-                                                        ?>
-                                                            <option value="<?php echo $key['idCompras'] ?>"><?php echo $key['nombreProducto'] ?></option>
-                                                        <?php
-                                                        } ?>
-
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Cantidad</label>
-                                                    <input type="number" name="cantidad" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Agregar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="card" style="width: 100%">
                                 <div class="card-header">
-                                    <h3 class="card-title">Listado de Gastos</h3>
+                                    <h3 class="card-title">LISTADOS DE PRECIOS</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -613,36 +574,51 @@ $fila2 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                         <thead class="text-center">
                                             <tr>
                                                 <th>ID</th>
-                                                <th>PRODUCTO</th>
-                                                <th>CANTIDAD CONSUMIDA</th>
-                                                <th>MEDIDA</th>
-                                                <th>ESTADO</th>
+                                                <th>TIPO</th>
+                                                <th>PRECIO</th>
+                                                <th>ACCIONES</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-center">
-                                            <?php foreach ($fila2 as $key2) {
-                                                if ($key2['estado'] == 0) {
-                                                    $estado = "EN STOCK";
-                                                } else {
-                                                    $estado = "SIN STOCK";
-                                                }
+                                            <?php foreach ($fila as $key2) {
                                             ?>
                                                 <tr>
-                                                    <td><?php echo $key2['idGastos'] ?></td>
-                                                    <td><?php echo $key2['nombreProducto'] ?></td>
-                                                    <td><?php echo $key2['cantidad'] ?></td>
-                                                    <td><?php echo $key2['medida'] ?></td>
-                                                    <td><?php echo $estado ?></td>
+                                                    <td><?php echo $key2['idPrecios'] ?></td>
+                                                    <td><?php echo $key2['Tipo'] ?></td>
+                                                    <td><?php echo $key2['precio'] ?></td>
+                                                    <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $key2['idPrecios'] ?>"><i class="bi bi-tag-fill"></i></button></td>
                                                 </tr>
+                                                <div class="modal fade" id="exampleModal<?php echo $key2['idPrecios'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Formulario Para Registrar Gastos</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="../../../controller/precios/editarprecios.php" method="post">
+                                                                    <input type="text" hidden name="idPrecio" value="<?php echo $key2['idPrecios'] ?>">
+                                                                    <div class="mb-3">
+                                                                        <label for="" class="form-label">TIPO DE HUEVO: <span><?php echo $key2['Tipo'] ?></span></label>
+                                                                        <br>
+                                                                        <br>
+                                                                        <label for="exampleInputEmail1" class="form-label">Nuevo Precio</label>
+                                                                        <input type="number" min="1" name="precio" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Cambiar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             <?php } ?>
                                         </tbody>
                                         <tfoot class="text-center">
                                             <tr>
                                                 <th>ID</th>
-                                                <th>PRODUCTO</th>
-                                                <th>CANTIDAD CONSUMIDA</th>
-                                                <th>MEDIDA</th>
-                                                <th>ESTADO</th>
+                                                <th>TIPO</th>
+                                                <th>PRECIO</th>
+                                                <th>ACCIONES</th>
                                             </tr>
                                         </tfoot>
                                     </table>
