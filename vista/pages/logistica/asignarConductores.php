@@ -5,7 +5,6 @@ include('../../../models/MySQL.php');
 // Paso 2: Ejecutar la consulta preparada.
 $conexion = new MySQL();
 $pdo = $conexion->conectar();
-//$stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente ,clientes.direccion, lotehuevo.idLoteHuevo, detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado, usuario.nombreCompleto FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN detallepedidos on pedidos.idPedidos=detallepedidos.Pedidos_idPedidos INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo WHERE pedido.estado=1;");
 $stmt = $pdo->prepare("SELECT pedidos.idPedidos,pedidos.fecha,clientes.nombreCompleto AS nombreCliente,clientes.direccion,lotehuevo.idLoteHuevo, detallepedidos.cantidad,pedidos.tipoPago,pedidos.estado,usuario.nombreCompleto AS nombreUsuario FROM pedidos INNER JOIN clientes ON pedidos.Clientes_idClientes = clientes.idClientes INNER JOIN usuario ON pedidos.Usuario_idUsuario = usuario.idUsuario INNER JOIN detallepedidos ON pedidos.idPedidos = detallepedidos.Pedidos_idPedidos INNER JOIN lotehuevo ON detallepedidos.LoteHuevo_idLoteHuevo = lotehuevo.idLoteHuevo WHERE pedidos.estado = '1';
 ");
 $stmt->execute();
@@ -618,7 +617,7 @@ $fila3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="container">
                                       <div class="row">
                                         <div class="col-4">
-                                          
+
                                           <div class="mb-3">
                                             <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
                                             <input readonly type="text" class="form-control" id="idPedido" name="idPedido" value="<?php echo $fila1['idPedidos'] ?>">
@@ -725,175 +724,175 @@ $fila3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                 </table>
               </div>
               <!-- /.card-body -->
-              </div> <!-- /.card -->
-            </div> <!-- /.col -->
-          </div><!-- /.row -->
+            </div> <!-- /.card -->
+          </div> <!-- /.col -->
+        </div><!-- /.row -->
 
 
 
-          <div class="row">
-            <div class="col-sm-12">
-              <h1 class="m-0 mb-3 text-center">Editar Conductor</h1>
-              <div class="card mb-5">
-                <div class="card-header">
-                  <h3 class="card-title">Tabla Editar de conductor</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example3" class="table table-bordered table-striped">
-                    <thead>
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="m-0 mb-3 text-center">Editar Conductor</h1>
+            <div class="card mb-5">
+              <div class="card-header">
+                <h3 class="card-title">Tabla Editar de conductor</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example3" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Id Pedido</th>
+                      <th>Fecha Creación</th>
+                      <th>Nombre Cliente</th>
+                      <th>Id Lote</th>
+                      <th>Dirección</th>
+                      <th>Cantidad</th>
+                      <th>Tipo de Pago</th>
+                      <th>Estado</th>
+                      <th>Conductor</th>
+                      <th>Asignación Conductor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    while ($fila4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
                       <tr>
-                        <th>Id Pedido</th>
-                        <th>Fecha Creación</th>
-                        <th>Nombre Cliente</th>
-                        <th>Id Lote</th>
-                        <th>Dirección</th>
-                        <th>Cantidad</th>
-                        <th>Tipo de Pago</th>
-                        <th>Estado</th>
-                        <th>Conductor</th>
-                        <th>Asignación Conductor</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      while ($fila4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                      ?>
-                        <tr>
-                          <td><?php echo $fila4['idPedidos'] ?></td>
-                          <td><?php echo $fila4['fecha'] ?></td>
-                          <td><?php echo $fila4['nombreCliente'] ?></td>
-                          <td><?php echo $fila4['idLoteHuevo'] ?></td>
-                          <td><?php echo $fila4['direccion'] ?></td>
-                          <td><?php echo $fila4['cantidad'] ?></td>
-                          <td><?php echo $fila4['tipoPago'] ?></td>
-                          <td><?php echo $fila4['estado'] ?></td>
-                          <td><?php echo $fila4['nombreUsuario'] ?></td>
+                        <td><?php echo $fila4['idPedidos'] ?></td>
+                        <td><?php echo $fila4['fecha'] ?></td>
+                        <td><?php echo $fila4['nombreCliente'] ?></td>
+                        <td><?php echo $fila4['idLoteHuevo'] ?></td>
+                        <td><?php echo $fila4['direccion'] ?></td>
+                        <td><?php echo $fila4['cantidad'] ?></td>
+                        <td><?php echo $fila4['tipoPago'] ?></td>
+                        <td><?php echo $fila4['estado'] ?></td>
+                        <td><?php echo $fila4['nombreUsuario'] ?></td>
 
-                          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1<?php echo $fila4['idPedidos'] ?>">Editar Conductor</button></td>
-                          <div class="modal fade" id="exampleModal1<?php echo $fila4['idPedidos'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar Conductor De Pedido</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1<?php echo $fila4['idPedidos'] ?>">Editar Conductor</button></td>
+                        <div class="modal fade" id="exampleModal1<?php echo $fila4['idPedidos'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar Conductor De Pedido</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
 
-                                <form method="post" action="../../../controller/asignarConductor.php">
-                                  <div class="modal-body">
-                                    <div class="container">
-                                      <div class="row">
-                                        <div class="col-4">
-                                          
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
-                                            <input readonly type="text" class="form-control" id="idPedido" name="idPedido" value="<?php echo $fila4['idPedidos'] ?>">
-                                          </div>
+                              <form method="post" action="../../../controller/asignarConductor.php">
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col-4">
 
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
-                                            <input readonly type="text" class="form-control" name="fechaCreacion" id="exampleFormControlInput1" value="<?php echo $fila4['fecha'] ?>">
-                                          </div>
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                            <input readonly type="text" class="form-control" name="cantidad" id="exampleFormControlInput1" value="<?php echo $fila4['cantidad'] ?>">
-                                          </div>
-
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Id Pedido</label>
+                                          <input readonly type="text" class="form-control" id="idPedido" name="idPedido" value="<?php echo $fila4['idPedidos'] ?>">
                                         </div>
 
-                                        <div class="col-4">
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
-                                            <input readonly type="text" class="form-control" name="nombreCliente" id="exampleFormControlInput1" value="<?php echo $fila4['nombreCliente'] ?>">
-                                          </div>
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
-                                            <input readonly type="text" class="form-control" name="tipoPago" id="exampleFormControlInput1" value="<?php echo $fila4['tipoPago'] ?>">
-                                          </div>
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
-                                            <input readonly type="text" class="form-control" name="idLote" id="exampleFormControlInput1" value="<?php echo $fila4['idLoteHuevo'] ?>">
-                                          </div>
-
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Fecha Creación</label>
+                                          <input readonly type="text" class="form-control" name="fechaCreacion" id="exampleFormControlInput1" value="<?php echo $fila4['fecha'] ?>">
                                         </div>
 
-                                        <div class="col-4">
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                                            <input readonly type="text" class="form-control" id="exampleFormControlInput1" name="estadoPedido" value="<?php echo $fila4['estado'] ?>">
-                                          </div>
-
-                                          <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                                            <input readonly type="text" class="form-control" name="direccion" id="exampleFormControlInput1" value="<?php echo $fila4['direccion'] ?>">
-                                          </div>
-
-                                          <div class="mb-3">
-                                            <label for="conductor" class="form-label">Conductor</label>
-
-                                            <select class="form-select custom-select" id="conductor" name="idUsuario" aria-label="Default select example">
-                                              <?php
-                                              foreach ($fila3 as $key2) {
-                                                if ($key2['nombre'] != "Pendiente") {
-                                              ?>
-                                                  <option value="<?php echo $key2['idUsuario'] ?>"><?php echo $key2['nombre'] ?></option>
-                                              <?php
-                                                }
-                                              }
-                                              ?>
-                                            </select>
-
-                                          </div>
-
-
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+                                          <input readonly type="text" class="form-control" name="cantidad" id="exampleFormControlInput1" value="<?php echo $fila4['cantidad'] ?>">
                                         </div>
 
                                       </div>
+
+                                      <div class="col-4">
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
+                                          <input readonly type="text" class="form-control" name="nombreCliente" id="exampleFormControlInput1" value="<?php echo $fila4['nombreCliente'] ?>">
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Tipo de Pago</label>
+                                          <input readonly type="text" class="form-control" name="tipoPago" id="exampleFormControlInput1" value="<?php echo $fila4['tipoPago'] ?>">
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Id Lote</label>
+                                          <input readonly type="text" class="form-control" name="idLote" id="exampleFormControlInput1" value="<?php echo $fila4['idLoteHuevo'] ?>">
+                                        </div>
+
+                                      </div>
+
+                                      <div class="col-4">
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Estado</label>
+                                          <input readonly type="text" class="form-control" id="exampleFormControlInput1" name="estadoPedido" value="<?php echo $fila4['estado'] ?>">
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlInput1" class="form-label">Dirección</label>
+                                          <input readonly type="text" class="form-control" name="direccion" id="exampleFormControlInput1" value="<?php echo $fila4['direccion'] ?>">
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="conductor" class="form-label">Conductor</label>
+
+                                          <select class="form-select custom-select" id="conductor" name="idUsuario" aria-label="Default select example">
+                                            <?php
+                                            foreach ($fila3 as $key2) {
+                                              if ($key2['nombre'] != "Pendiente") {
+                                            ?>
+                                                <option value="<?php echo $key2['idUsuario'] ?>"><?php echo $key2['nombre'] ?></option>
+                                            <?php
+                                              }
+                                            }
+                                            ?>
+                                          </select>
+
+                                        </div>
+
+
+                                      </div>
+
                                     </div>
-
                                   </div>
-                                  <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary btn-lg text-center">Editar Conductor</button>
-                                  </div>
-                              </div>
 
-                              </form>
-
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                  <button type="button" class="btn btn-danger btn-lg text-center" data-bs-dismiss="modal">Cancelar</button>
+                                  <button type="submit" class="btn btn-primary btn-lg text-center">Editar Conductor</button>
+                                </div>
                             </div>
+
+                            </form>
+
                           </div>
-                        </tr>
-                      <?php
-                      }
-                      ?>
-                </div>
-
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Id Pedido</th>
-                    <th>Fecha Creación</th>
-                    <th>Nombre Cliente</th>
-                    <th>Id Lote</th>
-                    <th>Dirección</th>
-                    <th>Cantidad</th>
-                    <th>Tipo de Pago</th>
-                    <th>Estado</th>
-                    <th>Conductor</th>
-                    <th>Asignación Conductor</th>
-                  </tr>
-                </tfoot>
-                </table>
+                        </div>
+                      </tr>
+                    <?php
+                    }
+                    ?>
               </div>
-              <!-- /.card-body -->
-              </div> <!-- /.card -->
-            </div> <!-- /.col -->
-          </div><!-- /.row -->
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Id Pedido</th>
+                  <th>Fecha Creación</th>
+                  <th>Nombre Cliente</th>
+                  <th>Id Lote</th>
+                  <th>Dirección</th>
+                  <th>Cantidad</th>
+                  <th>Tipo de Pago</th>
+                  <th>Estado</th>
+                  <th>Conductor</th>
+                  <th>Asignación Conductor</th>
+                </tr>
+              </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </div> <!-- /.col -->
+      </div><!-- /.row -->
 
 
 
@@ -901,8 +900,8 @@ $fila3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-      </div><!-- /.container-fluid -->
-    </div><!-- /.content-header -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
   </div><!-- /.content-wrapper -->
 
 
