@@ -39,6 +39,17 @@ $traerHuevoPREMIUM->execute();
 $capHuevoPREMIUM = $traerHuevoPREMIUM->fetch(PDO::FETCH_ASSOC);
 //capturo HUEVO TIPO PREMIUM
 $huevoPREMIUM = $capHuevoPREMIUM['precio'];
+
+//CONSULTA PARA LA TABLA FACTURA
+$traerFactura = $pdo->prepare('SELECT
+puntosventa.nombre AS lugarLocal,
+encabezado.fechaCompra AS HoraDeVenta,
+encabezado.idEncabezado AS IdFactura,
+encabezado.total AS PrecioTotalFactura
+FROM
+encabezado
+INNER JOIN puntosventa ON encabezado.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta;');
+$traerFactura->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -624,7 +635,7 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" disabled id="nombre">
+                        <input type="text" class="form-control" readonly id="nombre">
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -639,7 +650,7 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-mobile"></i></span>
                         </div>
-                        <input type="text" class="form-control" disabled id="telefono">
+                        <input type="text" class="form-control" readonly id="telefono">
                       </div>
                     </div>
                   </div>
@@ -653,7 +664,7 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                         </div>
-                        <input type="text" class="form-control" disabled id="correo">
+                        <input type="text" class="form-control" readonly id="correo">
                       </div>
                     </div>
                   </div>
@@ -673,7 +684,6 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                 <div class="form-group">
                   <label>Productos</label>
                   <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" id="huevos">
-                    <option selected="selected"></option>
                     <option id="1-1">Huevo A</option>
                     <option id="2-1">Huevo AA</option>
                     <option id="3-1">Huevo AAA</option>
@@ -763,32 +773,29 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="../../../controller/ventas/agregarComprar.php">
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Valor Recibido</label>
-                      <input type="number" name="recibido" class="form-control" placeholder="Pago">
-                    </div>
-                    <div class="form-group">
-                      <label>Metodos de Pago</label>
-                      <select class="form-select" aria-label="Default select example" id="selecPago" onchange="mostrarInput()" name="metodo">
-                        <option selected disabled>Pagos</option>
-                        <option value="1">Efectivo</option>
-                        <option value="2">Debito</option>
-                        <option value="3">Credito</option>
-                      </select>
-                    </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Valor Recibido</label>
+                    <input type="number" name="recibido" class="form-control" id="valorRecibido" placeholder="valorRecibido">
+                  </div>
+                  <div class="form-group">
+                    <label>Metodos de Pago</label>
+                    <select class="form-select" aria-label="Default select example" id="metodo" onchange="mostrarInput()" name="metodo">
+                      <option value="1">Efectivo</option>
+                      <option value="2">Debito</option>
+                      <option value="3">Credito</option>
+                    </select>
+                  </div>
 
-                    <div class="form-group" style="display: none;" id="inputContainer">
-                      <label for="metodoPago">Número de Tarjeta:</label>
-                      <input type="number" class="form-control" placeholder="Numero Tarjeta" id="metodoPago" name="numeroTarjeta">
-                    </div>
+                  <div class="form-group" style="display: none;" id="inputContainer">
+                    <label for="metodoPago">Número de Tarjeta:</label>
+                    <input type="number" class="form-control" placeholder="Numero Tarjeta" id="numeroTarjeta">
                   </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary bi bi-bag"> Vender</button>
-                  </div>
-                </form>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary bi bi-bag" onclick="vender()"> Vender</button>
+                </div>
               </div>
               <!-- /.card -->
             </div>
@@ -808,8 +815,6 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
               <thead>
                 <tr>
                   <th>Local 1</th>
-                  <th>Nombre Cliente</th>
-                  <th>Nombre Vendedor</th>
                   <th>Hora Venta</th>
                   <th>N°Factura</th>
                   <th>Precio Total</th>
@@ -818,7 +823,7 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <!-- <tr>
                   <td>Local 1 Huevo Feliz</td>
                   <td>Camilo Roncon</td>
                   <td>Niko Tesla</td>
@@ -827,44 +832,57 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
                   <td>46.000</td>
                   <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
                   <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
-                </tr>
-                <tr>
-                  <td>Local 1 Huevo Feliz</td>
-                  <td>Camilo Roncon </td>
-                  <td>Niko Tesla</td>
-                  <td>24/11/2023-8:00:00</td>
-                  <td>106</td>
-                  <td>46.000</td>
-                  <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
-                  <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
-                </tr>
-                <tr>
-                  <td>Local 1 Huevo Feliz</td>
-                  <td>Kevin Ramirez</td>
-                  <td>Juan Andres</td>
-                  <td>25/11/2023-10:00:00</td>
-                  <td>103</td>
-                  <td>14.000</td>
-                  <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
-                  <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
-                </tr>
-                <tr>
-                  <td>Local 1 Huevo Feliz</td>
-                  <td>Mario Miranda
-                  </td>
-                  <td>Camila Restrepo</td>
-                  <td>30/11/2023-17:00:00</td>
-                  <td>104</td>
-                  <td>105.000</td>
-                  <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
-                  <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
-                </tr>
+                </tr> -->
+                <?php while ($fila2 = $traerFactura->fetch(PDO::FETCH_ASSOC)) { ?>
+                  <tr>
+                    <th scope="row"> <?php echo $fila2['lugarLocal'] ?></th>
+                    <th scope="row"> <?php echo $fila2['HoraDeVenta'] ?></th>
+                    <th scope="row"> <?php echo $fila2['IdFactura'] ?></th>
+                    <th scope="row"> <?php echo $fila2['PrecioTotalFactura'] ?></th>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye" onclick="descargar('<?php echo $fila2['IdFactura'] ?>')"></button></td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise" data-toggle="modal" data-target="#devolucion<?php echo $fila['IdFactura'] ?>"></button></td>
+                  </tr>
+                  <!-- modales -->
+                  <div class="modal fade" id="devolucion<?php echo $fila['IdFactura'] ?>">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Cantidad a Recibir</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form action="../../../controller/ventas/agregarDesc1.php" method="POST">
+                          <div class="modal-body">
+                            <!-- TOTAL RECIBIDO -->
+                            <div class="form-group" style="width: 80%;">
+                              <label>DESCUENTO %:</label>
+
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-plus"></i></span>
+                                </div>
+                                <input type="number" name="descuento" class="form-control" data-mask name="recibido">
+                                <input type="text" name="idIngresos" value="<?php echo $fila['idIngresos'] ?>" hidden>
+                              </div>
+                              <!-- /.input group -->
+                            </div>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary bi bi-cash-coin"> Comprar</button>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                <?php } ?>
               </tbody>
               <tfoot>
                 <tr>
                   <th>Local 1</th>
-                  <th>Nombre Cliente</th>
-                  <th>Nombre Vendedor</th>
                   <th>Hora Venta</th>
                   <th>N° Factura</th>
                   <th>Precio Total</th>
@@ -897,6 +915,21 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  <!-- Mostrar Factura por el id del encabezado -->
+  <script>
+    function descargar(id2) {
+      let ruta = window.location.href;
+      let rutaBien = ruta.replace("vista/pages/ventas/local1.php", "");
+      let rutaCompleta = `${rutaBien}controller/ventas/tickes/Ticket_Nro_${id2}.pdf`;
+      const downloadLink = document.createElement("a");
+      downloadLink.href = rutaCompleta;
+      downloadLink.style.display = "none";
+      downloadLink.download = `Ticket_Nro_${id2}.pdf`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+  </script>
   <!-- script para Listar los productos -->
   <script>
     var boton = document.getElementById("agregar");
@@ -994,31 +1027,6 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
           $("#cantidad").val("");
           $("#huevos").focus();
           cant++;
-          // Inicializar un array para almacenar las cantidades
-          var cantidadesArray = [];
-          // Capturar la cantidad de la última fila
-          var cantidadCapturada = $("#listarProductos tr:last td:eq(3)").text();
-          // Agregar la cantidad capturada al array
-          cantidadesArray.push(cantidadCapturada);
-          // Crear un objeto que contenga los datos que deseas enviar al servidor
-          var datosParaEnviar = {
-            cantidades: cantidadesArray
-          };
-          // Realizar una solicitud AJAX al servidor
-          $.ajax({
-            type: "POST",
-            url: "../../../controller/ventas/capturar.php", // Reemplaza esto con la ruta correcta a tu script PHP
-            data: datosParaEnviar,
-            success: function(response) {
-              console.log("Datos enviados exitosamente al servidor");
-              // Puedes hacer algo con la respuesta del servidor si es necesario
-              console.log("Respuesta del servidor:", response);
-            },
-            error: function(error) {
-              console.error("Error al enviar datos al servidor", error);
-            }
-          });
-
           sumar();
         } else {
           Swal.fire({
@@ -1036,42 +1044,94 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
       }
     }
 
-    function verArreglo() {
-      console.log(data)
-    }
-
     function sumar() {
       var tot = 0;
       for (x of data) {
         tot = tot + x.total;
       }
       document.getElementById("total").innerHTML = "Total : " + tot;
-      //ENVIO TOTAL AL CONTROLADOR PHP
-      $.ajax({
-        type: "POST",
-        url: "../../../controller/ventas/capturar.php", // Nombre del archivo PHP que manejará la actualización de la sesión
-        data: {
-          totalPagar: tot
-        },
-        success: function(response) {}
-      });
-      var seleccion = $("#cedula").val();
-      // Realiza una solicitud AJAX al servidor
-      $.ajax({
-        type: "POST",
-        url: "../../../controller/ventas/capturar.php", // Reemplaza esto con la ruta correcta a tu script PHP
-        data: {
-          seleccion: seleccion
-        },
-        success: function(response) {
-          // Puedes hacer algo con la respuesta del servidor si es necesario
-          console.log("Respuesta del servidor:", response);
-        },
-        error: function(error) {
-          console.error("Error al enviar la selección al servidor", error);
-        }
-      });
+      document.getElementById("valorRecibido").value = +tot;
     }
+
+
+    function vender(e) {
+      // e.preventDefault();
+      const cedula2 = document.getElementById("cedula").value;
+      let valorRecibido2 = document.getElementById("valorRecibido").value;
+      //valorRecibido2 = valorRecibido2.replace(/\./g, "");
+      const nombre = document.getElementById("nombre").value;
+      const tipoPago = document.getElementById("metodo").value;
+      const numeroTarjeta = document.getElementById("numeroTarjeta").value;
+      let idUser = 1;
+      // const cedulaCajero = document.getElementById("cajeroId").value;
+      if (cedula2.length > 0 && nombre.length > 0) {
+        let total2 = 0;
+        for (const key of data) {
+          total2 = total2 + key.total;
+        }
+        if (parseFloat(valorRecibido2) >= parseInt(total2)) {
+          let xhr = new XMLHttpRequest();
+          let datosUseryCajero = {
+            idCliente: cedula2,
+            nombreCliente: nombre,
+            tipoPago: tipoPago,
+            numeroTarjeta: numeroTarjeta,
+            total: total2,
+            valorRecibido: valorRecibido2,
+            puntoVenta: 1,
+            estadoEnca: 0,
+            idUsuario: idUser
+          };
+          let datosFin = {
+            datosUser: datosUseryCajero,
+            datosCompra: data,
+          };
+          xhr.open("POST", "../../../controller/ventas/agregarComprar.php", true);
+          xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              let respuesta = xhr.responseText;
+              Swal.fire("Factura Generada", "Venta Realizada", "success");
+              setTimeout(() => {
+                let ruta = window.location.href;
+                console.log("RUTA", ruta);
+                let rutaBien = ruta.replace("vista/pages/ventas/local1.php", "");
+                console.log("RUTA BIEN", rutaBien);
+                let rutaCompleta = `${rutaBien}controller/ventas/tickes/Ticket_Nro_${respuesta}.pdf`;
+                console.log("RUTA COMPLETA", rutaCompleta)
+                const downloadLink = document.createElement("a");
+                downloadLink.href = rutaCompleta;
+                downloadLink.style.display = "none";
+                downloadLink.download = `Ticket_Nro_${respuesta}.pdf`;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                location.reload();
+              }, 2000);
+              $("#codProd").val("");
+              $("#nombreProd").val("");
+              $("#precioProd").val("");
+              $("#cantidadProd").val("");
+            }
+          };
+          let datos3 = JSON.stringify(datosFin);
+          xhr.send(datos3);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La Cantidad Recibida es Menor al Total",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Ingrese Algun Cliente",
+        });
+      }
+    }
+
 
     function eliminar(row) {
       //remover la fila de la tabla
@@ -1156,17 +1216,19 @@ $huevoPREMIUM = $capHuevoPREMIUM['precio'];
   <!-- Mostrar Numero Tarjeta -->
   <script>
     function mostrarInput() {
-      var selectPago = document.getElementById("selecPago");
+      var selectPago = document.getElementById("metodo");
       var inputContainer = document.getElementById("inputContainer");
+      var inputCambio = document.getElementById("valorRecibido")
       // Obtén el valor seleccionado del select
       var valorSeleccionado = selectPago.value;
       // Muestra u oculta el input según el valor seleccionado
       if (valorSeleccionado === "2" || valorSeleccionado === "3") {
         inputContainer.style.display = "block";
+        inputCambio.readOnly = true;
       } else {
         inputContainer.style.display = "none";
         // También puedes limpiar el valor del input si lo ocultas
-        document.getElementById("metodoPago").value = "";
+        document.getElementById("numeroTarjeta").value = "";
       }
     }
   </script>
