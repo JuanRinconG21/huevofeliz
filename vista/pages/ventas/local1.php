@@ -45,10 +45,15 @@ $traerFactura = $pdo->prepare('SELECT
 puntosventa.nombre AS lugarLocal,
 encabezado.fechaCompra AS HoraDeVenta,
 encabezado.idEncabezado AS IdFactura,
-encabezado.total AS PrecioTotalFactura
+encabezado.total AS PrecioTotalFactura,
+usuario.nombreCompleto AS NomUser,
+clientes.nombreCompleto AS NomCliente
 FROM
 encabezado
-INNER JOIN puntosventa ON encabezado.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta;');
+INNER JOIN puntosventa ON encabezado.PuntosVenta_idPuntosVenta = puntosventa.idPuntosVenta
+INNER JOIN usuario ON encabezado.usuario_idUsuario = usuario.idUsuario
+INNER JOIN clientes ON encabezado.clientes_idClientes= clientes.idClientes
+WHERE encabezado.estado = 0;');
 $traerFactura->execute();
 ?>
 <!DOCTYPE html>
@@ -93,7 +98,7 @@ $traerFactura->execute();
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -815,6 +820,8 @@ $traerFactura->execute();
               <thead>
                 <tr>
                   <th>Local 1</th>
+                  <th>Nombre Vendedor</th>
+                  <th>Nombre Cliente</th>
                   <th>Hora Venta</th>
                   <th>N°Factura</th>
                   <th>Precio Total</th>
@@ -823,80 +830,99 @@ $traerFactura->execute();
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr>
-                  <td>Local 1 Huevo Feliz</td>
-                  <td>Camilo Roncon</td>
-                  <td>Niko Tesla</td>
-                  <td>24/11/2023-8:00:00</td>
-                  <td>101</td>
-                  <td>46.000</td>
-                  <td class="text-center"><button type="button" class="btn btn-info bi bi-eye"></button></td>
-                  <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise"></button></td>
-                </tr> -->
-                <?php while ($fila2 = $traerFactura->fetch(PDO::FETCH_ASSOC)) { ?>
+                <?php while ($fila3 = $traerFactura->fetch(PDO::FETCH_ASSOC)) { ?>
                   <tr>
-                    <th scope="row"> <?php echo $fila2['lugarLocal'] ?></th>
-                    <th scope="row"> <?php echo $fila2['HoraDeVenta'] ?></th>
-                    <th scope="row"> <?php echo $fila2['IdFactura'] ?></th>
-                    <th scope="row"> <?php echo $fila2['PrecioTotalFactura'] ?></th>
-                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye" onclick="descargar('<?php echo $fila2['IdFactura'] ?>')"></button></td>
-                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise" data-toggle="modal" data-target="#devolucion<?php echo $fila['IdFactura'] ?>"></button></td>
-                  </tr>
-                  <!-- modales -->
-                  <div class="modal fade" id="devolucion<?php echo $fila['IdFactura'] ?>">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Cantidad a Recibir</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form action="../../../controller/ventas/agregarDesc1.php" method="POST">
-                          <div class="modal-body">
-                            <!-- TOTAL RECIBIDO -->
-                            <div class="form-group" style="width: 80%;">
-                              <label>DESCUENTO %:</label>
-
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-plus"></i></span>
+                    <th scope="row"> <?php echo $fila3['lugarLocal'] ?></th>
+                    <th scope="row"> <?php echo $fila3['NomUser'] ?></th>
+                    <th scope="row"> <?php echo $fila3['NomCliente'] ?></th>
+                    <th scope="row"> <?php echo $fila3['HoraDeVenta'] ?></th>
+                    <th scope="row"> <?php echo $fila3['IdFactura'] ?></th>
+                    <th scope="row"> <?php echo $fila3['PrecioTotalFactura'] ?></th>
+                    <td class="text-center"><button type="button" class="btn btn-info bi bi-eye" onclick="descargar('<?php echo $fila3['IdFactura'] ?>')"></button></td>
+                    <td class="text-center"><button type="button" class="btn btn-danger bi bi-arrow-clockwise" data-bs-toggle="modal" data-bs-target="#devolucion<?php echo $fila3['IdFactura'] ?>"></button></td>
+                    <!-- modal -->
+                    <div class="modal fade" id="devolucion<?php echo $fila3['IdFactura'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <?php
+                      //CONSULTA PARA LA TABLA FACTURA
+                      $devolucionFact = $pdo->prepare('SELECT detalle.cantidad AS CANTIDAD
+                      FROM
+                      detalle
+                      INNER JOIN encabezado ON detalle.Encabezado_idEncabezado = encabezado.idEncabezado
+                      WHERE detalle.Encabezado_idEncabezado = :idEncabezado');
+                      $devolucionFact->bindParam(":idEncabezado", $fila3["IdFactura"], PDO::PARAM_INT);
+                      $devolucionFact->execute();
+                      $fila4 = $devolucionFact->fetch(PDO::FETCH_ASSOC);
+                      $devolucion = $fila4["CANTIDAD"];
+                      ?>
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Detalle Devolucion</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="../../../controller/ventas/devolucion.php" method="POST">
+                            <div class="modal-body">
+                              <!-- CANTIDAD -->
+                              <div class="form-group" style="width: 80%;">
+                                <label>Cantidad Devoluion :</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-plus"></i></span>
+                                  </div>
+                                  <input type="number" name="cantidad" class="form-control" data-mask name="recibido" value="<?php echo $devolucion ?>">
+                                  <input type="text" name="idEncabezado" value="<?php echo $fila3['IdFactura'] ?>" hidden>
                                 </div>
-                                <input type="number" name="descuento" class="form-control" data-mask name="recibido">
-                                <input type="text" name="idIngresos" value="<?php echo $fila['idIngresos'] ?>" hidden>
+                                <!-- /.input group -->
+                              </div>
+                              <!-- RAZON DEVOLUCION -->
+                              <div class="form-group" style="width: 80%;">
+                                <label>Razon Devolucion :</label>
+                                <div class="form-floating">
+                                  <textarea class="form-control" placeholder="Detalle Devolucion" id="floatingTextarea" name="razon"></textarea>
+                                </div>
                               </div>
                               <!-- /.input group -->
                             </div>
-                          </div>
-                          <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary bi bi-cash-coin"> Comprar</button>
-                          </div>
+                            <!-- TOTAL DEVOLUCION -->
+                            <div class="form-group" style="width: 80%;">
+                              <label>Total Devolucion :</label>
+                              <input type="number" name="total" class="form-control m-2" data-mask name="recibido" value="<?php echo $fila3['PrecioTotalFactura'] ?>" readonly>
+                              <!-- /.input group -->
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary bi bi-arrow-up-right-square"> Enviar</button>
+                            </div>
+                        </div>
                         </form>
                       </div>
                       <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                <?php } ?>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>Local 1</th>
-                  <th>Hora Venta</th>
-                  <th>N° Factura</th>
-                  <th>Precio Total</th>
-                  <th>Ver factura</th>
-                  <th>Devolucion</th>
-                </tr>
-              </tfoot>
-            </table>
           </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
+          </tr>
+          <!-- modales -->
 
+        <?php } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Local 1</th>
+            <th>Nombre Vendedor</th>
+            <th>Nombre Cliente</th>
+            <th>Hora Venta</th>
+            <th>N° Factura</th>
+            <th>Precio Total</th>
+            <th>Ver factura</th>
+            <th>Devolucion</th>
+          </tr>
+        </tfoot>
+        </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
     </div>
+
+  </div>
 
   </div>
   <!-- /Fin de la cabecera del cuerpo index-header -->
@@ -930,6 +956,7 @@ $traerFactura->execute();
       document.body.removeChild(downloadLink);
     }
   </script>
+
   <!-- script para Listar los productos -->
   <script>
     var boton = document.getElementById("agregar");
@@ -1160,6 +1187,7 @@ $traerFactura->execute();
     }
   </script>
   </div>
+
   <script src="../../dist/js/listarProductos.js"></script>
   <!-- jQuery -->
   <script src="../../plugins/jquery/jquery.min.js"></script>

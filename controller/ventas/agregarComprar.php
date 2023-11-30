@@ -125,10 +125,11 @@ if ($data) {
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->SetTextColor(0, 0, 0);
         // Agregar imagen
-        $pdf->Image('../../vista/dist/img/logo.jpeg', 1, 10, 17); // Ajusta la ruta y las coordenadas según sea necesario
+        $pdf->Image('../../vista/dist/img/logo.jpeg', 4, 15, 17); // Ajusta la ruta y las coordenadas según sea necesario
         $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper("EL HUEVO FELIZ")), 0, 'C', false);
         $pdf->SetFont('Arial', '', 9);
-        $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Direccion Cartago, Valle del Cauca"), 0, 'C', false);
+        $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Direccion :"), 0, 'C', false);
+        $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Cartago Valle del Cauca"), 0, 'C', false);
         $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Teléfono: 2065454"), 0, 'C', false);
         $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Email: elhuevo@feliz.com"), 0, 'C', false);
 
@@ -153,7 +154,7 @@ if ($data) {
         $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Cajero: $nombreCajero"), 0, 'C', false);
         $pdf->SetFont('Arial', 'B', 10);
         #CONSULTA ULTIMO RECIBO GENERADO
-        $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper("Ticket Nro: $maximoId")), 0, 'C', false);
+        $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper("Factura Nro: $maximoId")), 0, 'C', false);
         $pdf->SetFont('Arial', '', 9);
 
         $pdf->Ln(1);
